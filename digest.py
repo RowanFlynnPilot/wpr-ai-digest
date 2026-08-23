@@ -82,10 +82,16 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
     searches = response.usage.server_tool_use.web_search_requests
     print(f"model={MODEL} searches={searches} in={response.usage.input_tokens} out={response.usage.output_tokens}")
 
-    text_blocks = [block.text for block in response.content if block.type == "text"]
-    if not text_blocks:
-        raise RuntimeError("Response contained no text block")
-    items = json.loads(text_blocks[-1].strip())["items"]
+    # Citations from web search split the final answer across many text blocks;
+    # the answer is everything after the last tool block, joined back together.
+    non_text = [i for i, block in enumerate(response.content) if block.type != "text"]
+    answer = "".join(block.text for block in response.content[(non_text[-1] + 1) if non_text else 0:]).strip()
+    if not answer:
+        raise RuntimeError("No answer text after the final search block")
+    try:
+        items = json.loads(answer)["items"]
+    except json.JSONDecodeError as err:
+        raise RuntimeError(f"Model did not return JSON. Answer began: {answer[:300]!r}") from err
     if not MIN_ITEMS <= len(items) <= MAX_ITEMS:
         raise RuntimeError(f"Expected {MIN_ITEMS}–{MAX_ITEMS} items, got {len(items)}")
     return items
