@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 13 * * 5"   # Fridays 13:00 UTC = 8am CDT / 7am CST
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Research + render only; no email, no seen.json commit"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -22,8 +27,15 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python digest.py
+      - run: python digest.py ${{ inputs.dry_run && '--dry-run' || '' }}
+      - name: Upload preview
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-preview
+          path: digest-preview.html
       - name: Record what was covered
+        if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "wpr-ai-digest"
           git config user.email "actions@users.noreply.github.com"

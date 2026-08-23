@@ -12,6 +12,7 @@ import sys
 from datetime import date
 from email.mime.text import MIMEText
 from pathlib import Path
+from urllib.parse import urlparse
 
 import anthropic
 
@@ -19,8 +20,9 @@ ROOT = Path(__file__).parent
 CONTEXT = (ROOT / "context.md").read_text(encoding="utf-8")
 SEEN_PATH = ROOT / "seen.json"
 
-MODEL = "claude-sonnet-5"
-MAX_SEARCHES = 15
+MODEL = "claude-opus-5"
+MAX_SEARCHES = 25
+MAX_FETCHES = 10
 MIN_ITEMS, MAX_ITEMS = 3, 6
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
@@ -45,7 +47,10 @@ def build_prompt(seen: list[dict]) -> str:
 Today is {date.today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
 announced or materially updated in the last 10 days. Use several distinct searches across the categories
 under "Worth surfacing" — do not stop after one or two queries. Prefer primary sources (vendor blogs,
-GitHub releases, docs, changelogs) and journalism-sector outlets over aggregators.
+GitHub releases, docs, changelogs) and journalism-sector outlets over aggregators. Before writing a
+pitch, fetch the primary source page for each item you select to confirm the announcement date, the
+actual capabilities, and pricing — the url field must be the primary source you fetched, never an
+aggregator or search snippet.
 
 Select {MIN_ITEMS}–{MAX_ITEMS} finds. Rank by how directly a solo developer at a local newsroom could use
 it this month. Every application must name a specific WPR build from the list above or a concrete
@@ -70,10 +75,13 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 
 def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
     messages = [{"role": "user", "content": build_prompt(seen)}]
-    tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": MAX_SEARCHES}]
+    tools = [
+        {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
+        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES},
+    ]
 
     while True:
-        response = client.messages.create(model=MODEL, max_tokens=8000, messages=messages, tools=tools)
+        response = client.messages.create(model=MODEL, max_tokens=16000, messages=messages, tools=tools)
         if response.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": response.content})
             continue
@@ -81,8 +89,11 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
             raise RuntimeError(f"Unexpected stop_reason: {response.stop_reason}")
         break
 
-    searches = response.usage.server_tool_use.web_search_requests
-    print(f"model={MODEL} searches={searches} in={response.usage.input_tokens} out={response.usage.output_tokens}")
+    tool_use = response.usage.server_tool_use
+    searches = tool_use.web_search_requests
+    fetches = getattr(tool_use, "web_fetch_requests", 0) or 0
+    print(f"model={MODEL} searches={searches} fetches={fetches} "
+          f"in={response.usage.input_tokens} out={response.usage.output_tokens}")
 
     # Citations from web search split the final answer across many text blocks;
     # the answer is everything after the last tool block, joined back together.
@@ -107,6 +118,7 @@ def render(items: list[dict], today: date) -> str:
     cards = []
     for i, item in enumerate(items, 1):
         apps = "".join(f"<li>{e(a)}</li>" for a in item["applications"])
+        domain = urlparse(item["url"]).netloc.removeprefix("www.")
         cards.append(f"""
   <div style="padding:20px 0;border-top:1px solid #E3DCCF;">
     <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.04em;">
@@ -120,13 +132,23 @@ def render(items: list[dict], today: date) -> str:
     <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.04em;">PUT IT TO WORK</div>
     <ul style="margin:6px 0 0;padding-left:20px;font:15px/1.5 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#1F1E1B;">{apps}</ul>
     <p style="margin:10px 0 0;font:13px/1.4 'Public Sans',-apple-system,'Segoe UI',sans-serif;">
-      <a href="{e(item["url"])}" style="color:#3A867C;">{e(item["url"])}</a>
+      <a href="{e(item["url"])}" style="color:#3A867C;text-decoration:none;">{e(domain)} &#8599;</a>
     </p>
   </div>""")
 
+    preheader = " · ".join(item["name"] for item in items)
     return f"""<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
-<body style="margin:0;padding:0;background:#F6F2E9;">
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=JetBrains+Mono:wght@500&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body style="margin:0;padding:0;background:#F6F2E9;color-scheme:light;">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;color:#F6F2E9;">
+  {e(preheader)}&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;
+</div>
 <div style="max-width:640px;margin:0 auto;padding:32px 24px;">
   <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.08em;">WAUSAU PILOT &amp; REVIEW</div>
   <h1 style="margin:4px 0 2px;font:600 30px/1.15 Fraunces,Georgia,serif;color:#1F1E1B;">AI Digest</h1>
@@ -165,7 +187,8 @@ def main() -> None:
         print(f"dry run: wrote {out}")
         return
 
-    send(f"WPR AI Digest — {today:%b %d, %Y}", body, env("DIGEST_TO"))
+    subject = f"WPR AI Digest — {items[0]['name']} + {len(items) - 1} more ({today:%b %d})"
+    send(subject, body, env("DIGEST_TO"))
     seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat()} for it in items)
     SEEN_PATH.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
     print(f"sent {len(items)} items to {env('DIGEST_TO')}")

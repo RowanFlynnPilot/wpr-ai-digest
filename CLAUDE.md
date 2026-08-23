@@ -3,7 +3,7 @@
 Weekly Friday email to Rowan: new AI tools/features from the past ~10 days, each with a short pitch and concrete applications tied to WPR builds.
 
 ## How it works
-- `digest.py` — three functions, one path: `research()` (Claude + server-side web search → JSON), `render()` (inline-styled HTML in WPR colors), `send()` (Gmail SMTP). `main()` wires them and appends covered items to `seen.json`.
+- `digest.py` — three functions, one path: `research()` (Claude + server-side web search/fetch → JSON), `render()` (inline-styled HTML in WPR colors), `send()` (Gmail SMTP). `main()` wires them and appends covered items to `seen.json`.
 - `context.md` — everything the model knows about WPR: stack, project list, what counts as a good find. **Edit this, not the prompt in code**, when a new project ships or priorities change.
 - Recipients live in `DIGEST_TO` in the workflow env, comma-separated; `send()` puts the list in the To header and `send_message` delivers to each.
 - `seen.json` — names/urls already surfaced; fed back into the prompt so weeks don't repeat. Committed by the workflow after each send.

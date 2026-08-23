@@ -49,8 +49,8 @@ Reader engagement / revenue:
 
 # What counts as a useful find
 
-Worth surfacing:
-- New or materially updated models, APIs, and SDK features (Anthropic, OpenAI, Google, Mistral, open-weights) — especially pricing drops, longer context, structured output, batch, vision/PDF, audio
+Worth surfacing (favor step changes — things that make a previously impractical build feasible, replace a whole workflow, or open a new category of tool; a price or quota change only matters as supporting context on an otherwise significant find):
+- New models, APIs, and SDK capabilities (Anthropic, OpenAI, Google, Mistral, open-weights) that change what a solo developer can build — new modalities, agentic capabilities, structured output, vision/PDF, audio, long context
 - Agentic coding tools and Claude Code / MCP ecosystem changes that speed up a solo developer
 - Document AI: OCR, PDF/table extraction, scanned-record parsing, entity extraction, dedup/record linkage
 - Speech: transcription, diarization, radio/meeting audio — anything that improves Fire Watch or Gavel
@@ -62,6 +62,7 @@ Worth surfacing:
 - Grants, fellowships, or funder programs specifically for AI in local news (only if newly announced and open)
 
 Not worth surfacing:
+- Incremental price drops, quota bumps, and minor version updates that add no new capability
 - Enterprise-only products with no self-serve access or public pricing
 - Funding rounds, executive hires, and opinion pieces with no tool to try
 - Consumer chatbots, image generators, and productivity apps with no newsroom angle
