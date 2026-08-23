@@ -6,6 +6,7 @@ research() -> render() -> send(), then record what was covered so next week skip
 import html
 import json
 import os
+import re
 import smtplib
 import sys
 from datetime import date
@@ -50,7 +51,8 @@ Select {MIN_ITEMS}–{MAX_ITEMS} finds. Rank by how directly a solo developer at
 it this month. Every application must name a specific WPR build from the list above or a concrete
 newsroom workflow — no generic "could help with content".
 
-Respond with ONLY a JSON object, no prose before or after, no markdown fences:
+Respond with ONLY a raw JSON object: no prose before or after, no markdown code fences,
+and no <cite> tags or any citation markup inside the values — plain text only:
 
 {{
   "items": [
@@ -88,6 +90,9 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
     answer = "".join(block.text for block in response.content[(non_text[-1] + 1) if non_text else 0:]).strip()
     if not answer:
         raise RuntimeError("No answer text after the final search block")
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    answer = re.sub(r"</?cite[^>]*>", "", answer)
     try:
         items = json.loads(answer)["items"]
     except json.JSONDecodeError as err:
