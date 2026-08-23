@@ -4,7 +4,7 @@ Rowan Flynn and the editor at Wausau Pilot & Review (WPR), a nonprofit local new
 
 # How to rank and pitch
 
-Rank by relevance to a small nonprofit local newsroom deciding what to try or watch this quarter. Pitches must read for an editor: plain language, no API or SDK jargon, no code. Applications should describe concrete newsroom workflows — covering meetings, courts, schools, and elections; obituaries; public records; membership and sponsorship revenue; newsletters and distribution — not internal WPR project names.
+Draw from a spread of outlets — aim for at least three different publications per issue rather than letting one outlet supply everything. Rank by relevance to a small nonprofit local newsroom deciding what to try or watch this quarter. Pitches must read for an editor: plain language, no API or SDK jargon, no code. Applications should describe concrete newsroom workflows — covering meetings, courts, schools, and elections; obituaries; public records; membership and sponsorship revenue; newsletters and distribution — not internal WPR project names.
 
 # Worth surfacing
 

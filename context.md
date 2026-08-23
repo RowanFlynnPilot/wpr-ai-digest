@@ -51,6 +51,8 @@ Reader engagement / revenue:
 
 Rank by how directly a solo developer at a local newsroom could use it this month. Every application must name a specific WPR build from the list above or a concrete newsroom workflow.
 
+Cover the whole field, not just the stack WPR already uses: at most 2 items per vendor per issue (Anthropic included), unless one vendor had a genuinely exceptional week. Before selecting, deliberately search beyond Anthropic — OpenAI, Google, Mistral, open-weights releases, and the non-LLM tooling categories below (scraping, OCR, speech, data viz, civic data). A Claude-stack newsroom still benefits most from hearing what it would otherwise miss.
+
 # What counts as a useful find
 
 Worth surfacing (favor step changes — things that make a previously impractical build feasible, replace a whole workflow, or open a new category of tool; a price or quota change only matters as supporting context on an otherwise significant find):
