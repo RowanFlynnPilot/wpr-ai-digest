@@ -14,6 +14,7 @@ Rank by a blend of momentum (genuinely new, or visibly trending this week) and p
 - No-code automation and agent tools that connect everyday apps (Zapier-style workflows, desktop agents) usable without writing code
 - Meaningful AI feature updates inside tools a small team likely already uses: Google Workspace, Microsoft 365, Canva, Zoom, Notion, Grammarly and the like
 - Free tiers, nonprofit discounts, and open-source alternatives to paid tools
+- Trending, genuinely useful AI YouTube videos: hands-on walkthroughs, honest tool reviews, and high-signal explainers going around this week — link the video itself, and only if watching it beats reading about it
 
 # Not worth surfacing
 

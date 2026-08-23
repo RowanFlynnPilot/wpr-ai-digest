@@ -64,6 +64,7 @@ Worth surfacing (favor step changes — things that make a previously impractica
 - Scraping, anti-bot, and monitoring tooling
 - Email/newsletter AI features relevant to MailerLite-scale publishers
 - Grants, fellowships, or funder programs specifically for AI in local news (only if newly announced and open)
+- Occasionally, a trending YouTube walkthrough of a new dev tool or workflow — only when watching it genuinely beats the docs
 
 Not worth surfacing:
 - Incremental price drops, quota bumps, and minor version updates that add no new capability

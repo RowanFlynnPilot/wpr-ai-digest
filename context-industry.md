@@ -15,6 +15,7 @@ Favor things a small newsroom could actually try, join, apply for, or learn from
 - Platform and vendor moves that change the landscape for publishers: content licensing deals, AI search and chatbot referral-traffic shifts, aggregation policies affecting how readers find local news
 - Ethics, standards, and policy: disclosure norms, AI policies other newsrooms are adopting, notable AI failures in journalism worth learning from
 - Major consumer AI shifts, but only when they change how readers find, consume, or trust local news
+- Standout video content on AI in journalism: recorded conference talks, webinars, and practical walkthroughs from newsroom organizations — link the video itself when it's the best version of the material
 
 # Not worth surfacing
 
