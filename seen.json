@@ -43,5 +43,25 @@
     "name": "OpenAI Ultrafast mode (GPT-5.6 Sol)",
     "url": "https://openai.com/index/previewing-ultrafast/",
     "date": "2026-08-23"
+  },
+  {
+    "name": "VLM Run Gateway (open OCR models via OpenAI-compatible API)",
+    "url": "https://huggingface.co/blog/vlm-run/vlm-run-gateway",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Claude Code 2.1.239 / 2.1.238",
+    "url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "OpenAI Codex CLI 0.149.0",
+    "url": "https://github.com/openai/codex/releases",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "LiquidAI LFM2.5 Q4_0 quantization-aware distilled checkpoints",
+    "url": "https://huggingface.co/blog/LiquidAI/qad",
+    "date": "2026-08-23"
   }
 ]
