@@ -23,5 +23,25 @@
     "name": "Gemini 3.7 Flash (GA)",
     "url": "https://ai.google.dev/gemini-api/docs/changelog.md.txt",
     "date": "2026-08-23"
+  },
+  {
+    "name": "Anthropic Python SDK v1.0",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Claude Code /claude-api upgrade and slimmed claude-api skill",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Claude Managed Agents: domain-restricted web tools + sandbox memory stores",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "OpenAI Ultrafast mode (GPT-5.6 Sol)",
+    "url": "https://openai.com/index/previewing-ultrafast/",
+    "date": "2026-08-23"
   }
 ]
