@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "name": "HyNote for Mac",
+    "url": "https://www.producthunt.com/products/hynote-ai",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Sheets canvas (Gemini in Google Sheets)",
+    "url": "https://workspaceupdates.googleblog.com/2026/08/use-google-sheets-canvas-to-visualize-data.html",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Record presentations in Google Slides with Google Vids",
+    "url": "https://workspaceupdates.googleblog.com/2026/08/record-presentations-in-google-slides-with-Google-Vids.html",
+    "date": "2026-08-23"
+  }
+]
