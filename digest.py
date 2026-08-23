@@ -17,8 +17,13 @@ from urllib.parse import urlparse
 import anthropic
 
 ROOT = Path(__file__).parent
-CONTEXT = (ROOT / "context.md").read_text(encoding="utf-8")
-SEEN_PATH = ROOT / "seen.json"
+
+EDITIONS = {
+    "wpr": {"context": "context.md", "seen": "seen.json",
+            "title": "AI Digest", "subject": "WPR AI Digest"},
+    "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
+                 "title": "AI in Local News", "subject": "AI in Local News"},
+}
 
 MODEL = "claude-opus-5"
 MAX_SEARCHES = 15
@@ -42,9 +47,9 @@ def env(name: str) -> str:
     return value
 
 
-def build_prompt(seen: list[dict]) -> str:
+def build_prompt(context: str, seen: list[dict]) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
-    return f"""{CONTEXT}
+    return f"""{context}
 
 # Already covered in previous digests (do not repeat)
 {already}
@@ -59,9 +64,8 @@ pitch, fetch the primary source page for each item you select to confirm the ann
 actual capabilities, and pricing — the url field must be the primary source you fetched, never an
 aggregator or search snippet.
 
-Select {MIN_ITEMS}–{MAX_ITEMS} finds. Rank by how directly a solo developer at a local newsroom could use
-it this month. Every application must name a specific WPR build from the list above or a concrete
-newsroom workflow — no generic "could help with content".
+Select {MIN_ITEMS}–{MAX_ITEMS} finds. Rank the items and write the pitch and applications exactly as
+the "How to rank and pitch" section above directs — no generic "could help with content".
 
 Respond with ONLY a raw JSON object: no prose before or after, no markdown code fences,
 and no <cite> tags or any citation markup inside the values — plain text only:
@@ -80,8 +84,8 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 }}"""
 
 
-def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
-    messages = [{"role": "user", "content": build_prompt(seen)}]
+def research(client: anthropic.Anthropic, context: str, seen: list[dict]) -> list[dict]:
+    messages = [{"role": "user", "content": build_prompt(context, seen)}]
     tools = [
         {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
         {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES,
@@ -136,7 +140,7 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
     return items
 
 
-def render(items: list[dict], today: date) -> str:
+def render(items: list[dict], today: date, title: str) -> str:
     e = html.escape
     cards = []
     for i, item in enumerate(items, 1):
@@ -174,7 +178,7 @@ def render(items: list[dict], today: date) -> str:
 </div>
 <div style="max-width:640px;margin:0 auto;padding:32px 24px;">
   <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.08em;">WAUSAU PILOT &amp; REVIEW</div>
-  <h1 style="margin:4px 0 2px;font:600 30px/1.15 Fraunces,Georgia,serif;color:#1F1E1B;">AI Digest</h1>
+  <h1 style="margin:4px 0 2px;font:600 30px/1.15 Fraunces,Georgia,serif;color:#1F1E1B;">{e(title)}</h1>
   <div style="margin:0 0 18px;font:14px/1.4 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#5C5A54;">
     {today:%A, %B %d, %Y} &nbsp;·&nbsp; {len(items)} finds worth a look this week
   </div>
@@ -198,11 +202,15 @@ def send(subject: str, body_html: str, to: str) -> None:
 
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
+    positional = [a for a in sys.argv[1:] if not a.startswith("-")]
+    edition = EDITIONS[positional[0] if positional else "wpr"]
     today = date.today()
-    seen = json.loads(SEEN_PATH.read_text(encoding="utf-8"))
+    context = (ROOT / edition["context"]).read_text(encoding="utf-8")
+    seen_path = ROOT / edition["seen"]
+    seen = json.loads(seen_path.read_text(encoding="utf-8"))
 
-    items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), seen)
-    body = render(items, today)
+    items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), context, seen)
+    body = render(items, today, edition["title"])
 
     if dry_run:
         out = ROOT / "digest-preview.html"
@@ -210,10 +218,10 @@ def main() -> None:
         print(f"dry run: wrote {out}")
         return
 
-    subject = f"WPR AI Digest — {items[0]['name']} + {len(items) - 1} more ({today:%b %d})"
+    subject = f"{edition['subject']} — {items[0]['name']} + {len(items) - 1} more ({today:%b %d})"
     send(subject, body, env("DIGEST_TO"))
     seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat()} for it in items)
-    SEEN_PATH.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
+    seen_path.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
     print(f"sent {len(items)} items to {env('DIGEST_TO')}")
 
 

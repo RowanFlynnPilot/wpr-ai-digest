@@ -1,12 +1,12 @@
-name: Weekly AI digest
+name: Weekly industry digest
 
 on:
   schedule:
-    - cron: "0 13 * * 5"   # Fridays 13:00 UTC = 8am CDT / 7am CST
+    - cron: "0 13 * * 1"   # Mondays 13:00 UTC = 8am CDT / 7am CST
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Research + render only; no email, no seen.json commit"
+        description: "Research + render only; no email, no seen-industry.json commit"
         type: boolean
         default: false
 
@@ -20,14 +20,14 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      DIGEST_TO: rowan.flynn@wausaupilotandreview.com
+      DIGEST_TO: rowan.flynn@wausaupilotandreview.com, editor@wausaupilotandreview.com
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python digest.py ${{ inputs.dry_run && '--dry-run' || '' }}
+      - run: python digest.py industry ${{ inputs.dry_run && '--dry-run' || '' }}
       - name: Upload preview
         if: ${{ inputs.dry_run }}
         uses: actions/upload-artifact@v4
@@ -40,6 +40,6 @@ jobs:
           git config user.name "wpr-ai-digest"
           git config user.email "actions@users.noreply.github.com"
           git pull --ff-only
-          git add seen.json
-          git commit -m "digest: $(date -u +%Y-%m-%d)"
+          git add seen-industry.json
+          git commit -m "industry digest: $(date -u +%Y-%m-%d)"
           git push

@@ -1,6 +1,10 @@
 # wpr-ai-digest
 
-Weekly Friday email to Rowan: new AI tools/features from the past ~10 days, each with a short pitch and concrete applications tied to WPR builds.
+Two weekly digest emails from one pipeline, selected by `python digest.py [edition]`:
+- `wpr` (default) — Fridays, to Rowan: new AI tools/features from the past ~10 days with applications tied to specific WPR builds. `context.md`, `seen.json`, `.github/workflows/digest.yml`.
+- `industry` — Mondays, to Rowan + editor: AI in local journalism generally (newsroom tools, case studies, grants, platform shifts, ethics), written for an editorial reader. `context-industry.md`, `seen-industry.json`, `.github/workflows/digest-industry.yml`.
+
+Each edition's context file owns its entire selection framing, including the "How to rank and pitch" section the code prompt defers to.
 
 ## How it works
 - `digest.py` — three functions, one path: `research()` (Claude + server-side web search/fetch → JSON), `render()` (inline-styled HTML in WPR colors), `send()` (Gmail SMTP). `main()` wires them and appends covered items to `seen.json`.

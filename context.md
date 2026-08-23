@@ -47,6 +47,10 @@ Reader engagement / revenue:
 - Finance calculators aimed at credit-union sponsors; grocery and gas price trackers
 - Audience growth via Reddit (r/Wisconsin)
 
+# How to rank and pitch
+
+Rank by how directly a solo developer at a local newsroom could use it this month. Every application must name a specific WPR build from the list above or a concrete newsroom workflow.
+
 # What counts as a useful find
 
 Worth surfacing (favor step changes — things that make a previously impractical build feasible, replace a whole workflow, or open a new category of tool; a price or quota change only matters as supporting context on an otherwise significant find):
