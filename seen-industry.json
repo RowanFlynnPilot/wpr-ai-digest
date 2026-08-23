@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "name": "Backstory (Google DeepMind image verification tool)",
+    "url": "https://www.niemanlab.org/2026/08/googles-new-ai-tool-helps-fact-checkers-investigate-ai-fakes/",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Apple reportedly paying publishers for news inside Siri's AI answers",
+    "url": "https://www.niemanlab.org/2026/08/apple-may-start-paying-publishers-to-deliver-news-with-siri-ai/",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "SPJ proposed edits to its Code of Ethics for the AI age",
+    "url": "https://www.niemanlab.org/2026/08/the-society-of-professional-journalists-proposes-edits-to-its-code-of-ethics-for-the-ai-age/",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Phone-only pitching as a defense against AI submission slop",
+    "url": "https://www.niemanlab.org/2026/08/facing-a-deluge-from-ai-this-publication-will-only-take-pitches-by-phone/",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Originator Profile signatures adopted by major Japanese publishers",
+    "url": "https://www.niemanlab.org/2026/08/japanese-publishers-are-fighting-imposter-news-sites-with-a-cryptographic-signature/",
+    "date": "2026-08-23"
+  }
+]
