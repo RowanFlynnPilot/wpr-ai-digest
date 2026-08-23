@@ -20,9 +20,11 @@ ROOT = Path(__file__).parent
 
 EDITIONS = {
     "wpr": {"context": "context.md", "seen": "seen.json",
-            "title": "AI Digest", "subject": "WPR AI Digest"},
+            "title": "AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00},
     "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
-                 "title": "AI in Local News", "subject": "AI in Local News"},
+                 "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00},
+    "tools": {"context": "context-tools.md", "seen": "seen-tools.json",
+              "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00},
 }
 
 MODEL = "claude-opus-5"
@@ -35,7 +37,6 @@ MIN_ITEMS, MAX_ITEMS = 3, 6
 IN_RATE, OUT_RATE = 5.00, 25.00
 CACHE_WRITE_RATE, CACHE_READ_RATE = 6.25, 0.50
 SEARCH_COST = 0.01
-MAX_COST_USD = 3.00
 MAX_ROUNDS = 8
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
@@ -85,7 +86,7 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 }}"""
 
 
-def research(client: anthropic.Anthropic, context: str, seen: list[dict]) -> list[dict]:
+def research(client: anthropic.Anthropic, context: str, seen: list[dict], max_cost: float) -> list[dict]:
     messages = [{"role": "user", "content": build_prompt(context, seen)}]
     tools = [
         {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
@@ -118,8 +119,8 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict]) -> lis
             + (u.cache_read_input_tokens or 0) * CACHE_READ_RATE
             + u.output_tokens * OUT_RATE
         ) / 1e6
-        if cost > MAX_COST_USD:
-            raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${MAX_COST_USD:.2f} cap — aborting")
+        if cost > max_cost:
+            raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${max_cost:.2f} cap — aborting")
         if response.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": response.content})
             continue
@@ -216,7 +217,7 @@ def main() -> None:
     seen_path = ROOT / edition["seen"]
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
 
-    items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), context, seen)
+    items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), context, seen, edition["max_cost"])
     body = render(items, today, edition["title"])
 
     if dry_run:

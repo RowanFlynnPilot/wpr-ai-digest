@@ -1,0 +1,45 @@
+name: Weekly tools digest
+
+on:
+  schedule:
+    - cron: "0 13 * * 3"   # Wednesdays 13:00 UTC = 8am CDT / 7am CST
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Research + render only; no email, no seen-tools.json commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      DIGEST_TO: rowan.flynn@wausaupilotandreview.com, editor@wausaupilotandreview.com
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python digest.py tools ${{ inputs.dry_run && '--dry-run' || '' }}
+      - name: Upload preview
+        if: ${{ inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: digest-preview
+          path: digest-preview.html
+      - name: Record what was covered
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "wpr-ai-digest"
+          git config user.email "actions@users.noreply.github.com"
+          git pull --ff-only
+          git add seen-tools.json
+          git commit -m "tools digest: $(date -u +%Y-%m-%d)"
+          git push
