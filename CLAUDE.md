@@ -19,3 +19,5 @@ Weekly Friday email to Rowan: new AI tools/features from the past ~10 days, each
 
 ## Principles
 No fallbacks, fail loud. Missing env var, bad JSON, wrong item count, or an unexpected stop_reason all raise. If a run fails, the workflow shows red and no email goes out — that's the signal.
+
+Cost: the research loop sums real usage (cache writes/reads, output, search fees) across every pause_turn round and raises past `MAX_COST_USD` ($3). Pricing constants sit next to `MODEL` in digest.py — update both together. Prompt caching keeps continuation rounds at ~10% input price; `FETCH_CONTENT_TOKENS` caps how much of a fetched page enters context.

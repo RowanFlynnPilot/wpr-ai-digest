@@ -21,9 +21,16 @@ CONTEXT = (ROOT / "context.md").read_text(encoding="utf-8")
 SEEN_PATH = ROOT / "seen.json"
 
 MODEL = "claude-opus-5"
-MAX_SEARCHES = 25
-MAX_FETCHES = 10
+MAX_SEARCHES = 15
+MAX_FETCHES = 8
+FETCH_CONTENT_TOKENS = 10_000
 MIN_ITEMS, MAX_ITEMS = 3, 6
+
+# claude-opus-5 pricing ($/MTok) plus $10 per 1k web searches — keep in sync with MODEL
+IN_RATE, OUT_RATE = 5.00, 25.00
+CACHE_WRITE_RATE, CACHE_READ_RATE = 6.25, 0.50
+SEARCH_COST = 0.01
+MAX_COST_USD = 3.00
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
 
@@ -77,11 +84,31 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
     messages = [{"role": "user", "content": build_prompt(seen)}]
     tools = [
         {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
-        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES},
+        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES,
+         "max_content_tokens": FETCH_CONTENT_TOKENS},
     ]
 
+    # pause_turn continuations resend the whole growing conversation; cache_control
+    # makes each round re-read the prior prefix at 10% of input price instead of full.
+    # Cost is summed across every round — the final response's usage alone under-reports.
+    cost, searches, fetches = 0.0, 0, 0
     while True:
-        response = client.messages.create(model=MODEL, max_tokens=16000, messages=messages, tools=tools)
+        response = client.messages.create(
+            model=MODEL, max_tokens=16000, messages=messages, tools=tools,
+            cache_control={"type": "ephemeral"},
+        )
+        u, st = response.usage, response.usage.server_tool_use
+        round_searches = st.web_search_requests if st else 0
+        searches += round_searches
+        fetches += (getattr(st, "web_fetch_requests", 0) or 0) if st else 0
+        cost += round_searches * SEARCH_COST + (
+            u.input_tokens * IN_RATE
+            + (u.cache_creation_input_tokens or 0) * CACHE_WRITE_RATE
+            + (u.cache_read_input_tokens or 0) * CACHE_READ_RATE
+            + u.output_tokens * OUT_RATE
+        ) / 1e6
+        if cost > MAX_COST_USD:
+            raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${MAX_COST_USD:.2f} cap — aborting")
         if response.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": response.content})
             continue
@@ -89,11 +116,7 @@ def research(client: anthropic.Anthropic, seen: list[dict]) -> list[dict]:
             raise RuntimeError(f"Unexpected stop_reason: {response.stop_reason}")
         break
 
-    tool_use = response.usage.server_tool_use
-    searches = tool_use.web_search_requests
-    fetches = getattr(tool_use, "web_fetch_requests", 0) or 0
-    print(f"model={MODEL} searches={searches} fetches={fetches} "
-          f"in={response.usage.input_tokens} out={response.usage.output_tokens}")
+    print(f"model={MODEL} searches={searches} fetches={fetches} cost=${cost:.2f}")
 
     # Citations from web search split the final answer across many text blocks;
     # the answer is everything after the last tool block, joined back together.
