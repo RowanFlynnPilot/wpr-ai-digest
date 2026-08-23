@@ -36,6 +36,7 @@ IN_RATE, OUT_RATE = 5.00, 25.00
 CACHE_WRITE_RATE, CACHE_READ_RATE = 6.25, 0.50
 SEARCH_COST = 0.01
 MAX_COST_USD = 3.00
+MAX_ROUNDS = 8
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
 
@@ -95,12 +96,18 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict]) -> lis
     # pause_turn continuations resend the whole growing conversation; cache_control
     # makes each round re-read the prior prefix at 10% of input price instead of full.
     # Cost is summed across every round — the final response's usage alone under-reports.
-    cost, searches, fetches = 0.0, 0, 0
+    cost, searches, fetches, rounds = 0.0, 0, 0, 0
     while True:
-        response = client.messages.create(
+        rounds += 1
+        if rounds > MAX_ROUNDS:
+            raise RuntimeError(f"Exceeded {MAX_ROUNDS} continuation rounds — aborting")
+        # Streaming keeps the connection alive however long the turn takes;
+        # a non-streaming request hits the SDK's 10-minute timeout on long Opus turns.
+        with client.messages.stream(
             model=MODEL, max_tokens=16000, messages=messages, tools=tools,
             cache_control={"type": "ephemeral"},
-        )
+        ) as stream:
+            response = stream.get_final_message()
         u, st = response.usage, response.usage.server_tool_use
         round_searches = st.web_search_requests if st else 0
         searches += round_searches
