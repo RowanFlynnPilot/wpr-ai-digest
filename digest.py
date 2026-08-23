@@ -9,6 +9,7 @@ import os
 import re
 import smtplib
 import sys
+import urllib.request
 from datetime import date
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -20,26 +21,31 @@ ROOT = Path(__file__).parent
 
 EDITIONS = {
     "wpr": {"context": "context.md", "seen": "seen.json",
-            "title": "AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00},
+            "title": "AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00,
+            "accent": "#2E6B63"},
     "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
-                 "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00},
+                 "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00,
+                 "accent": "#8C4425"},
     "tools": {"context": "context-tools.md", "seen": "seen-tools.json",
-              "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00},
+              "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00,
+              "accent": "#44477F"},
 }
 
 MODEL = "claude-opus-5"
-MAX_SEARCHES = 15
-MAX_FETCHES = 8
+MAX_SEARCHES = 20
+MAX_FETCHES = 12
 FETCH_CONTENT_TOKENS = 10_000
-MIN_ITEMS, MAX_ITEMS = 3, 6
+MIN_ITEMS, MAX_ITEMS = 3, 10
 
 # claude-opus-5 pricing ($/MTok) plus $10 per 1k web searches — keep in sync with MODEL
 IN_RATE, OUT_RATE = 5.00, 25.00
 CACHE_WRITE_RATE, CACHE_READ_RATE = 6.25, 0.50
 SEARCH_COST = 0.01
-MAX_ROUNDS = 8
+MAX_ROUNDS = 10
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
+
+LOGO_URL = "https://wausaupilotandreview.com/wp-content/uploads/2024/04/cropped-Wausau-Pilot-Transparent-192x192.png"
 
 
 def env(name: str) -> str:
@@ -66,8 +72,9 @@ pitch, fetch the primary source page for each item you select to confirm the ann
 actual capabilities, and pricing — the url field must be the primary source you fetched, never an
 aggregator or search snippet.
 
-Select {MIN_ITEMS}–{MAX_ITEMS} finds. Rank the items and write the pitch and applications exactly as
-the "How to rank and pitch" section above directs — no generic "could help with content".
+Aim for 5–{MAX_ITEMS} finds when the week genuinely supports it — never pad with weak items to hit a
+count, and never return fewer than {MIN_ITEMS}. Rank the items and write the pitch and applications
+exactly as the "How to rank and pitch" section above directs — no generic "could help with content".
 
 Respond with ONLY a raw JSON object: no prose before or after, no markdown code fences,
 and no <cite> tags or any citation markup inside the values — plain text only:
@@ -148,27 +155,50 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], max_co
     return items
 
 
-def render(items: list[dict], today: date, title: str) -> str:
+def fetch_og_image(url: str) -> str | None:
+    """Best-effort og:image lookup. Decorative only — never fails the run."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; wpr-ai-digest)"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            head = r.read(300_000).decode("utf-8", "replace")
+    except Exception:
+        return None
+    m = (re.search(r'<meta[^>]+property=["\']og:image["\'][^>]*content=["\']([^"\']+)', head)
+         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]*property=["\']og:image["\']', head))
+    if m and m.group(1).startswith("http"):
+        return html.unescape(m.group(1))
+    return None
+
+
+def render(items: list[dict], today: date, edition: dict) -> str:
     e = html.escape
-    cards = []
+    accent = edition["accent"]
+    sans = "'Libre Franklin','Helvetica Neue',Helvetica,Arial,sans-serif"
+    serif = "Georgia,'Times New Roman',serif"
+
+    blocks = []
     for i, item in enumerate(items, 1):
-        apps = "".join(f"<li>{e(a)}</li>" for a in item["applications"])
+        apps = "".join(f'<li style="margin:0 0 7px;">{e(a)}</li>' for a in item["applications"])
         domain = urlparse(item["url"]).netloc.removeprefix("www.")
-        cards.append(f"""
-  <div style="padding:20px 0;border-top:1px solid #E3DCCF;">
-    <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.04em;">
-      {i:02d} &nbsp;·&nbsp; {e(item["access"]).upper()}
-    </div>
-    <h2 style="margin:6px 0 4px;font:600 20px/1.25 Fraunces,Georgia,serif;color:#1F1E1B;">
-      <a href="{e(item["url"])}" style="color:#1F1E1B;text-decoration:none;">{e(item["name"])}</a>
+        image = ""
+        if item.get("image"):
+            image = f"""
+    <a href="{e(item["url"])}" style="text-decoration:none;">
+      <img src="{e(item["image"])}" width="600" alt=""
+           style="display:block;width:100%;max-width:600px;height:auto;margin:0 0 14px;border:1px solid #EBEBEB;"></a>"""
+        blocks.append(f"""
+  <div style="padding:28px 0;border-bottom:1px solid #E2E2E2;">
+    <div style="margin:0 0 10px;font:700 11px/1.4 {sans};color:{accent};letter-spacing:.12em;text-transform:uppercase;">
+      No. {i:02d} &nbsp;&middot;&nbsp; {e(item["access"])}
+    </div>{image}
+    <h2 style="margin:0 0 8px;font:700 23px/1.2 {serif};color:#121212;">
+      <a href="{e(item["url"])}" style="color:#121212;text-decoration:none;">{e(item["name"])}</a>
     </h2>
-    <p style="margin:0 0 10px;font:15px/1.45 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#5C5A54;">{e(item["what"])}</p>
-    <p style="margin:0 0 10px;font:15px/1.5 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#1F1E1B;">{e(item["pitch"])}</p>
-    <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.04em;">PUT IT TO WORK</div>
-    <ul style="margin:6px 0 0;padding-left:20px;font:15px/1.5 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#1F1E1B;">{apps}</ul>
-    <p style="margin:10px 0 0;font:13px/1.4 'Public Sans',-apple-system,'Segoe UI',sans-serif;">
-      <a href="{e(item["url"])}" style="color:#3A867C;text-decoration:none;">{e(domain)} &#8599;</a>
-    </p>
+    <p style="margin:0 0 12px;font:italic 16px/1.5 {serif};color:#5A5A5A;">{e(item["what"])}</p>
+    <p style="margin:0 0 16px;font:16px/1.6 {serif};color:#333333;">{e(item["pitch"])}</p>
+    <div style="margin:0 0 8px;font:700 11px/1.4 {sans};color:#121212;letter-spacing:.12em;">PUT IT TO WORK</div>
+    <ul style="margin:0 0 14px;padding-left:20px;font:15px/1.55 {serif};color:#333333;">{apps}</ul>
+    <a href="{e(item["url"])}" style="font:600 11px/1.4 {sans};color:{accent};letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">{e(domain)} &#8599;</a>
   </div>""")
 
     preheader = " · ".join(item["name"] for item in items)
@@ -178,21 +208,26 @@ def render(items: list[dict], today: date, title: str) -> str:
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="supported-color-schemes" content="light">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=JetBrains+Mono:wght@500&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body style="margin:0;padding:0;background:#F6F2E9;color-scheme:light;">
-<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;color:#F6F2E9;">
+<body style="margin:0;padding:0;background:#FFFFFF;color-scheme:light;">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;color:#FFFFFF;">
   {e(preheader)}&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;&nbsp;&#8204;
 </div>
-<div style="max-width:640px;margin:0 auto;padding:32px 24px;">
-  <div style="font:500 12px/1.3 'JetBrains Mono',Consolas,monospace;color:#3A867C;letter-spacing:.08em;">WAUSAU PILOT &amp; REVIEW</div>
-  <h1 style="margin:4px 0 2px;font:600 30px/1.15 Fraunces,Georgia,serif;color:#1F1E1B;">{e(title)}</h1>
-  <div style="margin:0 0 18px;font:14px/1.4 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#5C5A54;">
-    {today:%A, %B %d, %Y} &nbsp;·&nbsp; {len(items)} finds worth a look this week
+<div style="max-width:600px;margin:0 auto;padding:30px 20px 24px;">
+  <div style="text-align:center;padding:0 0 18px;">
+    <img src="{LOGO_URL}" width="72" height="72" alt="Wausau Pilot &amp; Review"
+         style="display:block;margin:0 auto 12px;width:72px;height:72px;">
+    <h1 style="margin:0 0 6px;font:700 34px/1.1 {serif};color:#121212;">{e(edition["title"])}</h1>
+    <div style="font:600 11px/1.5 {sans};color:#727272;letter-spacing:.14em;text-transform:uppercase;">
+      {today:%A, %B %d, %Y} &nbsp;&middot;&nbsp; {len(items)} finds
+    </div>
   </div>
-  {"".join(cards)}
-  <div style="margin-top:28px;padding-top:14px;border-top:2px solid #3A867C;font:12px/1.5 'Public Sans',-apple-system,'Segoe UI',sans-serif;color:#8A877F;">
-    Generated by wpr-ai-digest · research by {e(MODEL)} with web search · edit context.md to change what gets surfaced
+  <div style="border-top:3px solid #121212;"></div>
+  {"".join(blocks)}
+  <div style="padding:18px 8px 0;text-align:center;font:12px/1.7 {sans};color:#8A8A8A;">
+    Generated by wpr-ai-digest &middot; research by {e(MODEL)} with web search<br>
+    edit {e(edition["context"])} to change what gets surfaced
   </div>
 </div>
 </body></html>"""
@@ -218,7 +253,9 @@ def main() -> None:
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
 
     items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), context, seen, edition["max_cost"])
-    body = render(items, today, edition["title"])
+    for item in items:
+        item["image"] = fetch_og_image(item["url"])
+    body = render(items, today, edition)
 
     if dry_run:
         out = ROOT / "digest-preview.html"
