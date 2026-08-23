@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "name": "Claude computer use, browser use, Skills API & Files API \u2014 now GA on Claude Platform",
+    "url": "https://releasebot.io/updates/anthropic/claude",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "MCP spec 2026-07-28 \u2014 stateless core + serverless-ready servers",
+    "url": "https://modelcontextprotocol.io/specification",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Claude Sonnet 5 pricing locked at introductory rate",
+    "url": "https://releasebot.io/updates/anthropic/claude-developer-platform",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Gemini 3.5 Flash-Lite (GA)",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog",
+    "date": "2026-08-23"
+  },
+  {
+    "name": "Gemini 3.7 Flash (GA)",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog.md.txt",
+    "date": "2026-08-23"
+  }
+]
