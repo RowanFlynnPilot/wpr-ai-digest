@@ -23,5 +23,30 @@
     "name": "Originator Profile signatures adopted by major Japanese publishers",
     "url": "https://www.niemanlab.org/2026/08/japanese-publishers-are-fighting-imposter-news-sites-with-a-cryptographic-signature/",
     "date": "2026-08-23"
+  },
+  {
+    "name": "Google \"Preferred Sources\" button for publishers",
+    "url": "https://techcrunch.com/2026/08/20/google-gives-publishers-a-new-way-to-fight-ai-driven-traffic-losses/",
+    "date": "2026-08-24"
+  },
+  {
+    "name": "Collapse of 200+ AI-generated \"local news\" sites (Poynter)",
+    "url": "https://www.poynter.org/commentary/2026/prism-news-local-news-ai-fake-shuts-down/",
+    "date": "2026-08-24"
+  },
+  {
+    "name": "US fact-checkers' 2026 midterm ad and disinformation collaboration (IFCN)",
+    "url": "https://www.poynter.org/ifcn/2026/us-fact-checkers-launch-collaboration-debunking-deceptive-2026-midterm-ads-and-election-disinformation/",
+    "date": "2026-08-24"
+  },
+  {
+    "name": "Anthropic's Claude prose changes for detectability (Nieman Lab)",
+    "url": "https://www.niemanlab.org/2026/08/claude-is-changing-how-it-generates-prose-to-be-more-detectable-and-maybe-worse/",
+    "date": "2026-08-24"
+  },
+  {
+    "name": "Poynter explainer: what data centers are and why they matter",
+    "url": "https://www.poynter.org/fact-checking/2026/what-are-data-centers-for-ai/",
+    "date": "2026-08-24"
   }
 ]
