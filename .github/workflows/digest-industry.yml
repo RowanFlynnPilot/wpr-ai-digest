@@ -40,6 +40,7 @@ jobs:
           git config user.name "wpr-ai-digest"
           git config user.email "actions@users.noreply.github.com"
           git pull --ff-only
-          git add seen-industry.json
+          python hub.py
+          git add seen-industry.json docs
           git commit -m "industry digest: $(date -u +%Y-%m-%d)"
           git push

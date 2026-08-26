@@ -7,6 +7,8 @@ Two weekly digest emails from one pipeline, selected by `python digest.py [editi
 
 Each edition's context file owns its entire selection framing, including the "How to rank and pitch" section the code prompt defers to.
 
+`hub.py` regenerates `docs/index.html` — a static status hub (per edition: schedule, recipients, last sent, item history) derived entirely from repo state; each workflow reruns it after a send. New editions following the `digest-{key}.yml` convention appear automatically.
+
 ## How it works
 - `digest.py` — three functions, one path: `research()` (Claude + server-side web search/fetch → JSON), `render()` (inline-styled HTML in WPR colors), `send()` (Gmail SMTP). `main()` wires them and appends covered items to `seen.json`.
 - `context.md` — everything the model knows about WPR: stack, project list, what counts as a good find. **Edit this, not the prompt in code**, when a new project ships or priorities change.
