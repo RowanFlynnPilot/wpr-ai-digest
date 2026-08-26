@@ -4,6 +4,8 @@ Two weekly digest emails from one pipeline, selected by `python digest.py [editi
 - `wpr` (default) — Fridays, to Rowan: new AI tools/features from the past ~10 days with applications tied to specific WPR builds. `context.md`, `seen.json`, `.github/workflows/digest.yml`.
 - `industry` — Mondays, to Rowan + editor: AI in local journalism generally (newsroom tools, case studies, grants, platform shifts, ethics), written for an editorial reader. `context-industry.md`, `seen-industry.json`, `.github/workflows/digest-industry.yml`.
 - `tools` — Wednesdays, to Rowan + editor: new and trending AI tools and plug-ins anyone can use same-day (apps, WordPress plugins, extensions, no-code automation), general reader. $4 cost cap (others $3). `context-tools.md`, `seen-tools.json`, `.github/workflows/digest-tools.yml`.
+- `ledgers` — Tuesdays, to Rowan + editor: assignment memo diffed from WPR's own tracker JSONs (`LEDGER_SOURCES` in digest.py) — Python fetches and diffs against `ledgers-state.json`, Claude writes the brief (no web search, ~$0.15, $1 cap). Skips the send when nothing changed. `context-ledgers.md`, `seen-ledgers.json`, `.github/workflows/digest-ledgers.yml`.
+- `grants` — 1st of each month, to Rowan + editor: currently-open grants/fellowships for small nonprofit newsrooms, deadline-sorted, deadlines confirmed via fetch. `context-grants.md`, `seen-grants.json`, `.github/workflows/digest-grants.yml`.
 
 Each edition's context file owns its entire selection framing, including the "How to rank and pitch" section the code prompt defers to.
 

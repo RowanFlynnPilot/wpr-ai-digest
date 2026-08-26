@@ -46,7 +46,14 @@ def build() -> str:
     cards, total_items = [], 0
     for key, ed in EDITIONS.items():
         cron, recipients = parse_workflow(workflow_path(key))
-        day = DAYS[cron.split()[4]]
+        _, _, dom, _, dow = cron.split()
+        if dow in DAYS:
+            day = DAYS[dow]
+        elif dom != "*":
+            suffix = {"1": "st", "2": "nd", "3": "rd"}.get(dom, "th")
+            day = f"{dom}{suffix} of each month"
+        else:
+            day = "Daily"
         seen = json.loads((ROOT / ed["seen"]).read_text(encoding="utf-8"))
         total_items += len(seen)
         last_sent = max((s["date"] for s in seen), default=None)

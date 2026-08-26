@@ -7,6 +7,7 @@ import html
 import json
 import os
 import re
+import hashlib
 import smtplib
 import sys
 import urllib.request
@@ -29,7 +30,35 @@ EDITIONS = {
     "tools": {"context": "context-tools.md", "seen": "seen-tools.json",
               "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00,
               "accent": "#44477F"},
+    "ledgers": {"context": "context-ledgers.md", "seen": "seen-ledgers.json",
+                "title": "The Ledger Brief", "subject": "The Ledger Brief", "max_cost": 1.00,
+                "accent": "#8A6D1D", "min_items": 1, "sources": True,
+                "state": "ledgers-state.json"},
+    "grants": {"context": "context-grants.md", "seen": "seen-grants.json",
+               "title": "Grants & Deadlines", "subject": "Grants & Deadlines", "max_cost": 3.00,
+               "accent": "#556B2F"},
 }
+
+# Trackers read by the ledgers edition — WPR's own published data, no web search.
+LEDGER_SOURCES = [
+    {"name": "The Care Ledger", "repo": "wpr-care-ledger", "path": "data/surveys.json",
+     "about": "Wisconsin DQA assisted-living inspections and violations"},
+    {"name": "The Cleanup Ledger", "repo": "wpr-cleanup-ledger", "path": "public/data/events.json",
+     "about": "BRRTS contamination case events (openings, closures, continuing obligations)"},
+    {"name": "The Watch Ledger", "repo": "wpr-watch-ledger", "path": "data/cameras.json",
+     "about": "Flock/ALPR surveillance camera roster"},
+    {"name": "Court tracker", "repo": "wpr-court-tracker", "path": "data/changes.json",
+     "about": "WCCA case changes on the curated watchlist"},
+    {"name": "Property transactions", "repo": "wpr-property-transactions", "path": "data/transactions.json",
+     "about": "Wisconsin DOR property sales in Marathon County"},
+    {"name": "Coming Soon tracker", "repo": "wpr-coming-soon", "path": "public/queue.json",
+     "about": "permit, sale, and license signals pointing at what's opening in local buildings"},
+    {"name": "Gavel (meetings)", "repo": "marathon-meetings", "path": "src/data/upcoming.json",
+     "about": "upcoming Marathon County civic meetings"},
+]
+
+VOLATILE_KEYS = {"last_seen", "updated_at", "generated_at", "generatedAt",
+                 "last_checked", "fetched_at", "scraped_at", "detected_at"}
 
 MODEL = "claude-opus-5"
 MAX_SEARCHES = 20
@@ -155,6 +184,90 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], max_co
     return items
 
 
+def _records(data) -> list:
+    """Pull the record list out of whatever shape a tracker publishes."""
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict):
+        lists = [v for v in data.values() if isinstance(v, list)]
+        if lists:
+            return [r for lst in lists for r in lst]
+        return [{"key": k, **v} if isinstance(v, dict) else {"key": k, "value": v}
+                for k, v in data.items()]
+    return [data]
+
+
+def _rec_hash(rec) -> str:
+    if isinstance(rec, dict):
+        rec = {k: v for k, v in rec.items() if k not in VOLATILE_KEYS}
+    return hashlib.sha1(json.dumps(rec, sort_keys=True, default=str).encode()).hexdigest()[:12]
+
+
+def research_sources(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], dict]:
+    """Ledgers mode: diff WPR's own tracker data in Python, ask Claude only for
+    the editorial brief. Returns (items, new_state); items is [] when nothing changed."""
+    state_path = ROOT / edition["state"]
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+    first_run = not state
+
+    sections, new_state, total_new = [], {}, 0
+    for src in LEDGER_SOURCES:
+        raw_url = f"https://raw.githubusercontent.com/RowanFlynnPilot/{src['repo']}/main/{src['path']}"
+        req = urllib.request.Request(raw_url, headers={"User-Agent": "wpr-ai-digest"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            recs = _records(json.loads(r.read().decode("utf-8")))
+        pairs = [(_rec_hash(rec), rec) for rec in recs]
+        prev = set(state.get(src["name"], []))
+        new = [rec for h, rec in pairs if h not in prev]
+        new_state[src["name"]] = [h for h, _ in pairs]
+        total_new += len(new)
+        page = f"https://rowanflynnpilot.github.io/{src['repo']}/"
+        samples = "\n".join(
+            "  sample: " + json.dumps(s, default=str)[:400] for s in new[:3]
+        ) or "  (no new records)"
+        sections.append(f"## {src['name']} — {src['about']}\n"
+                        f"page: {page}\n"
+                        f"records: {len(prev) or 'first run'} -> {len(pairs)}; new since last brief: {len(new)}\n"
+                        f"{samples}")
+
+    if not first_run and total_new == 0:
+        return [], new_state
+
+    prompt = f"""{context}
+
+# This week's data ({date.today():%A, %B %d, %Y}{"; FIRST RUN — treat current totals as the baseline and write an overview issue" if first_run else ""})
+
+{chr(10).join(sections)}
+
+# Task
+
+Write the brief from the data above only — do not invent records. Cover only trackers with
+meaningful change (or, on a first run, the most story-rich current holdings). One item per story
+angle, 1–{MAX_ITEMS} items, ranked by news value. Use each tracker's page URL as the item url.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"items": [{{"name": "Tracker name: the headline of the change", "url": "https://...",
+"what": "What changed, in one plain sentence (max 20 words)",
+"pitch": "Why it might be a story (max 40 words)",
+"applications": ["Concrete next reporting step (max 30 words)", "optional second step"],
+"access": "change size, a few words (e.g. 6 new cases)"}}]}}"""
+
+    response = client.messages.create(model=MODEL, max_tokens=8000,
+                                      messages=[{"role": "user", "content": prompt}])
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    if cost > edition["max_cost"]:
+        raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${edition['max_cost']:.2f} cap")
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    items = json.loads(answer)["items"]
+    if not edition.get("min_items", MIN_ITEMS) <= len(items) <= MAX_ITEMS:
+        raise RuntimeError(f"Expected {edition.get('min_items', MIN_ITEMS)}–{MAX_ITEMS} items, got {len(items)}")
+    print(f"model={MODEL} sources={len(LEDGER_SOURCES)} new_records={total_new} cost=${cost:.2f}")
+    return items, new_state
+
+
 def fetch_og_image(url: str) -> str | None:
     """Best-effort og:image lookup. Decorative only — never fails the run."""
     try:
@@ -252,7 +365,15 @@ def main() -> None:
     seen_path = ROOT / edition["seen"]
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
 
-    items = research(anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY")), context, seen, edition["max_cost"])
+    client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
+    new_state = None
+    if edition.get("sources"):
+        items, new_state = research_sources(client, context, edition)
+        if not items:
+            print("no tracker changes since last brief — skipping send")
+            return
+    else:
+        items = research(client, context, seen, edition["max_cost"])
     for item in items:
         item["image"] = fetch_og_image(item["url"])
     body = render(items, today, edition)
@@ -263,10 +384,13 @@ def main() -> None:
         print(f"dry run: wrote {out}")
         return
 
-    subject = f"{edition['subject']} — {items[0]['name']} + {len(items) - 1} more ({today:%b %d})"
+    more = f" + {len(items) - 1} more" if len(items) > 1 else ""
+    subject = f"{edition['subject']} — {items[0]['name']}{more} ({today:%b %d})"
     send(subject, body, env("DIGEST_TO"))
     seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat()} for it in items)
     seen_path.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
+    if new_state is not None:
+        (ROOT / edition["state"]).write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
     print(f"sent {len(items)} items to {env('DIGEST_TO')}")
 
 
