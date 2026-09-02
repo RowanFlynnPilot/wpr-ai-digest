@@ -33,5 +33,35 @@
     "name": "Google Workspace data import for OneDrive and Teams",
     "url": "https://workspaceupdates.googleblog.com/2026/08/introducing-data-import-for-microsoft-OneDrive-An-easier-faster-and-higher-fidelity-migration-to-Google-Workspace.html",
     "date": "2026-08-26"
+  },
+  {
+    "name": "ChatGPT scheduled tasks: app triggers, sharing, and a free tier",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-02"
+  },
+  {
+    "name": "ChatGPT Work browser tasks on signed-in websites",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-02"
+  },
+  {
+    "name": "Interactive simulations and models in the Gemini app",
+    "url": "https://workspaceupdates.googleblog.com/2026/08/weekly-recap-08-28-2026.html",
+    "date": "2026-09-02"
+  },
+  {
+    "name": "Multiple Google accounts connected to ChatGPT",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-02"
+  },
+  {
+    "name": "ChatGPT browser extension in Edge, Brave, Opera, and Vivaldi",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-02"
+  },
+  {
+    "name": "Google Calendar interoperability with Zoom, Teams, and Webex",
+    "url": "https://workspaceupdates.googleblog.com/2026/08/weekly-recap-08-28-2026.html",
+    "date": "2026-09-02"
   }
 ]
