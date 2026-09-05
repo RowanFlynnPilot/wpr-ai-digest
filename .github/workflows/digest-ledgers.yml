@@ -2,13 +2,17 @@ name: Weekly ledger brief
 
 on:
   schedule:
-    - cron: "0 13 * * 2"   # Tuesdays 13:00 UTC = 8am CDT / 7am CST
+    - cron: "47 11 * * 2"   # 11:47 UTC = 6:47am CDT / 5:47am CST (off-peak minute: GitHub delays :00 crons by hours)
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Research + render only; no email, no seen-ledgers.json ledgers-state.json commit"
         type: boolean
         default: false
+
+concurrency:
+  group: wpr-digest
+  cancel-in-progress: false
 
 permissions:
   contents: write

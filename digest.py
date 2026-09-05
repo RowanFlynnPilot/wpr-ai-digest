@@ -36,7 +36,7 @@ EDITIONS = {
                 "state": "ledgers-state.json"},
     "grants": {"context": "context-grants.md", "seen": "seen-grants.json",
                "title": "Grants & Deadlines", "subject": "Grants & Deadlines", "max_cost": 3.00,
-               "accent": "#556B2F"},
+               "accent": "#556B2F", "min_items": 1},
 }
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
@@ -61,8 +61,8 @@ VOLATILE_KEYS = {"last_seen", "updated_at", "generated_at", "generatedAt",
                  "last_checked", "fetched_at", "scraped_at", "detected_at"}
 
 MODEL = "claude-opus-5"
-MAX_SEARCHES = 20
-MAX_FETCHES = 12
+MAX_SEARCHES = 25
+MAX_FETCHES = 16
 FETCH_CONTENT_TOKENS = 10_000
 MIN_ITEMS, MAX_ITEMS = 3, 10
 
@@ -84,7 +84,26 @@ def env(name: str) -> str:
     return value
 
 
-def build_prompt(context: str, seen: list[dict]) -> str:
+ITEM_KEYS = ("name", "url", "what", "pitch", "applications", "access")
+
+
+def validate_items(items, min_items: int) -> list[dict]:
+    """Fail clearly on a malformed answer before any rendering or sending happens."""
+    if not isinstance(items, list) or not min_items <= len(items) <= MAX_ITEMS:
+        raise RuntimeError(f"Expected {min_items}–{MAX_ITEMS} items, got "
+                           f"{len(items) if isinstance(items, list) else type(items).__name__}")
+    for i, item in enumerate(items, 1):
+        missing = [k for k in ITEM_KEYS if not item.get(k)]
+        if missing:
+            raise RuntimeError(f"Item {i} missing {missing}: {json.dumps(item)[:200]}")
+        if not str(item["url"]).startswith("http"):
+            raise RuntimeError(f"Item {i} has a non-http url: {item['url']!r}")
+        if not isinstance(item["applications"], list) or not all(isinstance(a, str) for a in item["applications"]):
+            raise RuntimeError(f"Item {i} applications must be a list of strings")
+    return items
+
+
+def build_prompt(context: str, seen: list[dict], min_items: int) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
     return f"""{context}
 
@@ -102,7 +121,7 @@ actual capabilities, and pricing — the url field must be the primary source yo
 aggregator or search snippet.
 
 Aim for 5–{MAX_ITEMS} finds when the week genuinely supports it — never pad with weak items to hit a
-count, and never return fewer than {MIN_ITEMS}. Rank the items and write the pitch and applications
+count, and never return fewer than {min_items}. Rank the items and write the pitch and applications
 exactly as the "How to rank and pitch" section above directs — no generic "could help with content".
 
 Respond with ONLY a raw JSON object: no prose before or after, no markdown code fences,
@@ -122,8 +141,9 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 }}"""
 
 
-def research(client: anthropic.Anthropic, context: str, seen: list[dict], max_cost: float) -> list[dict]:
-    messages = [{"role": "user", "content": build_prompt(context, seen)}]
+def research(client: anthropic.Anthropic, context: str, seen: list[dict], edition: dict) -> list[dict]:
+    max_cost, min_items = edition["max_cost"], edition.get("min_items", MIN_ITEMS)
+    messages = [{"role": "user", "content": build_prompt(context, seen, min_items)}]
     tools = [
         {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
         {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES,
@@ -177,11 +197,9 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], max_co
     answer = re.sub(r"</?cite[^>]*>", "", answer)
     try:
         items = json.loads(answer)["items"]
-    except json.JSONDecodeError as err:
-        raise RuntimeError(f"Model did not return JSON. Answer began: {answer[:300]!r}") from err
-    if not MIN_ITEMS <= len(items) <= MAX_ITEMS:
-        raise RuntimeError(f"Expected {MIN_ITEMS}–{MAX_ITEMS} items, got {len(items)}")
-    return items
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    return validate_items(items, min_items)
 
 
 def _records(data) -> list:
@@ -203,19 +221,28 @@ def _rec_hash(rec) -> str:
     return hashlib.sha1(json.dumps(rec, sort_keys=True, default=str).encode()).hexdigest()[:12]
 
 
-def research_sources(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], dict]:
+def research_sources(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], dict, list[str]]:
     """Ledgers mode: diff WPR's own tracker data in Python, ask Claude only for
-    the editorial brief. Returns (items, new_state); items is [] when nothing changed."""
+    the editorial brief. Returns (items, new_state, unavailable); items is []
+    when nothing changed. A single unreachable tracker is reported, not fatal —
+    its previous hashes carry forward so next week's diff stays honest."""
     state_path = ROOT / edition["state"]
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
     first_run = not state
 
-    sections, new_state, total_new = [], {}, 0
+    sections, new_state, total_new, unavailable = [], {}, 0, []
     for src in LEDGER_SOURCES:
         raw_url = f"https://raw.githubusercontent.com/RowanFlynnPilot/{src['repo']}/main/{src['path']}"
         req = urllib.request.Request(raw_url, headers={"User-Agent": "wpr-ai-digest"})
-        with urllib.request.urlopen(req, timeout=30) as r:
-            recs = _records(json.loads(r.read().decode("utf-8")))
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                recs = _records(json.loads(r.read().decode("utf-8")))
+        except Exception as err:
+            print(f"source unavailable: {src['name']} ({err})")
+            unavailable.append(src["name"])
+            new_state[src["name"]] = state.get(src["name"], [])
+            sections.append(f"## {src['name']} — UNAVAILABLE this week (fetch failed); do not write about it")
+            continue
         pairs = [(_rec_hash(rec), rec) for rec in recs]
         prev = set(state.get(src["name"], []))
         new = [rec for h, rec in pairs if h not in prev]
@@ -230,8 +257,10 @@ def research_sources(client: anthropic.Anthropic, context: str, edition: dict) -
                         f"records: {len(prev) or 'first run'} -> {len(pairs)}; new since last brief: {len(new)}\n"
                         f"{samples}")
 
+    if len(unavailable) == len(LEDGER_SOURCES):
+        raise RuntimeError("Every tracker source was unreachable — aborting")
     if not first_run and total_new == 0:
-        return [], new_state
+        return [], new_state, unavailable
 
     prompt = f"""{context}
 
@@ -261,11 +290,14 @@ Respond with ONLY a raw JSON object, no prose or code fences:
     answer = "".join(b.text for b in response.content if b.type == "text").strip()
     if answer.startswith("```"):
         answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-    items = json.loads(answer)["items"]
-    if not edition.get("min_items", MIN_ITEMS) <= len(items) <= MAX_ITEMS:
-        raise RuntimeError(f"Expected {edition.get('min_items', MIN_ITEMS)}–{MAX_ITEMS} items, got {len(items)}")
-    print(f"model={MODEL} sources={len(LEDGER_SOURCES)} new_records={total_new} cost=${cost:.2f}")
-    return items, new_state
+    try:
+        items = json.loads(answer)["items"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    items = validate_items(items, edition.get("min_items", MIN_ITEMS))
+    print(f"model={MODEL} sources={len(LEDGER_SOURCES) - len(unavailable)}/{len(LEDGER_SOURCES)} "
+          f"new_records={total_new} cost=${cost:.2f}")
+    return items, new_state, unavailable
 
 
 def fetch_og_image(url: str) -> str | None:
@@ -283,7 +315,7 @@ def fetch_og_image(url: str) -> str | None:
     return None
 
 
-def render(items: list[dict], today: date, edition: dict) -> str:
+def render(items: list[dict], today: date, edition: dict, notice: str = "") -> str:
     e = html.escape
     accent = edition["accent"]
     sans = "'Libre Franklin','Helvetica Neue',Helvetica,Arial,sans-serif"
@@ -337,6 +369,7 @@ def render(items: list[dict], today: date, edition: dict) -> str:
     </div>
   </div>
   <div style="border-top:3px solid #121212;"></div>
+  {f'<div style="padding:12px 0 0;font:600 11px/1.5 {sans};color:#8C4425;letter-spacing:.08em;text-transform:uppercase;">{e(notice)}</div>' if notice else ""}
   {"".join(blocks)}
   <div style="padding:18px 8px 0;text-align:center;font:12px/1.7 {sans};color:#8A8A8A;">
     Generated by wpr-ai-digest &middot; research by {e(MODEL)} with web search<br>
@@ -366,17 +399,19 @@ def main() -> None:
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
 
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
-    new_state = None
+    new_state, notice = None, ""
     if edition.get("sources"):
-        items, new_state = research_sources(client, context, edition)
+        items, new_state, unavailable = research_sources(client, context, edition)
         if not items:
             print("no tracker changes since last brief — skipping send")
             return
+        if unavailable:
+            notice = "Not checked this week (source unavailable): " + ", ".join(unavailable)
     else:
-        items = research(client, context, seen, edition["max_cost"])
+        items = research(client, context, seen, edition)
     for item in items:
         item["image"] = fetch_og_image(item["url"])
-    body = render(items, today, edition)
+    body = render(items, today, edition, notice)
 
     if dry_run:
         out = ROOT / "digest-preview.html"

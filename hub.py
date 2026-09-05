@@ -46,7 +46,7 @@ def build() -> str:
     cards, total_items = [], 0
     for key, ed in EDITIONS.items():
         cron, recipients = parse_workflow(workflow_path(key))
-        _, _, dom, _, dow = cron.split()
+        minute, hour, dom, _, dow = cron.split()
         if dow in DAYS:
             day = DAYS[dow]
         elif dom != "*":
@@ -54,6 +54,8 @@ def build() -> str:
             day = f"{dom}{suffix} of each month"
         else:
             day = "Daily"
+        h = (int(hour) - 5) % 24  # UTC -> Central Daylight; an hour earlier in winter
+        when = f"{h % 12 or 12}:{int(minute):02d} {'a.m.' if h < 12 else 'p.m.'} Central"
         seen = json.loads((ROOT / ed["seen"]).read_text(encoding="utf-8"))
         total_items += len(seen)
         last_sent = max((s["date"] for s in seen), default=None)
@@ -65,7 +67,7 @@ def build() -> str:
         ) or "<li class='d'>nothing sent yet</li>"
         cards.append(f"""
     <section class="card" style="border-top-color:{ed['accent']}">
-      <div class="kicker" style="color:{ed['accent']}">{e(day)} · 8:00 a.m. Central · ${ed['max_cost']:.0f} cost cap</div>
+      <div class="kicker" style="color:{ed['accent']}">{e(day)} · {e(when)} · ${ed['max_cost']:.0f} cost cap</div>
       <h2>{e(ed['title'])}</h2>
       <div class="meta">
         <div><span class="label">To</span> {e(who)}</div>

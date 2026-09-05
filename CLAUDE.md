@@ -16,7 +16,10 @@ Each edition's context file owns its entire selection framing, including the "Ho
 - `context.md` — everything the model knows about WPR: stack, project list, what counts as a good find. **Edit this, not the prompt in code**, when a new project ships or priorities change.
 - Recipients live in `DIGEST_TO` in the workflow env, comma-separated; `send()` puts the list in the To header and `send_message` delivers to each.
 - `seen.json` — names/urls already surfaced; fed back into the prompt so weeks don't repeat. Committed by the workflow after each send.
-- `.github/workflows/digest.yml` — cron Fridays 13:00 UTC + manual `workflow_dispatch`.
+- Workflows run at **11:47 UTC** (6:47am CDT), deliberately off the top of the hour — GitHub delays `:00` crons by hours. All five share a `concurrency` group so same-day sends queue instead of racing on the `seen`/hub commit. Each has a `dry_run` dispatch input (research + render, preview as artifact, no send, no commit).
+- `min_items` per edition (default 3) — grants and ledgers use 1, since a thin month/week should still send rather than fail. `validate_items()` rejects a malformed answer before anything is rendered or sent.
+- Ledgers: one unreachable tracker is reported in the log and in the email masthead, its previous hashes carried forward; only all-sources-down fails the run.
+- `requirements.txt` pins `anthropic>=1,<2` — a major SDK bump must be deliberate, never picked up by a cron.
 
 ## Secrets (repo → Settings → Secrets and variables → Actions)
 - `ANTHROPIC_API_KEY`
@@ -29,4 +32,4 @@ Each edition's context file owns its entire selection framing, including the "Ho
 ## Principles
 No fallbacks, fail loud. Missing env var, bad JSON, wrong item count, or an unexpected stop_reason all raise. If a run fails, the workflow shows red and no email goes out — that's the signal.
 
-Cost: the research loop sums real usage (cache writes/reads, output, search fees) across every pause_turn round and raises past `MAX_COST_USD` ($3). Pricing constants sit next to `MODEL` in digest.py — update both together. Prompt caching keeps continuation rounds at ~10% input price; `FETCH_CONTENT_TOKENS` caps how much of a fetched page enters context.
+Cost: the research loop sums real usage (cache writes/reads, output, search fees) across every pause_turn round and raises past the edition's `max_cost` ($3–4). Runs use the full search/fetch budget every time (25/16), so item count is budget-bound — raise those before loosening the quality bar. Pricing constants sit next to `MODEL` in digest.py — update both together. Prompt caching keeps continuation rounds at ~10% input price; `FETCH_CONTENT_TOKENS` caps how much of a fetched page enters context.
