@@ -63,5 +63,30 @@
     "name": "Google Calendar interoperability with Zoom, Teams, and Webex",
     "url": "https://workspaceupdates.googleblog.com/2026/08/weekly-recap-08-28-2026.html",
     "date": "2026-09-02"
+  },
+  {
+    "name": "Google Pics",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/google-pics-brings-pro-level-ai-image-creation-and-editing-to-Google-Workspace.html",
+    "date": "2026-09-09"
+  },
+  {
+    "name": "Workspace Studio Flows \u2014 new Drive, Gmail and Chat steps",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/weekly-recap-09-04-2026.html",
+    "date": "2026-09-09"
+  },
+  {
+    "name": "ChatGPT Images 2.5",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-09"
+  },
+  {
+    "name": "Custom instructions for Gemini in Workspace (more apps)",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/weekly-recap-09-04-2026.html",
+    "date": "2026-09-09"
+  },
+  {
+    "name": "Google Vids document-to-video summaries",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/turn-google-docs-pdfs-and-word-files-into-video-summaries-in-Google-Vids.html",
+    "date": "2026-09-09"
   }
 ]
