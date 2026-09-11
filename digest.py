@@ -37,6 +37,9 @@ EDITIONS = {
     "grants": {"context": "context-grants.md", "seen": "seen-grants.json",
                "title": "Grants & Deadlines", "subject": "Grants & Deadlines", "max_cost": 3.00,
                "accent": "#556B2F", "min_items": 1},
+    "skills": {"context": "context-skills.md", "seen": "seen-skills.json",
+               "title": "Claude Skills Radar", "subject": "Skills Radar", "max_cost": 3.00,
+               "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json"},
 }
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
@@ -103,12 +106,35 @@ def validate_items(items, min_items: int) -> list[dict]:
     return items
 
 
-def build_prompt(context: str, seen: list[dict], min_items: int) -> str:
+def _tokens(name: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]+", name.lower()))
+
+
+def drop_installed(items: list[dict], installed: list[dict]) -> list[dict]:
+    """Hard filter behind the prompt instruction: an item whose name contains every
+    token of an installed skill's name is that skill (or a variant) and is removed."""
+    kept = []
+    for item in items:
+        hit = next((s["name"] for s in installed if _tokens(s["name"]) <= _tokens(item["name"])), None)
+        if hit:
+            print(f"dropped (already installed as {hit!r}): {item['name']}")
+        else:
+            kept.append(item)
+    return kept
+
+
+
+def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
+    library = ""
+    if installed is not None:
+        lines = "\n".join(f"- {s['name']}: {s['description']}" for s in installed) or "- (none)"
+        library = f"\n# Already installed in our library (never surface these or close variants)\n{lines}\n"
     return f"""{context}
 
 # Already covered in previous digests (do not repeat)
 {already}
+{library}
 
 # Task
 
@@ -143,7 +169,10 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 
 def research(client: anthropic.Anthropic, context: str, seen: list[dict], edition: dict) -> list[dict]:
     max_cost, min_items = edition["max_cost"], edition.get("min_items", MIN_ITEMS)
-    messages = [{"role": "user", "content": build_prompt(context, seen, min_items)}]
+    installed = None
+    if edition.get("installed"):
+        installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
+    messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed)}]
     tools = [
         {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
         {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES,
@@ -199,7 +228,12 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         items = json.loads(answer)["items"]
     except (json.JSONDecodeError, KeyError, TypeError) as err:
         raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
-    return validate_items(items, min_items)
+    items = validate_items(items, min_items)
+    if installed:
+        items = drop_installed(items, installed)
+        if len(items) < min_items:
+            raise RuntimeError(f"Only {len(items)} items left after removing already-installed skills")
+    return items
 
 
 def _records(data) -> list:

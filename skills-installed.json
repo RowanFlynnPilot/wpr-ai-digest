@@ -1,0 +1,177 @@
+[
+  {
+    "name": "accessibility",
+    "description": "Review screenshots, mockups, designs, and UI flows for accessibility using WCAG 2.1. Use when the user asks for an accessibility audit, WCAG review, inclusive d",
+    "source": "skills"
+  },
+  {
+    "name": "better-accessibility",
+    "description": "Helps your project comply with accessibility standards and best practices.",
+    "source": "skills"
+  },
+  {
+    "name": "better-colors",
+    "description": "Helps you build a color system and answer anything about color in your project. You can generate palettes, use semantic tokens, convert between formats, check c",
+    "source": "skills"
+  },
+  {
+    "name": "better-layout",
+    "description": "Helps with grouping, alignment, reading order, progressive disclosure and other details that make a good layout.",
+    "source": "skills"
+  },
+  {
+    "name": "better-typography",
+    "description": "Focuses on type scale, spacing, sizing, variable fonts, OpenType features, wrapping, truncation and other details that make typography feel great across your pr",
+    "source": "skills"
+  },
+  {
+    "name": "canvas-design",
+    "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, d",
+    "source": "skills"
+  },
+  {
+    "name": "cognitive-load-conversion",
+    "description": "Audit UI designs, flows, copy, and layouts to reduce cognitive load and maximize conversion. Apply this skill whenever a user shares a screen, mockup, flow, for",
+    "source": "skills"
+  },
+  {
+    "name": "craft",
+    "description": "Apply 12 concrete visual-craft rules to UI code and designs \u2014 bans on gradients, glow effects, transition:all, placeholder text, and visual monotony, plus disci",
+    "source": "skills"
+  },
+  {
+    "name": "dieter-rams-principles",
+    "description": "Evaluate and improve digital product design using Dieter Rams' 10 Principles of Good",
+    "source": "skills"
+  },
+  {
+    "name": "feature-prioritization",
+    "description": "Apply structured prioritization matrix techniques to rank features, ideas, or design decisions by two weighted criteria (e.g. user impact vs. effort, feasibilit",
+    "source": "skills"
+  },
+  {
+    "name": "figma-code-connect",
+    "description": "Creates and maintains Figma Code Connect template files that map Figma components to code snippets. Use when the user mentions Code Connect, Figma component map",
+    "source": "skills"
+  },
+  {
+    "name": "figma-create-new-file",
+    "description": "\"**MANDATORY prerequisite** \u2014 you MUST invoke this skill BEFORE every `create_new_file` tool call. NEVER call `create_new_file` directly without loading this sk",
+    "source": "skills"
+  },
+  {
+    "name": "figma-design-to-code",
+    "description": "\"**MANDATORY prerequisite** \u2014 you MUST invoke this skill BEFORE calling the `get_design_context` Figma MCP tool. You MUST trigger this skill whenever the user w",
+    "source": "skills"
+  },
+  {
+    "name": "figma-generate-design",
+    "description": "\"Use this skill alongside figma-use when the task involves translating an application page, view, or multi-section layout into Figma. Triggers: 'write to Figma'",
+    "source": "skills"
+  },
+  {
+    "name": "figma-generate-diagram",
+    "description": "\"MANDATORY prerequisite \u2014 load this skill BEFORE every `generate_diagram` tool call. NEVER call `generate_diagram` directly without loading this skill first. Tr",
+    "source": "skills"
+  },
+  {
+    "name": "figma-generate-library",
+    "description": "\"Build or update a professional-grade design system in Figma from a codebase. Use when the user wants to create variables/tokens, build component libraries, cre",
+    "source": "skills"
+  },
+  {
+    "name": "figma-generative-plugins",
+    "description": "\"**MANDATORY prerequisite** \u2014 load this skill before calling `create_generative_plugin` or `update_generative_plugin`. Use when the user asks to create, author,",
+    "source": "skills"
+  },
+  {
+    "name": "figma-implement-motion",
+    "description": "Translates Figma motion and animations into production-ready application code. Use when implementing animation/motion from a Figma design \u2014 user mentions \"imple",
+    "source": "skills"
+  },
+  {
+    "name": "figma-shaders",
+    "description": "\"**MANDATORY prerequisite** \u2014 load this skill before calling `create_shader` or `update_shader`. Use when the user asks to create, author, change, fix, or itera",
+    "source": "skills"
+  },
+  {
+    "name": "figma-swiftui",
+    "description": "\"SwiftUI \u2194 Figma translation. Use whenever the user mentions Swift, SwiftUI, iOS, iPhone, or iPad \u2014 in EITHER direction \u2014 translating a Figma design into SwiftU",
+    "source": "skills"
+  },
+  {
+    "name": "figma-use",
+    "description": "\"**MANDATORY prerequisite** \u2014 you MUST invoke this skill BEFORE every `use_figma` tool call. NEVER call `use_figma` directly without loading this skill first. S",
+    "source": "skills"
+  },
+  {
+    "name": "figma-use-figjam",
+    "description": "\"This skill helps agents use Figma's use_figma MCP tool in the FigJam context. Can be used alongside figma-use which has foundational context for using the use_",
+    "source": "skills"
+  },
+  {
+    "name": "figma-use-motion",
+    "description": "\"Motion / animation context for the `use_figma` MCP tool \u2014 animating Figma nodes via manual keyframes, animation styles, easing, and timeline duration. Load alo",
+    "source": "skills"
+  },
+  {
+    "name": "figma-use-slides",
+    "description": "\"This skill helps agents use Figma's use_figma MCP tool in the Slides context. Can be used alongside figma-use which has foundational context for using the use_",
+    "source": "skills"
+  },
+  {
+    "name": "frontend-design",
+    "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making ch",
+    "source": "skills"
+  },
+  {
+    "name": "general-design-review",
+    "description": "Run a compact UX, product, and AI design review by combining the existing UX skills into one lighter guide. Use when reviewing a UI, flow, feature idea, AI prod",
+    "source": "skills"
+  },
+  {
+    "name": "impeccable",
+    "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise",
+    "source": "skills"
+  },
+  {
+    "name": "interface-review",
+    "description": "Reviews your work across multiple categories like UI, typography, layout, color, writing and accessibility and gives you a detailed analysis of the findings.",
+    "source": "skills"
+  },
+  {
+    "name": "journey-mapping",
+    "description": "Create, structure, and facilitate user journey maps from scratch or from existing research.",
+    "source": "skills"
+  },
+  {
+    "name": "like-wish-what-if",
+    "description": "Give and structure feedback using the \"I like, I wish, What if\" (IL/IW/WI) design",
+    "source": "skills"
+  },
+  {
+    "name": "low-effort-high-reward",
+    "description": "Rank a list of things to do by effort (low / medium / high) against reward (low / medium / high), so it's obvious what to do first. Run it inside a codebase and",
+    "source": "skills"
+  },
+  {
+    "name": "persuasive-ux",
+    "description": "Apply BJ Fogg's 7 Persuasive Technology Tools (Captology) to UX analysis and design.",
+    "source": "skills"
+  },
+  {
+    "name": "ux-heuristics-review",
+    "description": "Apply the 10 Usability Heuristics to critique existing UI or guide new product design. Use this skill whenever the user shares a screenshot, mockup, or written ",
+    "source": "skills"
+  },
+  {
+    "name": "webapp-testing",
+    "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing br",
+    "source": "skills"
+  },
+  {
+    "name": "wpr-brand",
+    "description": "Wausau Pilot & Review's brand \u2014 the four design systems in use across WPR's 44-repo tool fleet (Follow the Money, Newspack \"Joseph\", Almanac, Ballpark), which o",
+    "source": "skills"
+  }
+]
