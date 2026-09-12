@@ -173,11 +173,15 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     if edition.get("installed"):
         installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
     messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed)}]
-    tools = [
-        {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_SEARCHES},
-        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_FETCHES,
-         "max_content_tokens": FETCH_CONTENT_TOKENS},
-    ]
+    # max_uses is per request, not per run: on a pause_turn continuation each round
+    # would get a fresh budget, so the limits are recomputed from what remains.
+    def tools_for(searches_used: int, fetches_used: int) -> list[dict]:
+        return [
+            {"type": "web_search_20260209", "name": "web_search",
+             "max_uses": max(1, MAX_SEARCHES - searches_used)},
+            {"type": "web_fetch_20260209", "name": "web_fetch",
+             "max_uses": max(1, MAX_FETCHES - fetches_used), "max_content_tokens": FETCH_CONTENT_TOKENS},
+        ]
 
     # pause_turn continuations resend the whole growing conversation; cache_control
     # makes each round re-read the prior prefix at 10% of input price instead of full.
@@ -191,7 +195,7 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         # Streaming keeps the connection alive however long the turn takes;
         # a non-streaming request hits the SDK's 10-minute timeout on long Opus turns.
         with client.messages.stream(
-            model=MODEL, max_tokens=16000, messages=messages, tools=tools,
+            model=MODEL, max_tokens=16000, messages=messages, tools=tools_for(searches, fetches),
             cache_control={"type": "ephemeral"},
             **({"container": container} if container else {}),
         ) as stream:

@@ -17,9 +17,10 @@ Each edition's context file owns its entire selection framing, including the "Ho
 - `context.md` — everything the model knows about WPR: stack, project list, what counts as a good find. **Edit this, not the prompt in code**, when a new project ships or priorities change.
 - Recipients live in `DIGEST_TO` in the workflow env, comma-separated; `send()` puts the list in the To header and `send_message` delivers to each.
 - `seen.json` — names/urls already surfaced; fed back into the prompt so weeks don't repeat. Committed by the workflow after each send.
-- Workflows run at **11:47 UTC** (6:47am CDT), deliberately off the top of the hour — GitHub delays `:00` crons by hours. All five share a `concurrency` group so same-day sends queue instead of racing on the `seen`/hub commit. Each has a `dry_run` dispatch input (research + render, preview as artifact, no send, no commit).
+- Workflows run at **11:47 UTC** (6:47am CDT). Off-peak minute or not, GitHub's scheduler still fires them 3–5 hours late (observed Sept 2026); to-the-minute delivery needs an external trigger (e.g. cron-job.org calling the `workflow_dispatch` API with a fine-grained PAT). All five share a `concurrency` group so same-day sends queue instead of racing on the `seen`/hub commit. Each has a `dry_run` dispatch input (research + render, preview as artifact, no send, no commit).
 - `min_items` per edition (default 3) — grants and ledgers use 1, since a thin month/week should still send rather than fail. `validate_items()` rejects a malformed answer before anything is rendered or sent.
 - Ledgers: one unreachable tracker is reported in the log and in the email masthead, its previous hashes carried forward; only all-sources-down fails the run.
+- Research loop: the `_20260209` web tools run in a server-side code-exec container — a `pause_turn` continuation must pass `container=<id>` back or the API 400s. Tool `max_uses` is per request, so each round's budget is recomputed from what remains (`tools_for`).
 - `requirements.txt` pins `anthropic>=1,<2` — a major SDK bump must be deliberate, never picked up by a cron.
 
 ## Secrets (repo → Settings → Secrets and variables → Actions)
