@@ -88,5 +88,40 @@
     "name": "Google Vids document-to-video summaries",
     "url": "https://workspaceupdates.googleblog.com/2026/09/turn-google-docs-pdfs-and-word-files-into-video-summaries-in-Google-Vids.html",
     "date": "2026-09-09"
+  },
+  {
+    "name": "Gemini desktop app for Windows",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/the-gemini-desktop-app-is-now-available-for-Windows.html",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Gemini working across Workspace apps (content, research, scheduling)",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/create-content-schedule-events-and-coordinate-tasks-across-Workspace-regardless-of-what-app-you-are-in.html",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Deep research in ChatGPT Work",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Google Sheets cell limit doubled to 20 million",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/doubled-cell-limits-in-google-sheets-now-generally-available.html",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "ChatGPT Library sharing",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Calculated fields editor in Google Sheets pivot tables",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/create-and-edit-calculated-fields-in-Google-Sheets-pivot-tables-with-an-improved-editor.html",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Custom web fonts in Google Sheets charts",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/use-custom-web-fonts-in-google-sheets-charts.html",
+    "date": "2026-09-11"
   }
 ]
