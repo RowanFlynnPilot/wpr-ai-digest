@@ -9,6 +9,10 @@ on:
         description: "Research + render only; no email, no seen-grants.json commit"
         type: boolean
         default: false
+      force:
+        description: "Send even on an off-week or if already sent today (manual tests)"
+        type: boolean
+        default: false
 
 concurrency:
   group: wpr-digest
@@ -31,7 +35,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python digest.py grants ${{ inputs.dry_run && '--dry-run' || '' }}
+      - run: python digest.py grants ${{ inputs.dry_run && '--dry-run' || '' }} ${{ inputs.force && '--force' || '' }}
       - name: Upload preview
         if: ${{ inputs.dry_run }}
         uses: actions/upload-artifact@v4

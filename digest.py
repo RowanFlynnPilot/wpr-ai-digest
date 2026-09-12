@@ -443,6 +443,7 @@ def send(subject: str, body_html: str, to: str) -> None:
 
 def main() -> None:
     dry_run = "--dry-run" in sys.argv
+    force = "--force" in sys.argv  # manual dispatch only: bypass the off-week and same-day guards
     positional = [a for a in sys.argv[1:] if not a.startswith("-")]
     edition = EDITIONS[positional[0] if positional else "wpr"]
     today = local_today()
@@ -452,12 +453,12 @@ def main() -> None:
     # Alternating-week editions run only on their ISO-week parity; both triggers
     # dispatch every week and the off-week exits here for free.
     parity = "even" if today.isocalendar()[1] % 2 == 0 else "odd"
-    if not dry_run and edition.get("weeks") and edition["weeks"] != parity:
+    if not dry_run and not force and edition.get("weeks") and edition["weeks"] != parity:
         print(f"{edition['subject']} runs on {edition['weeks']} ISO weeks; this is an {parity} week — skipping")
         return
     # Local trigger + GitHub cron can both fire on one day; the seen file records
     # real sends (dry runs never write it), so a second real run today is a no-op.
-    if not dry_run and seen and seen[-1]["date"] == today.isoformat():
+    if not dry_run and not force and seen and seen[-1]["date"] == today.isoformat():
         print(f"{edition['subject']} already sent today — skipping")
         return
 
