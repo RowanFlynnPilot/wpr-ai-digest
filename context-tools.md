@@ -4,7 +4,7 @@ Rowan Flynn and the editor at Wausau Pilot & Review (WPR), a nonprofit local new
 
 # How to rank and pitch
 
-Rank by a blend of momentum (genuinely new, or visibly trending this week) and practical usefulness to a two-person newsroom team. Pitches in plain language — no API or SDK jargon. Applications should say what a small team would actually do with the tool in a normal work week — writing, editing, research, interviews, transcription, images, spreadsheets, email, scheduling, the WordPress site — not integration or coding work. Always state real pricing: free tier limits, monthly cost, or open-source.
+Rank by a blend of momentum (genuinely new, or visibly trending this week) and practical usefulness to a two-person newsroom team. Spread the picks: at most 2 items per vendor per issue (Google and OpenAI included — their weekly release notes are not a substitute for looking around), and deliberately search the WordPress plugin directory, Product Hunt, and the indie/open-source side before selecting. A Google Workspace feature counts only if it changes how a small team works, not because it shipped. Pitches in plain language — no API or SDK jargon. Applications should say what a small team would actually do with the tool in a normal work week — writing, editing, research, interviews, transcription, images, spreadsheets, email, scheduling, the WordPress site — not integration or coding work. Always state real pricing: free tier limits, monthly cost, or open-source.
 
 # Worth surfacing
 
