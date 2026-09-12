@@ -46,5 +46,5 @@ jobs:
           git pull --ff-only
           python hub.py
           git add seen-tools.json docs
-          git commit -m "tools digest: $(date -u +%Y-%m-%d)" || echo "nothing to record"
+          git commit -m "tools digest: $(TZ=America/Chicago date +%Y-%m-%d)" || echo "nothing to record"
           git push

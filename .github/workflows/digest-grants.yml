@@ -46,5 +46,5 @@ jobs:
           git pull --ff-only
           python hub.py
           git add seen-grants.json docs
-          git commit -m "grants digest: $(date -u +%Y-%m-%d)" || echo "nothing to record"
+          git commit -m "grants digest: $(TZ=America/Chicago date +%Y-%m-%d)" || echo "nothing to record"
           git push
