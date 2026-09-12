@@ -183,6 +183,7 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     # makes each round re-read the prior prefix at 10% of input price instead of full.
     # Cost is summed across every round — the final response's usage alone under-reports.
     cost, searches, fetches, rounds = 0.0, 0, 0, 0
+    container = None  # server-side code-exec container behind web search/fetch; must be resumed on pause_turn
     while True:
         rounds += 1
         if rounds > MAX_ROUNDS:
@@ -192,8 +193,11 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         with client.messages.stream(
             model=MODEL, max_tokens=16000, messages=messages, tools=tools,
             cache_control={"type": "ephemeral"},
+            **({"container": container} if container else {}),
         ) as stream:
             response = stream.get_final_message()
+        if getattr(response, "container", None):
+            container = response.container.id
         u, st = response.usage, response.usage.server_tool_use
         round_searches = st.web_search_requests if st else 0
         searches += round_searches
