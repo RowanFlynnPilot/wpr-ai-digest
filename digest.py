@@ -439,6 +439,11 @@ def main() -> None:
     context = (ROOT / edition["context"]).read_text(encoding="utf-8")
     seen_path = ROOT / edition["seen"]
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
+    # Local trigger + GitHub cron can both fire on one day; the seen file records
+    # real sends (dry runs never write it), so a second real run today is a no-op.
+    if not dry_run and seen and seen[-1]["date"] == today.isoformat():
+        print(f"{edition['subject']} already sent today — skipping")
+        return
 
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
     new_state, notice = None, ""

@@ -46,5 +46,5 @@ jobs:
           git pull --ff-only
           python hub.py
           git add seen.json docs
-          git commit -m "digest: $(date -u +%Y-%m-%d)"
+          git commit -m "digest: $(date -u +%Y-%m-%d)" || echo "nothing to record"
           git push
