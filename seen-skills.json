@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "name": "Scrapling Claude Code skill (Cedriccmh/claude-code-skill-scrapling)",
+    "url": "https://github.com/Cedriccmh/claude-code-skill-scrapling",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "claude plugin eval (Claude Code 2.1.269)",
+    "url": "https://code.claude.com/docs/en/plugin-evals",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "claude-skills-journalism (Amditis)",
+    "url": "https://github.com/jamditis/claude-skills-journalism",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Supabase Plugin for AI Coding Agents",
+    "url": "https://supabase.com/docs/guides/ai-tools/plugins",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "pdf-playground plugin",
+    "url": "https://skills.amditis.tech",
+    "date": "2026-09-11"
+  },
+  {
+    "name": "Claude Code plugin CLI JSON output (2.1.268)",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-09-11"
+  }
+]
