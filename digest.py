@@ -29,13 +29,13 @@ def local_today() -> date:
 
 EDITIONS = {
     "wpr": {"context": "context.md", "seen": "seen.json",
-            "title": "WPR AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00,
+            "title": "WPR AI Digest", "subject": "WPR AI Digest", "max_cost": 6.00,
             "accent": "#2E6B63", "weeks": "even"},
     "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
-                 "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00,
+                 "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 6.00,
                  "accent": "#8C4425", "weeks": "even"},
     "tools": {"context": "context-tools.md", "seen": "seen-tools.json",
-              "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00,
+              "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 6.00,
               "accent": "#44477F", "weeks": "odd"},
     "ledgers": {"context": "context-ledgers.md", "seen": "seen-ledgers.json",
                 "title": "The Ledger Brief", "subject": "The Ledger Brief", "max_cost": 1.00,
@@ -45,7 +45,7 @@ EDITIONS = {
                "title": "Grants & Deadlines", "subject": "Grants & Deadlines", "max_cost": 3.00,
                "accent": "#556B2F", "min_items": 1},
     "skills": {"context": "context-skills.md", "seen": "seen-skills.json",
-               "title": "Claude Skills Radar", "subject": "Skills Radar", "max_cost": 3.00,
+               "title": "Claude Skills Radar", "subject": "Skills Radar", "max_cost": 6.00,
                "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json", "weeks": "odd"},
 }
 
