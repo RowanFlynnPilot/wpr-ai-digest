@@ -108,5 +108,30 @@
     "name": "GPT-6 Astra",
     "url": "https://openai.com/index/gpt-6-astra/",
     "date": "2026-09-04"
+  },
+  {
+    "name": "Arbiter (SimPPL)",
+    "url": "https://www.niemanlab.org/2026/09/two-years-ago-meta-killed-crowdtangle-can-a-new-ai-tool-fill-the-void/",
+    "date": "2026-09-12"
+  },
+  {
+    "name": "OpenAI Agents API (public beta)",
+    "url": "https://openai.com/index/introducing-the-agents-api",
+    "date": "2026-09-12"
+  },
+  {
+    "name": "Sakana Fugu Max and Fugu Ultra v2",
+    "url": "https://sakana.ai/fugu-max-release/",
+    "date": "2026-09-12"
+  },
+  {
+    "name": "Claude Code 2.1.261\u20132.1.269 (plugin eval, output caps, effort caps)",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-09-12"
+  },
+  {
+    "name": "GPT-Live-1 in the API",
+    "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api/",
+    "date": "2026-09-12"
   }
 ]
