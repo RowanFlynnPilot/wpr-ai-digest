@@ -23,13 +23,13 @@ ROOT = Path(__file__).parent
 EDITIONS = {
     "wpr": {"context": "context.md", "seen": "seen.json",
             "title": "AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00,
-            "accent": "#2E6B63"},
+            "accent": "#2E6B63", "weeks": "even"},
     "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
                  "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00,
-                 "accent": "#8C4425"},
+                 "accent": "#8C4425", "weeks": "even"},
     "tools": {"context": "context-tools.md", "seen": "seen-tools.json",
               "title": "AI Tools Radar", "subject": "AI Tools Radar", "max_cost": 4.00,
-              "accent": "#44477F"},
+              "accent": "#44477F", "weeks": "odd"},
     "ledgers": {"context": "context-ledgers.md", "seen": "seen-ledgers.json",
                 "title": "The Ledger Brief", "subject": "The Ledger Brief", "max_cost": 1.00,
                 "accent": "#8A6D1D", "min_items": 1, "sources": True,
@@ -39,7 +39,7 @@ EDITIONS = {
                "accent": "#556B2F", "min_items": 1},
     "skills": {"context": "context-skills.md", "seen": "seen-skills.json",
                "title": "Claude Skills Radar", "subject": "Skills Radar", "max_cost": 3.00,
-               "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json"},
+               "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json", "weeks": "odd"},
 }
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
@@ -124,7 +124,8 @@ def drop_installed(items: list[dict], installed: list[dict]) -> list[dict]:
 
 
 
-def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None) -> str:
+def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None,
+                 window_days: int = 10) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
     library = ""
     if installed is not None:
@@ -139,7 +140,7 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
 # Task
 
 Today is {date.today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
-announced or materially updated in the last 10 days. Use several distinct searches across the categories
+announced or materially updated in the last {window_days} days. Use several distinct searches across the categories
 under "Worth surfacing" — do not stop after one or two queries. Prefer primary sources (vendor blogs,
 GitHub releases, docs, changelogs) and journalism-sector outlets over aggregators. Before writing a
 pitch, fetch the primary source page for each item you select to confirm the announcement date, the
@@ -172,7 +173,8 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     installed = None
     if edition.get("installed"):
         installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
-    messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed)}]
+    window_days = 14 if edition.get("weeks") else 10
+    messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days)}]
     # max_uses is per request, not per run: on a pause_turn continuation each round
     # would get a fresh budget, so the limits are recomputed from what remains.
     def tools_for(searches_used: int, fetches_used: int) -> list[dict]:
@@ -439,6 +441,12 @@ def main() -> None:
     context = (ROOT / edition["context"]).read_text(encoding="utf-8")
     seen_path = ROOT / edition["seen"]
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
+    # Alternating-week editions run only on their ISO-week parity; both triggers
+    # dispatch every week and the off-week exits here for free.
+    parity = "even" if today.isocalendar()[1] % 2 == 0 else "odd"
+    if not dry_run and edition.get("weeks") and edition["weeks"] != parity:
+        print(f"{edition['subject']} runs on {edition['weeks']} ISO weeks; this is an {parity} week — skipping")
+        return
     # Local trigger + GitHub cron can both fire on one day; the seen file records
     # real sends (dry runs never write it), so a second real run today is a no-op.
     if not dry_run and seen and seen[-1]["date"] == today.isoformat():

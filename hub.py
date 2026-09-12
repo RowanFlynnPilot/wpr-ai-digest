@@ -9,7 +9,7 @@ follow the digest-{key}.yml convention appear automatically.
 import html
 import json
 import re
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from digest import EDITIONS, LOGO_URL, MODEL
@@ -54,6 +54,21 @@ def build() -> str:
             day = f"{dom}{suffix} of each month"
         else:
             day = "Daily"
+        weeks = ed.get("weeks")
+        if weeks:
+            day = f"Alternate {day}"
+        # next send: first upcoming date matching the cron day and (if biweekly) the ISO-week parity
+        nxt = None
+        for k in range(1, 40):
+            d = date.today() + timedelta(days=k)
+            if dow in DAYS and d.isoweekday() % 7 != int(dow) % 7:
+                continue
+            if dow not in DAYS and dom != "*" and d.day != int(dom):
+                continue
+            if weeks and ("even" if d.isocalendar()[1] % 2 == 0 else "odd") != weeks:
+                continue
+            nxt = d
+            break
         h = (int(hour) - 5) % 24  # UTC -> Central Daylight; an hour earlier in winter
         when = f"{h % 12 or 12}:{int(minute):02d} {'a.m.' if h < 12 else 'p.m.'} Central"
         seen = json.loads((ROOT / ed["seen"]).read_text(encoding="utf-8"))
@@ -67,7 +82,7 @@ def build() -> str:
         ) or "<li class='d'>nothing sent yet</li>"
         cards.append(f"""
     <section class="card" style="border-top-color:{ed['accent']}">
-      <div class="kicker" style="color:{ed['accent']}">{e(day)} · {e(when)} · ${ed['max_cost']:.0f} cost cap</div>
+      <div class="kicker" style="color:{ed['accent']}">{e(day)} · {e(when)} · ${ed['max_cost']:.0f} cost cap{f' · next {nxt:%b %d}' if nxt else ''}</div>
       <h2>{e(ed['title'])}</h2>
       <div class="meta">
         <div><span class="label">To</span> {e(who)}</div>

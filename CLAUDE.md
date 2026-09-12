@@ -1,6 +1,6 @@
 # wpr-ai-digest
 
-Weekly and monthly digest emails from one pipeline, selected by `python digest.py [edition]`:
+Digest emails from one pipeline, selected by `python digest.py [edition]`. Cadence: the four research editions alternate by ISO-week parity (`weeks` in `EDITIONS`) — **even weeks:** industry (Mon) + project digest (Fri); **odd weeks:** tools (Wed) + skills (Thu) — with a 14-day search window; the Ledger Brief is weekly, grants monthly. Both triggers dispatch every week; `main()` exits free on an off-week.
 - `wpr` (default) — Fridays, to Rowan: new AI tools/features from the past ~10 days with applications tied to specific WPR builds. `context.md`, `seen.json`, `.github/workflows/digest.yml`.
 - `industry` — Mondays, to Rowan + editor: AI in local journalism generally (newsroom tools, case studies, grants, platform shifts, ethics), written for an editorial reader. `context-industry.md`, `seen-industry.json`, `.github/workflows/digest-industry.yml`.
 - `tools` — Wednesdays, to Rowan + editor: new and trending AI tools and plug-ins anyone can use same-day (apps, WordPress plugins, extensions, no-code automation), general reader. $4 cost cap (others $3). `context-tools.md`, `seen-tools.json`, `.github/workflows/digest-tools.yml`.
