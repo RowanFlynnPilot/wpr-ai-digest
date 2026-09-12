@@ -12,7 +12,7 @@ import re
 from datetime import date, timedelta
 from pathlib import Path
 
-from digest import EDITIONS, LOGO_URL, MODEL
+from digest import EDITIONS, LOGO_URL, MODEL, local_today
 
 ROOT = Path(__file__).parent
 
@@ -60,7 +60,7 @@ def build() -> str:
         # next send: first upcoming date matching the cron day and (if biweekly) the ISO-week parity
         nxt = None
         for k in range(1, 40):
-            d = date.today() + timedelta(days=k)
+            d = local_today() + timedelta(days=k)
             if dow in DAYS and d.isoweekday() % 7 != int(dow) % 7:
                 continue
             if dow not in DAYS and dom != "*" and d.day != int(dom):
@@ -129,7 +129,7 @@ def build() -> str:
   </header>
   {"".join(cards)}
   <footer>
-    Regenerated after every send · {date.today():%B %d, %Y} ·
+    Regenerated after every send · {local_today():%B %d, %Y} ·
     <a href="https://github.com/RowanFlynnPilot/wpr-ai-digest" style="color:#8A8A8A">wpr-ai-digest</a>
   </footer>
 </div>

@@ -11,7 +11,8 @@ import hashlib
 import smtplib
 import sys
 import urllib.request
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from email.mime.text import MIMEText
 from pathlib import Path
 from urllib.parse import urlparse
@@ -19,10 +20,16 @@ from urllib.parse import urlparse
 import anthropic
 
 ROOT = Path(__file__).parent
+TZ = ZoneInfo("America/Chicago")
+
+
+def local_today() -> date:
+    """Runner clocks are UTC; every date in the digest is Central."""
+    return datetime.now(TZ).date()
 
 EDITIONS = {
     "wpr": {"context": "context.md", "seen": "seen.json",
-            "title": "AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00,
+            "title": "WPR AI Digest", "subject": "WPR AI Digest", "max_cost": 3.00,
             "accent": "#2E6B63", "weeks": "even"},
     "industry": {"context": "context-industry.md", "seen": "seen-industry.json",
                  "title": "AI in Local News", "subject": "AI in Local News", "max_cost": 3.00,
@@ -77,7 +84,8 @@ MAX_ROUNDS = 10
 
 SMTP_HOST, SMTP_PORT = "smtp.gmail.com", 587
 
-LOGO_URL = "https://wausaupilotandreview.com/wp-content/uploads/2024/04/cropped-Wausau-Pilot-Transparent-192x192.png"
+# Hosted on this repo's GitHub Pages: the WordPress thumbnail URL 404ed after a regeneration.
+LOGO_URL = "https://rowanflynnpilot.github.io/wpr-ai-digest/logo.png"
 
 
 def env(name: str) -> str:
@@ -139,7 +147,7 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
 
 # Task
 
-Today is {date.today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
+Today is {local_today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
 announced or materially updated in the last {window_days} days. Use several distinct searches across the categories
 under "Worth surfacing" — do not stop after one or two queries. Prefer primary sources (vendor blogs,
 GitHub releases, docs, changelogs) and journalism-sector outlets over aggregators. Before writing a
@@ -308,7 +316,7 @@ def research_sources(client: anthropic.Anthropic, context: str, edition: dict) -
 
     prompt = f"""{context}
 
-# This week's data ({date.today():%A, %B %d, %Y}{"; FIRST RUN — treat current totals as the baseline and write an overview issue" if first_run else ""})
+# This week's data ({local_today():%A, %B %d, %Y}{"; FIRST RUN — treat current totals as the baseline and write an overview issue" if first_run else ""})
 
 {chr(10).join(sections)}
 
@@ -437,7 +445,7 @@ def main() -> None:
     dry_run = "--dry-run" in sys.argv
     positional = [a for a in sys.argv[1:] if not a.startswith("-")]
     edition = EDITIONS[positional[0] if positional else "wpr"]
-    today = date.today()
+    today = local_today()
     context = (ROOT / edition["context"]).read_text(encoding="utf-8")
     seen_path = ROOT / edition["seen"]
     seen = json.loads(seen_path.read_text(encoding="utf-8"))
