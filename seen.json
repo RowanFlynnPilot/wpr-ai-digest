@@ -133,5 +133,35 @@
     "name": "GPT-Live-1 in the API",
     "url": "https://openai.com/index/introducing-gpt-live-1-in-the-api/",
     "date": "2026-09-12"
+  },
+  {
+    "name": "DeepSeek-V4.1-Flash",
+    "url": "https://api-docs.deepseek.com/news/news260910",
+    "date": "2026-09-18"
+  },
+  {
+    "name": "Claude Messages API on-demand compaction (beta)",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "date": "2026-09-18"
+  },
+  {
+    "name": "Claude Managed Agents 'auto' permissions + ant beta:sessions connect",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "date": "2026-09-18"
+  },
+  {
+    "name": "Gemini Antigravity Agent 09-2026",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog",
+    "date": "2026-09-18"
+  },
+  {
+    "name": "Gemini 3.8 Live and 3.8 Live Extended Thinking (GA)",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog",
+    "date": "2026-09-18"
+  },
+  {
+    "name": "OpenAI journalism ecosystem expansion",
+    "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms/",
+    "date": "2026-09-18"
   }
 ]
