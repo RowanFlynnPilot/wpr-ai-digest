@@ -82,9 +82,10 @@ IDEA_SUBREDDITS = ["ClaudeAI", "ClaudeCode", "PromptEngineering", "ChatGPTPro", 
                    "ChatGPTCoding", "AI_Agents", "n8n", "SideProject", "microsaas",
                    "webscraping", "datajournalism"]
 REDDIT_PER_SUB, REDDIT_SPACING = 10, 12
+# Custom-domain Substacks only: *.substack.com addresses refuse GitHub's datacenter IPs
+# (API and RSS both 403 from Actions), so they can never be reached from the workflow.
 IDEA_SUBSTACKS = {
     "One Useful Thing": "www.oneusefulthing.org",
-    "Nate's Newsletter": "natesnewsletter.substack.com",
     "Creator Economy": "creatoreconomy.so",
     "Lenny's Newsletter": "www.lennysnewsletter.com",
     "Latent Space": "www.latent.space",
@@ -94,9 +95,7 @@ IDEA_SUBSTACKS = {
     "Exponential View": "www.exponentialview.co",
     "Ahead of AI": "magazine.sebastianraschka.com",
     "Interconnects": "www.interconnects.ai",
-    "Import AI": "importai.substack.com",
     "AI as Normal Technology": "aisnakeoil.com",
-    "Don't Worry About the Vase": "thezvi.substack.com",
     "The Present Age": "www.readtpa.com",
 }
 FEED_UA = "wpr-ai-digest/1.0 (weekly research digest; contact rowan.flynn@wausaupilotandreview.com)"
