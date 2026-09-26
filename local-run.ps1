@@ -24,7 +24,7 @@ if (git status --porcelain skills-installed.json) {
     Log "inventory unchanged"
 }
 
-$byDay = @{ Monday = "digest-industry.yml"; Tuesday = "digest-ledgers.yml"; Wednesday = "digest-tools.yml";
+$byDay = @{ Monday = @("digest-industry.yml", "digest-leads.yml"); Tuesday = "digest-ledgers.yml"; Wednesday = "digest-tools.yml";
             Thursday = "digest-skills.yml"; Friday = "digest.yml"; Saturday = "digest-ideas.yml" }
 $today = (Get-Date).DayOfWeek.ToString()
 $runs = @()

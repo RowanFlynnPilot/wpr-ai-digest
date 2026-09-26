@@ -15,7 +15,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -54,6 +54,9 @@ EDITIONS = {
     "ideas": {"context": "context-ideas.md", "seen": "seen-ideas.json",
               "title": "AI Field Notes", "subject": "AI Field Notes", "max_cost": 4.00,
               "accent": "#2B5C8A", "feeds": True, "searches": 6, "fetches": 10, "fetch_tokens": 6000},
+    "leads": {"context": "context-leads.md", "seen": "seen-leads.json",
+              "title": "Sponsor Leads", "subject": "Sponsor Leads", "max_cost": 1.00,
+              "accent": "#9A3B3B", "min_items": 1, "leads": True, "state": "leads-state.json", "images": False},
 }
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
@@ -98,6 +101,12 @@ IDEA_SUBSTACKS = {
     "AI as Normal Technology": "aisnakeoil.com",
     "The Present Age": "www.readtpa.com",
 }
+# Leads edition: prospects from the Coming Soon tracker (permits, alcohol licenses,
+# commercial sales). Tiers are computed here so the model ranks from evidence, not vibes.
+LEADS_SOURCE = "https://raw.githubusercontent.com/RowanFlynnPilot/wpr-coming-soon/main/public/queue.json"
+LEADS_PAGE = "https://rowanflynnpilot.github.io/wpr-coming-soon/"
+IMMINENT = {"sign_permit", "alcohol_license_application", "new_commercial_construction"}
+
 FEED_UA = "wpr-ai-digest/1.0 (weekly research digest; contact rowan.flynn@wausaupilotandreview.com)"
 ATOM = {"a": "http://www.w3.org/2005/Atom"}
 
@@ -488,6 +497,88 @@ Respond with ONLY a raw JSON object, no prose or code fences:
     return items, new_state, unavailable
 
 
+def lead_tier(signals: list[dict]) -> str:
+    kinds = {s["kind"] for s in signals}
+    # Corroboration means a second *kind* of signal: repeated license extensions point
+    # to a stalled opening, not an imminent one.
+    if kinds & IMMINENT and len(kinds) >= 2:
+        return "HOT"
+    if kinds - {"commercial_sale"}:
+        return "WARM"
+    return "WATCH"
+
+
+def lead_block(locations: list[dict], seen_ids: set[str] | None) -> tuple[str, int]:
+    """Locations with signals not seen before (first run: the last 30 days), with
+    every signal at the address for context and the new ones marked."""
+    cutoff = (local_today() - timedelta(days=30)).isoformat()
+    out = []
+    for loc in sorted(locations, key=lambda l: l.get("last_arrival") or "", reverse=True):
+        sigs = sorted(loc["signals"], key=lambda s: s["observed"], reverse=True)
+        new = {s["id"] for s in sigs if (s["observed"] >= cutoff if seen_ids is None else s["id"] not in seen_ids)}
+        if not new:
+            continue
+        out.append(f"- [{lead_tier(sigs)} · {len(sigs)} signals, {len(new)} new] {loc['address']}, "
+                   f"{loc['municipality']} (first seen {loc.get('first_seen')})")
+        for sg in sigs:
+            receipt = json.dumps({k: v for k, v in (sg.get("receipt") or {}).items() if v}, ensure_ascii=False)
+            out.append(f"    {'NEW ' if sg['id'] in new else '    '}{sg['observed']} {sg['kind']}: {sg['summary']}"
+                       f" | record: {receipt} | source: {sg.get('url') or 'none'}")
+    return "\n".join(out), sum(1 for line in out if line.startswith("- ["))
+
+
+def research_leads(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], list[str], list[str]]:
+    """Leads mode: diff the Coming Soon tracker by signal id, ask Claude only to write
+    the leads up. Returns (items, new_state, unavailable); items is [] when nothing is new."""
+    state_path = ROOT / edition["state"]
+    seen_ids = set(json.loads(state_path.read_text(encoding="utf-8"))) if state_path.exists() else None
+    locations = json.loads(_fetch(LEADS_SOURCE))["locations"]
+    new_state = sorted(s["id"] for loc in locations for s in loc["signals"])
+    block, count = lead_block(locations, seen_ids)
+    if not count:
+        return [], new_state, []
+
+    first = "; FIRST RUN — covering the last 30 days" if seen_ids is None else ""
+    prompt = f"""{context}
+
+# New signals since the last brief ({local_today():%A, %B %d, %Y}{first})
+
+{block}
+
+# Task
+
+Turn these into sponsor leads: one item per location worth pursuing, hottest first, 1–{MAX_ITEMS} items.
+Tiers were computed from the signals (HOT = an imminent-opening signal plus a second kind of signal; WARM = a
+buildout or opening signal; WATCH = a sale only). Skip WATCH locations unless the record makes the coming
+business evident. Use only what the records say — never invent business names, dates, or contacts. For
+url, use the most informative source url among the location's signals, or {LEADS_PAGE} if none has one.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"items": [{{"name": "Trade name (or 'Unnamed business') — address, municipality",
+"url": "https://...",
+"what": "What's happening and the likely timing, from the records (max 25 words)",
+"pitch": "Why now, and which WPR offering fits this business (max 40 words)",
+"applications": ["Next step: concrete outreach step (max 25 words)", "Fits: the specific WPR product and angle (max 25 words)"],
+"access": "tier · signal count · timing if known (e.g. HOT · 2 signals · opening within weeks)"}}]}}"""
+
+    response = client.messages.create(model=MODEL, max_tokens=8000,
+                                      messages=[{"role": "user", "content": prompt}])
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    if cost > edition["max_cost"]:
+        raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${edition['max_cost']:.2f} cap")
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    try:
+        items = json.loads(answer)["items"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    items = validate_items(items, edition.get("min_items", MIN_ITEMS))
+    print(f"model={MODEL} leads_locations={count} items={len(items)} cost=${cost:.2f}")
+    return items, new_state, []
+
+
 def fetch_og_image(url: str) -> str | None:
     """Best-effort og:image lookup. Decorative only — never fails the run."""
     try:
@@ -600,8 +691,9 @@ def main() -> None:
 
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
     new_state, notice = None, ""
-    if edition.get("sources"):
-        items, new_state, unavailable = research_sources(client, context, edition)
+    if edition.get("sources") or edition.get("leads"):
+        diff_fn = research_leads if edition.get("leads") else research_sources
+        items, new_state, unavailable = diff_fn(client, context, edition)
         if not items:
             print("no tracker changes since last brief — skipping send")
             return
@@ -615,7 +707,7 @@ def main() -> None:
     else:
         items = research(client, context, seen, edition)
     for item in items:
-        item["image"] = fetch_og_image(item["url"])
+        item["image"] = fetch_og_image(item["url"]) if edition.get("images", True) else None
     body = render(items, today, edition, notice)
 
     if dry_run:
