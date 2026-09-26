@@ -7,6 +7,7 @@ import html
 import json
 import os
 import re
+import email.utils
 import hashlib
 import smtplib
 import sys
@@ -186,6 +187,18 @@ def _plain(fragment: str, limit: int) -> str:
     return text[:limit] + ("…" if len(text) > limit else "")
 
 
+def _substack_rss(domain: str) -> list[dict]:
+    """RSS fallback shaped like the posts API (no like/comment counts)."""
+    posts = []
+    for item in ET.fromstring(_fetch(f"https://{domain}/feed")).iter("item"):
+        when = email.utils.parsedate_to_datetime(item.findtext("pubDate"))
+        posts.append({"title": item.findtext("title", ""), "subtitle": "",
+                      "truncated_body_text": item.findtext("description", ""),
+                      "canonical_url": item.findtext("link", ""),
+                      "post_date": when.isoformat(), "reaction_count": "?", "comment_count": "?"})
+    return posts
+
+
 def gather_feeds() -> tuple[str, list[str]]:
     """Ideas mode: this week's top Reddit threads and recent Substack posts, gathered
     for free so the model spends its budget reading, not searching. Returns the
@@ -203,7 +216,7 @@ def gather_feeds() -> tuple[str, list[str]]:
             continue
         for rank, e in enumerate(entries, 1):
             content = e.findtext("a:content", "", ATOM)
-            body = _plain(content.split("submitted by")[0], 400)
+            body = _plain(content.split("submitted by")[0], 1200 if rank <= 3 else 300)
             ext = re.search(r'<a href="([^"]+)">\[link\]</a>', content)
             ext = ext.group(1) if ext and "reddit.com" not in ext.group(1) and "redd.it" not in ext.group(1) else ""
             thread = e.find("a:link", ATOM).get("href")
@@ -216,9 +229,13 @@ def gather_feeds() -> tuple[str, list[str]]:
         try:
             posts = json.loads(_fetch(f"https://{domain}/api/v1/posts?limit=6"))
         except Exception as err:
-            print(f"source unavailable: {name} ({err})")
-            unavailable.append(name)
-            continue
+            try:
+                posts = _substack_rss(domain)
+                print(f"{name}: API refused ({err}); used RSS")
+            except Exception as err2:
+                print(f"source unavailable: {name} ({err2})")
+                unavailable.append(name)
+                continue
         for post in posts:
             when = datetime.fromisoformat(post["post_date"].replace("Z", "+00:00"))
             if when.timestamp() < cutoff:
@@ -244,10 +261,11 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
     if candidates:
         intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
 top Reddit threads (in rank order) and recent Substack posts (with like and comment counts). Work from
-them: shortlist the most promising, then fetch the thread or post to read it in full before selecting —
-the url field must be the thread or post itself. If a fetch fails, the text included above is what you
-have; don't guess beyond it. Use web_search (limited to Reddit and Substack) only to follow something a
-candidate points at or to fill an obvious gap — not to start over."""
+them. Reddit threads cannot be fetched (Reddit blocks the fetcher): the text above is the thread — the
+top three per subreddit carry most of the post — so judge them on it and don't guess beyond it. Spend
+fetches on Substack posts and on the pages Reddit threads link to (GitHub repos, blogs, docs) before
+selecting. The url field must be the thread or post itself. Use web_search (limited to Substack) only to
+follow something a candidate points at or to fill an obvious gap — not to start over."""
         source_block = f"\n# This week's candidate posts\n{candidates}\n"
     else:
         intro = f"""Today is {local_today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
@@ -299,7 +317,8 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days, candidates)}]
     max_searches = edition.get("searches", MAX_SEARCHES)
     max_fetches = edition.get("fetches", MAX_FETCHES)
-    search_domains = ["reddit.com", "substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds") else None
+    # reddit.com is excluded: Reddit blocks Anthropic's crawler, and listing it makes the API 400.
+    search_domains = ["substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds") else None
     # max_uses is per request, not per run: on a pause_turn continuation each round
     # would get a fresh budget, so the limits are recomputed from what remains.
     def tools_for(searches_used: int, fetches_used: int) -> list[dict]:
