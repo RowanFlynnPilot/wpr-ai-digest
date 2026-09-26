@@ -10,7 +10,10 @@ import re
 import hashlib
 import smtplib
 import sys
+import time
+import urllib.error
 import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import date, datetime
 from zoneinfo import ZoneInfo
 from email.mime.text import MIMEText
@@ -47,6 +50,9 @@ EDITIONS = {
     "skills": {"context": "context-skills.md", "seen": "seen-skills.json",
                "title": "Claude Skills Radar", "subject": "Skills Radar", "max_cost": 6.00,
                "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json", "weeks": "odd"},
+    "ideas": {"context": "context-ideas.md", "seen": "seen-ideas.json",
+              "title": "AI Field Notes", "subject": "AI Field Notes", "max_cost": 4.00,
+              "accent": "#2B5C8A", "feeds": True, "searches": 6, "fetches": 10, "fetch_tokens": 6000},
 }
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
@@ -66,6 +72,34 @@ LEDGER_SOURCES = [
     {"name": "Gavel (meetings)", "repo": "marathon-meetings", "path": "src/data/upcoming.json",
      "about": "upcoming Marathon County civic meetings"},
 ]
+
+# Sources for the ideas edition. Reddit's unauthenticated JSON is closed (403) and its
+# RSS allows ~10 requests a minute, so subreddits are fetched one at a time, spaced
+# out. Combined feeds (r/a+b/top) were tried and rejected: they rank by raw upvotes,
+# so big subs took every slot and small ones like r/PromptEngineering got none.
+IDEA_SUBREDDITS = ["ClaudeAI", "ClaudeCode", "PromptEngineering", "ChatGPTPro", "LocalLLaMA",
+                   "ChatGPTCoding", "AI_Agents", "n8n", "SideProject", "microsaas",
+                   "webscraping", "datajournalism"]
+REDDIT_PER_SUB, REDDIT_SPACING = 10, 12
+IDEA_SUBSTACKS = {
+    "One Useful Thing": "www.oneusefulthing.org",
+    "Nate's Newsletter": "natesnewsletter.substack.com",
+    "Creator Economy": "creatoreconomy.so",
+    "Lenny's Newsletter": "www.lennysnewsletter.com",
+    "Latent Space": "www.latent.space",
+    "The Pragmatic Engineer": "newsletter.pragmaticengineer.com",
+    "Ben's Bites": "bensbites.com",
+    "Understanding AI": "www.understandingai.org",
+    "Exponential View": "www.exponentialview.co",
+    "Ahead of AI": "magazine.sebastianraschka.com",
+    "Interconnects": "www.interconnects.ai",
+    "Import AI": "importai.substack.com",
+    "AI as Normal Technology": "aisnakeoil.com",
+    "Don't Worry About the Vase": "thezvi.substack.com",
+    "The Present Age": "www.readtpa.com",
+}
+FEED_UA = "wpr-ai-digest/1.0 (weekly research digest; contact rowan.flynn@wausaupilotandreview.com)"
+ATOM = {"a": "http://www.w3.org/2005/Atom"}
 
 VOLATILE_KEYS = {"last_seen", "updated_at", "generated_at", "generatedAt",
                  "last_checked", "fetched_at", "scraped_at", "detected_at"}
@@ -132,28 +166,107 @@ def drop_installed(items: list[dict], installed: list[dict]) -> list[dict]:
 
 
 
+def _fetch(url: str) -> bytes:
+    """GET with Reddit-style 429 backoff; raises on anything else."""
+    for attempt in range(3):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": FEED_UA})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.read()
+        except urllib.error.HTTPError as err:
+            if err.code != 429 or attempt == 2:
+                raise
+            wait = int(err.headers.get("Retry-After") or 60)
+            print(f"429 from {url.split('?')[0]} — waiting {wait}s")
+            time.sleep(wait)
+
+
+def _plain(fragment: str, limit: int) -> str:
+    text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(fragment or ""))).strip()
+    return text[:limit] + ("…" if len(text) > limit else "")
+
+
+def gather_feeds() -> tuple[str, list[str]]:
+    """Ideas mode: this week's top Reddit threads and recent Substack posts, gathered
+    for free so the model spends its budget reading, not searching. Returns the
+    candidate block for the prompt and the sources that could not be reached."""
+    lines, unavailable = ["## Reddit — top of the week (rank order within each subreddit)"], []
+    for i, sub in enumerate(IDEA_SUBREDDITS):
+        if i:
+            time.sleep(REDDIT_SPACING)
+        try:
+            feed = _fetch(f"https://www.reddit.com/r/{sub}/top/.rss?t=week&limit={REDDIT_PER_SUB}")
+            entries = ET.fromstring(feed).findall("a:entry", ATOM)
+        except Exception as err:
+            print(f"source unavailable: r/{sub} ({err})")
+            unavailable.append(f"r/{sub}")
+            continue
+        for rank, e in enumerate(entries, 1):
+            content = e.findtext("a:content", "", ATOM)
+            body = _plain(content.split("submitted by")[0], 400)
+            ext = re.search(r'<a href="([^"]+)">\[link\]</a>', content)
+            ext = ext.group(1) if ext and "reddit.com" not in ext.group(1) and "redd.it" not in ext.group(1) else ""
+            thread = e.find("a:link", ATOM).get("href")
+            lines.append(f"- [r/{sub} #{rank}] {e.findtext('a:title', '', ATOM)} — {body}"
+                         f" (thread: {thread}{'; links to: ' + ext if ext else ''})")
+
+    lines.append("\n## Substack — posts from the last 8 days (likes · comments)")
+    cutoff = datetime.now(TZ).timestamp() - 8 * 86400
+    for name, domain in IDEA_SUBSTACKS.items():
+        try:
+            posts = json.loads(_fetch(f"https://{domain}/api/v1/posts?limit=6"))
+        except Exception as err:
+            print(f"source unavailable: {name} ({err})")
+            unavailable.append(name)
+            continue
+        for post in posts:
+            when = datetime.fromisoformat(post["post_date"].replace("Z", "+00:00"))
+            if when.timestamp() < cutoff:
+                continue
+            paid = " · paid" if post.get("audience") == "only_paid" else ""
+            lines.append(f"- [{name} · {post.get('reaction_count', 0)} likes · {post.get('comment_count', 0)} comments{paid}]"
+                         f" {post.get('title', '')} — {post.get('subtitle') or ''} — "
+                         f"{_plain(post.get('truncated_body_text', ''), 300)} ({post.get('canonical_url')})")
+
+    if len(unavailable) == len(IDEA_SUBREDDITS) + len(IDEA_SUBSTACKS):
+        raise RuntimeError("Every Reddit and Substack source was unreachable — aborting")
+    print(f"feeds: {sum(1 for l in lines if l.startswith('- ['))} candidates, {len(unavailable)} sources unavailable")
+    return "\n".join(lines), unavailable
+
+
 def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None,
-                 window_days: int = 10) -> str:
+                 window_days: int = 10, candidates: str | None = None) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
     library = ""
     if installed is not None:
         lines = "\n".join(f"- {s['name']}: {s['description']}" for s in installed) or "- (none)"
         library = f"\n# Already installed in our library (never surface these or close variants)\n{lines}\n"
-    return f"""{context}
-
-# Already covered in previous digests (do not repeat)
-{already}
-{library}
-
-# Task
-
-Today is {local_today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
+    if candidates:
+        intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
+top Reddit threads (in rank order) and recent Substack posts (with like and comment counts). Work from
+them: shortlist the most promising, then fetch the thread or post to read it in full before selecting —
+the url field must be the thread or post itself. If a fetch fails, the text included above is what you
+have; don't guess beyond it. Use web_search (limited to Reddit and Substack) only to follow something a
+candidate points at or to fill an obvious gap — not to start over."""
+        source_block = f"\n# This week's candidate posts\n{candidates}\n"
+    else:
+        intro = f"""Today is {local_today():%A, %B %d, %Y}. Search the web for AI tools, models, APIs, and product features
 announced or materially updated in the last {window_days} days. Use several distinct searches across the categories
 under "Worth surfacing" — do not stop after one or two queries. Prefer primary sources (vendor blogs,
 GitHub releases, docs, changelogs) and journalism-sector outlets over aggregators. Before writing a
 pitch, fetch the primary source page for each item you select to confirm the announcement date, the
 actual capabilities, and pricing — the url field must be the primary source you fetched, never an
-aggregator or search snippet.
+aggregator or search snippet."""
+        source_block = ""
+    return f"""{context}
+
+# Already covered in previous digests (do not repeat)
+{already}
+{library}{source_block}
+
+# Task
+
+{intro}
 
 Aim for 5–{MAX_ITEMS} finds when the week genuinely supports it — never pad with weak items to hit a
 count, and never return fewer than {min_items}. Rank the items and write the pitch and applications
@@ -176,22 +289,27 @@ and no <cite> tags or any citation markup inside the values — plain text only:
 }}"""
 
 
-def research(client: anthropic.Anthropic, context: str, seen: list[dict], edition: dict) -> list[dict]:
+def research(client: anthropic.Anthropic, context: str, seen: list[dict], edition: dict,
+             candidates: str | None = None) -> list[dict]:
     max_cost, min_items = edition["max_cost"], edition.get("min_items", MIN_ITEMS)
     installed = None
     if edition.get("installed"):
         installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
     window_days = 14 if edition.get("weeks") else 10
-    messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days)}]
+    messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days, candidates)}]
+    max_searches = edition.get("searches", MAX_SEARCHES)
+    max_fetches = edition.get("fetches", MAX_FETCHES)
+    search_domains = ["reddit.com", "substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds") else None
     # max_uses is per request, not per run: on a pause_turn continuation each round
     # would get a fresh budget, so the limits are recomputed from what remains.
     def tools_for(searches_used: int, fetches_used: int) -> list[dict]:
-        return [
-            {"type": "web_search_20260209", "name": "web_search",
-             "max_uses": max(1, MAX_SEARCHES - searches_used)},
-            {"type": "web_fetch_20260209", "name": "web_fetch",
-             "max_uses": max(1, MAX_FETCHES - fetches_used), "max_content_tokens": FETCH_CONTENT_TOKENS},
-        ]
+        search = {"type": "web_search_20260209", "name": "web_search",
+                  "max_uses": max(1, max_searches - searches_used)}
+        if search_domains:
+            search["allowed_domains"] = search_domains
+        return [search,
+                {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": max(1, max_fetches - fetches_used),
+                 "max_content_tokens": edition.get("fetch_tokens", FETCH_CONTENT_TOKENS)}]
 
     # pause_turn continuations resend the whole growing conversation; cache_control
     # makes each round re-read the prior prefix at 10% of input price instead of full.
@@ -471,6 +589,11 @@ def main() -> None:
             return
         if unavailable:
             notice = "Not checked this week (source unavailable): " + ", ".join(unavailable)
+    elif edition.get("feeds"):
+        candidates, unavailable = gather_feeds()
+        if unavailable:
+            notice = "Not reached this week: " + "; ".join(unavailable)
+        items = research(client, context, seen, edition, candidates)
     else:
         items = research(client, context, seen, edition)
     for item in items:

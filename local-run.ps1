@@ -25,7 +25,7 @@ if (git status --porcelain skills-installed.json) {
 }
 
 $byDay = @{ Monday = "digest-industry.yml"; Tuesday = "digest-ledgers.yml"; Wednesday = "digest-tools.yml";
-            Thursday = "digest-skills.yml"; Friday = "digest.yml" }
+            Thursday = "digest-skills.yml"; Friday = "digest.yml"; Saturday = "digest-ideas.yml" }
 $today = (Get-Date).DayOfWeek.ToString()
 $runs = @()
 if ($byDay.ContainsKey($today)) { $runs += $byDay[$today] }
