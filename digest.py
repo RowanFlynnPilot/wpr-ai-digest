@@ -53,7 +53,8 @@ EDITIONS = {
                "accent": "#6B2D5C", "min_items": 1, "installed": "skills-installed.json", "weeks": "odd"},
     "ideas": {"context": "context-ideas.md", "seen": "seen-ideas.json",
               "title": "AI Field Notes", "subject": "AI Field Notes", "max_cost": 4.00,
-              "accent": "#2B5C8A", "feeds": True, "searches": 6, "fetches": 10, "fetch_tokens": 6000},
+              "accent": "#2B5C8A", "feeds": True, "searches": 6, "fetches": 10, "fetch_tokens": 6000,
+              "rounds": 20},
     "leads": {"context": "context-leads.md", "seen": "seen-leads.json",
               "title": "Sponsor Leads", "subject": "Sponsor Leads", "max_cost": 1.00,
               "accent": "#9A3B3B", "min_items": 1, "leads": True, "state": "leads-state.json", "images": False},
@@ -106,6 +107,21 @@ IDEA_SUBSTACKS = {
 LEADS_SOURCE = "https://raw.githubusercontent.com/RowanFlynnPilot/wpr-coming-soon/main/public/queue.json"
 LEADS_PAGE = "https://rowanflynnpilot.github.io/wpr-coming-soon/"
 IMMINENT = {"sign_permit", "alcohol_license_application", "new_commercial_construction"}
+
+# Claude can't read Reddit (it blocks Anthropic's crawler), so the ideas edition gives it a
+# client-side tool: it asks for a candidate thread's comments and this script fetches them.
+# Comments are where the pushback and the working fixes live.
+REDDIT_COMMENT_CALLS = 8
+REDDIT_COMMENTS_TOOL = {
+    "name": "reddit_comments",
+    "description": ("Fetch the top comments of a Reddit thread from this week's candidate list — Reddit can't be "
+                    "read with web_fetch. Use it on threads you are seriously considering: comments often hold the "
+                    "pushback, the working fix, or a better technique than the post. Returns up to 8 top-level "
+                    f"comments. Limited to {REDDIT_COMMENT_CALLS} calls per run, so spend them on real contenders."),
+    "input_schema": {"type": "object", "additionalProperties": False, "required": ["thread_url"],
+                     "properties": {"thread_url": {"type": "string",
+                                                   "description": "The thread URL exactly as listed in the candidates"}}},
+}
 
 # Hacker News via the Algolia API (free, no auth, no meaningful rate limit). The week's top
 # AI stories are mostly launch news, so builders' Show HN posts and practitioners' Ask/Tell HN
@@ -221,6 +237,18 @@ def _substack_rss(domain: str) -> list[dict]:
     return posts
 
 
+def reddit_comments(thread_url: str, allowed: set[str]) -> str:
+    """Top-level top comments for a candidate thread. Only URLs from the candidate list are
+    fetched, so the tool can't be pointed anywhere else."""
+    if thread_url not in allowed:
+        return "Error: not a thread from this week's candidate list — use the URL exactly as listed."
+    entries = ET.fromstring(_fetch(thread_url.rstrip("/") + "/.rss?sort=top&limit=8&depth=1")).findall("a:entry", ATOM)
+    comments = [e for e in entries if (e.findtext("a:id", "", ATOM) or "").startswith("t1_")]
+    if not comments:
+        return "No comments on this thread yet."
+    return "\n".join(f"- {_plain(e.findtext('a:content', '', ATOM).split('submitted by')[0], 500)}" for e in comments)
+
+
 def hn_candidates() -> list[str]:
     """This week's AI-related Show HN, Ask/Tell HN, and high-scoring stories, by points."""
     since = int(datetime.now(TZ).timestamp()) - 7 * 86400
@@ -311,7 +339,9 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
         intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
 top Reddit threads (in rank order), recent Substack posts (with like and comment counts), and Hacker
 News posts (points and comments; Show HN authors describe their own builds, and the discussion pages
-often carry the real technique or the pushback). Work from them. Reddit threads cannot be fetched (Reddit blocks the fetcher): the text above is the thread — the
+often carry the real technique or the pushback). Work from them. Reddit threads cannot be fetched
+(Reddit blocks the fetcher), but the reddit_comments tool returns a thread's top comments — use it on
+the Reddit threads you are seriously considering before selecting them. The text above is the post — the
 top three per subreddit carry most of the post — so judge them on it and don't guess beyond it. Spend
 fetches on Substack posts, Hacker News discussions, and the pages posts link to (GitHub repos, blogs,
 docs) before selecting. The url field must be the thread or post itself. Use web_search (limited to Substack) only to
@@ -369,6 +399,9 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     max_fetches = edition.get("fetches", MAX_FETCHES)
     # reddit.com is excluded: Reddit blocks Anthropic's crawler, and listing it makes the API 400.
     search_domains = ["substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds") else None
+    threads = set(re.findall(r"\(thread: (https://www\.reddit\.com/[^;)\s]+)", candidates or ""))
+    comment_calls = 0
+    max_rounds = edition.get("rounds", MAX_ROUNDS)
     # max_uses is per request, not per run: on a pause_turn continuation each round
     # would get a fresh budget, so the limits are recomputed from what remains.
     def tools_for(searches_used: int, fetches_used: int) -> list[dict]:
@@ -376,9 +409,10 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
                   "max_uses": max(1, max_searches - searches_used)}
         if search_domains:
             search["allowed_domains"] = search_domains
-        return [search,
-                {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": max(1, max_fetches - fetches_used),
-                 "max_content_tokens": edition.get("fetch_tokens", FETCH_CONTENT_TOKENS)}]
+        tools = [search,
+                 {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": max(1, max_fetches - fetches_used),
+                  "max_content_tokens": edition.get("fetch_tokens", FETCH_CONTENT_TOKENS)}]
+        return tools + [REDDIT_COMMENTS_TOOL] if threads else tools
 
     # pause_turn continuations resend the whole growing conversation; cache_control
     # makes each round re-read the prior prefix at 10% of input price instead of full.
@@ -387,8 +421,8 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
     container = None  # server-side code-exec container behind web search/fetch; must be resumed on pause_turn
     while True:
         rounds += 1
-        if rounds > MAX_ROUNDS:
-            raise RuntimeError(f"Exceeded {MAX_ROUNDS} continuation rounds — aborting")
+        if rounds > max_rounds:
+            raise RuntimeError(f"Exceeded {max_rounds} continuation rounds — aborting")
         # Streaming keeps the connection alive however long the turn takes;
         # a non-streaming request hits the SDK's 10-minute timeout on long Opus turns.
         with client.messages.stream(
@@ -414,11 +448,31 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         if response.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": response.content})
             continue
+        if response.stop_reason == "tool_use":
+            messages.append({"role": "assistant", "content": response.content})
+            results = []
+            for block in response.content:
+                if block.type != "tool_use":
+                    continue
+                if block.name != "reddit_comments":
+                    out, is_error = f"Unknown tool {block.name}", True
+                elif comment_calls >= REDDIT_COMMENT_CALLS:
+                    out, is_error = "Comment budget used up for this run — decide with what you have.", True
+                else:
+                    comment_calls += 1
+                    try:
+                        out, is_error = reddit_comments(block.input.get("thread_url", ""), threads), False
+                    except Exception as err:
+                        out, is_error = f"Could not fetch comments ({err}); judge the thread on its text.", True
+                results.append({"type": "tool_result", "tool_use_id": block.id, "content": out, "is_error": is_error})
+            messages.append({"role": "user", "content": results})
+            continue
         if response.stop_reason != "end_turn":
             raise RuntimeError(f"Unexpected stop_reason: {response.stop_reason}")
         break
 
-    print(f"model={MODEL} searches={searches} fetches={fetches} cost=${cost:.2f}")
+    comments_note = f" reddit_comments={comment_calls}" if threads else ""
+    print(f"model={MODEL} searches={searches} fetches={fetches}{comments_note} cost=${cost:.2f}")
 
     # Citations from web search split the final answer across many text blocks;
     # the answer is everything after the last tool block, joined back together.
