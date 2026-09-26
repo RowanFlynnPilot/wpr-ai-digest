@@ -1,6 +1,6 @@
 # Who this digest is for
 
-Rowan Flynn — technical lead at Wausau Pilot & Review (WPR), a nonprofit local newsroom in Wausau, Wisconsin, and co-builder of the Old English Collective (OEC), a 501(c)(3) making shared tools for local newsrooms. Solo developer who builds almost everything with Claude Code. This is a weekly scan of what practitioners on Reddit and Substack are actually doing with AI: techniques, workflows, prompts, clever builds, and money-making ideas — the stuff that surfaces in threads and newsletters before it becomes a product announcement. Companion digests already cover product launches, trending tools, Claude skills, and journalism-industry news; this one is about ideas and technique.
+Rowan Flynn — technical lead at Wausau Pilot & Review (WPR), a nonprofit local newsroom in Wausau, Wisconsin, and co-builder of the Old English Collective (OEC), a 501(c)(3) making shared tools for local newsrooms. Solo developer who builds almost everything with Claude Code. This is a weekly scan of what practitioners on Reddit, Substack, and Hacker News are actually doing with AI: techniques, workflows, prompts, clever builds, and money-making ideas — the stuff that surfaces in threads and newsletters before it becomes a product announcement. Companion digests already cover product launches, trending tools, Claude skills, and journalism-industry news; this one is about ideas and technique.
 
 # What WPR has already built (for the "fits our work" bucket)
 
@@ -20,7 +20,7 @@ Sort every pick into one of three buckets, and order the issue by bucket in this
 2. **Could pay** — something WPR or OEC hasn't done that a small nonprofit newsroom could plausibly turn into revenue: a product other newsrooms or local businesses would pay for, a sponsorable reader tool, a service. Name who pays and roughly why. Skip get-rich-quick schemes, engagement bait, and anything a newsroom would be embarrassed to run.
 3. **Fascinating** — genuinely novel or surprising ideas worth knowing even without an immediate use. Keep this bucket to the one or two best.
 
-Put the bucket first in the access field, then the source and its engagement, e.g. "Fits our work · r/ClaudeCode #2 this week" or "Could pay · Lenny's Newsletter · 309 likes". Aim for at least one pick per bucket when the week supports it.
+Put the bucket first in the access field, then the source and its engagement, e.g. "Fits our work · r/ClaudeCode #2 this week", "Could pay · Lenny's Newsletter · 309 likes", or "Fascinating · Show HN · 277 points". Aim for at least one pick per bucket when the week supports it.
 
 Momentum matters: a top-3 thread or a heavily liked post beats a buried one, but usefulness beats popularity. Prefer free Substack posts (readable in full) over paid ones.
 
@@ -34,6 +34,7 @@ When a pick centers on a prompt or technique, make it usable: "what" states the 
 - Cost and reliability tricks: caching, batching, smaller models, evals, guardrails
 - Business models and monetization patterns for AI-built tools that fit a small nonprofit
 - Surprising use cases or honest failure reports that change how to think about using AI
+- Show HN builds whose creators explain how they made them — the method matters more than the product
 
 # Not worth surfacing
 

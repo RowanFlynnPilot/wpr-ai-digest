@@ -107,6 +107,20 @@ LEADS_SOURCE = "https://raw.githubusercontent.com/RowanFlynnPilot/wpr-coming-soo
 LEADS_PAGE = "https://rowanflynnpilot.github.io/wpr-coming-soon/"
 IMMINENT = {"sign_permit", "alcohol_license_application", "new_commercial_construction"}
 
+# Hacker News via the Algolia API (free, no auth, no meaningful rate limit). The week's top
+# AI stories are mostly launch news, so builders' Show HN posts and practitioners' Ask/Tell HN
+# threads get their own lower points bars; ordinary stories need a high bar to qualify.
+HN_API = "https://hn.algolia.com/api/v1/search"
+HN_QUERIES = [  # (label, algolia tags, min points, keep, text chars)
+    ("Show HN", "show_hn", 10, 15, 600),
+    ("Ask/Tell HN", "ask_hn", 10, 8, 400),
+    ("HN story", "story,-show_hn,-ask_hn", 100, 12, 0),
+]
+AI_TERMS = re.compile(
+    r"\b(ai|a\.i\.|llms?|gpts?|claude|anthropic|openai|gemini|mistral|llama|qwen|deepseek|agents?|agentic|"
+    r"prompts?|prompting|rag|mcp|embeddings?|fine-?tun\w*|inference|transformers?|diffusion|copilot|cursor|"
+    r"codex|chatbots?|neural|machine learning|deep learning|language models?|vibe[- ]cod\w*)\b", re.I)
+
 FEED_UA = "wpr-ai-digest/1.0 (weekly research digest; contact rowan.flynn@wausaupilotandreview.com)"
 ATOM = {"a": "http://www.w3.org/2005/Atom"}
 
@@ -207,8 +221,28 @@ def _substack_rss(domain: str) -> list[dict]:
     return posts
 
 
+def hn_candidates() -> list[str]:
+    """This week's AI-related Show HN, Ask/Tell HN, and high-scoring stories, by points."""
+    since = int(datetime.now(TZ).timestamp()) - 7 * 86400
+    lines, seen_ids = [], set()
+    for label, tags, floor, keep, chars in HN_QUERIES:
+        tag_filter = ",".join(t for t in tags.split(",") if not t.startswith("-"))
+        url = f"{HN_API}?tags={tag_filter}&numericFilters=created_at_i>{since},points>{floor}&hitsPerPage=300"
+        hits = json.loads(_fetch(url))["hits"]
+        excluded = {t[1:] for t in tags.split(",") if t.startswith("-")}
+        picked = [h for h in hits if not excluded & set(h["_tags"]) and h["objectID"] not in seen_ids
+                  and (AI_TERMS.search(h.get("title") or "") or AI_TERMS.search(h.get("story_text") or ""))]
+        for h in sorted(picked, key=lambda h: -h["points"])[:keep]:
+            seen_ids.add(h["objectID"])
+            text = f" — {_plain(h.get('story_text') or '', chars)}" if chars and h.get("story_text") else ""
+            link = f"; links to: {h['url']}" if h.get("url") else ""
+            lines.append(f"- [{label} · {h['points']} points · {h['num_comments']} comments] {h['title']}{text}"
+                         f" (discussion: https://news.ycombinator.com/item?id={h['objectID']}{link})")
+    return lines
+
+
 def gather_feeds() -> tuple[str, list[str]]:
-    """Ideas mode: this week's top Reddit threads and recent Substack posts, gathered
+    """Ideas mode: this week's top Reddit threads, recent Substack posts, and Hacker News, gathered
     for free so the model spends its budget reading, not searching. Returns the
     candidate block for the prompt and the sources that could not be reached."""
     lines, unavailable = ["## Reddit — top of the week (rank order within each subreddit)"], []
@@ -253,7 +287,14 @@ def gather_feeds() -> tuple[str, list[str]]:
                          f" {post.get('title', '')} — {post.get('subtitle') or ''} — "
                          f"{_plain(post.get('truncated_body_text', ''), 300)} ({post.get('canonical_url')})")
 
-    if len(unavailable) == len(IDEA_SUBREDDITS) + len(IDEA_SUBSTACKS):
+    lines.append("\n## Hacker News — this week (points · comments)")
+    try:
+        lines.extend(hn_candidates())
+    except Exception as err:
+        print(f"source unavailable: Hacker News ({err})")
+        unavailable.append("Hacker News")
+
+    if len(unavailable) == len(IDEA_SUBREDDITS) + len(IDEA_SUBSTACKS) + 1:
         raise RuntimeError("Every Reddit and Substack source was unreachable — aborting")
     print(f"feeds: {sum(1 for l in lines if l.startswith('- ['))} candidates, {len(unavailable)} sources unavailable")
     return "\n".join(lines), unavailable
@@ -268,11 +309,12 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
         library = f"\n# Already installed in our library (never surface these or close variants)\n{lines}\n"
     if candidates:
         intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
-top Reddit threads (in rank order) and recent Substack posts (with like and comment counts). Work from
-them. Reddit threads cannot be fetched (Reddit blocks the fetcher): the text above is the thread — the
+top Reddit threads (in rank order), recent Substack posts (with like and comment counts), and Hacker
+News posts (points and comments; Show HN authors describe their own builds, and the discussion pages
+often carry the real technique or the pushback). Work from them. Reddit threads cannot be fetched (Reddit blocks the fetcher): the text above is the thread — the
 top three per subreddit carry most of the post — so judge them on it and don't guess beyond it. Spend
-fetches on Substack posts and on the pages Reddit threads link to (GitHub repos, blogs, docs) before
-selecting. The url field must be the thread or post itself. Use web_search (limited to Substack) only to
+fetches on Substack posts, Hacker News discussions, and the pages posts link to (GitHub repos, blogs,
+docs) before selecting. The url field must be the thread or post itself. Use web_search (limited to Substack) only to
 follow something a candidate points at or to fill an obvious gap — not to start over."""
         source_block = f"\n# This week's candidate posts\n{candidates}\n"
     else:
