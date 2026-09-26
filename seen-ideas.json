@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "name": "Error discovery before metrics (evals-skills plugin)",
+    "url": "https://www.lennysnewsletter.com/p/advanced-evals-how-to-find-and-fix",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Decision models: stop paying chat prices for if/else",
+    "url": "https://www.bensbites.com/p/what-can-you-build-with-jev",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Make the model choose, not write",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1wm8yha/i_stopped_asking_ai_to_write_things_i_make_it/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Self-learning harness instead of a junk-drawer CLAUDE.md",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1wo18s1/we_tested_giving_claude_code_a_450line_static/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Agents fix the failing test, not the bug",
+    "url": "https://www.reddit.com/r/ChatGPTCoding/comments/1wldasi/when_a_test_fails_coding_agents_fix_the_test_the/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Scraping without paying for a whole browser",
+    "url": "https://www.reddit.com/r/webscraping/comments/1wowgnq/were_doing_web_scraping_wrong/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "The agent that 'ran flawlessly' while its builder patched it weekly",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wm8vkp/my_agent_works_four_months_straight_the_truth_is/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Specialist skill packs as a distributable library",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1wm458f/opensource_ai_legal_team_with_9_specialist/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "A hundred agents given a channel reinvented bureaucracy",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wqij2i/my_friend_gave_claude_code_and_codex_agents_a_way/",
+    "date": "2026-09-26"
+  },
+  {
+    "name": "Fugleramme, the listening picture frame",
+    "url": "https://www.reddit.com/r/SideProject/comments/1wozqy6/my_birdrelated_hobby_project_became_the_1_hacker/",
+    "date": "2026-09-26"
+  }
+]
