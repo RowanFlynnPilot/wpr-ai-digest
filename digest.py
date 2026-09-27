@@ -599,6 +599,8 @@ Respond with ONLY a raw JSON object, no prose or code fences:
 
     response = client.messages.create(model=MODEL, max_tokens=8000,
                                       messages=[{"role": "user", "content": prompt}])
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Model stopped with {response.stop_reason!r} (max_tokens means the answer was cut off)")
     u = response.usage
     cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
     if cost > edition["max_cost"]:
@@ -682,6 +684,8 @@ Respond with ONLY a raw JSON object, no prose or code fences:
 
     response = client.messages.create(model=MODEL, max_tokens=8000,
                                       messages=[{"role": "user", "content": prompt}])
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Model stopped with {response.stop_reason!r} (max_tokens means the answer was cut off)")
     u = response.usage
     cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
     if cost > edition["max_cost"]:
@@ -819,8 +823,13 @@ Respond with ONLY a raw JSON object, no prose or code fences:
 "applications": ["Concrete move for next quarter (max 30 words)", "optional second move"],
 "access": "kind · evidence (e.g. Pattern · 9 picks across 4 editions)"}}]}}"""
 
-    response = client.messages.create(model=MODEL, max_tokens=12000,
-                                      messages=[{"role": "user", "content": prompt}])
+    # Opus thinks before writing and thinking counts against max_tokens; a synthesis over a
+    # whole quarter needs room, and streaming keeps a long turn from hitting the HTTP timeout.
+    with client.messages.stream(model=MODEL, max_tokens=32000,
+                                messages=[{"role": "user", "content": prompt}]) as stream:
+        response = stream.get_final_message()
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Model stopped with {response.stop_reason!r} (max_tokens means the answer was cut off)")
     u = response.usage
     cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
     if cost > edition["max_cost"]:
