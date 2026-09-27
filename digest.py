@@ -71,7 +71,7 @@ EDITIONS = {
              "fetch_tokens": 6000, "rounds": 12},
     "fleet": {"context": "context-fleet.md", "seen": "seen-fleet.json",
               "title": "Fleet Health", "subject": "Fleet Health", "max_cost": 1.00,
-              "accent": "#455A64", "min_items": 1, "fleet": True, "images": False},
+              "accent": "#455A64", "min_items": 1, "fleet": True, "images": False, "min_gap_days": 6},
     "statehouse": {"context": "context-statehouse.md", "seen": "seen-statehouse.json",
                    "title": "Statehouse Watch", "subject": "Statehouse Watch", "max_cost": 1.00,
                    "accent": "#283593", "min_items": 0, "statehouse": True, "state": "statehouse-state.json",
@@ -1419,6 +1419,16 @@ def main() -> None:
     if not dry_run and not force and seen and seen[-1]["date"] == today.isoformat():
         print(f"{edition['subject']} already sent today — skipping")
         return
+
+    # Editions whose issues don't dedupe item by item (Fleet Health reports the same open
+    # problems until they're fixed) send at most once per min_gap_days, so a manual test
+    # doesn't mean a near-identical email from the next scheduled run.
+    gap = edition.get("min_gap_days")
+    if gap and not dry_run and not force and seen:
+        since = (today - date.fromisoformat(seen[-1]["date"])).days
+        if since < gap:
+            print(f"{edition['subject']} last sent {since} day(s) ago (minimum gap {gap}) — skipping")
+            return
 
     # One synthesis per quarter: each send records its quarter, so a scheduled run for a
     # quarter already covered (e.g. by an early manual send) is a free no-op.
