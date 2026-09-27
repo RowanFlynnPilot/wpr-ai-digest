@@ -46,12 +46,14 @@ def build() -> str:
     cards, total_items = [], 0
     for key, ed in EDITIONS.items():
         cron, recipients = parse_workflow(workflow_path(key))
-        minute, hour, dom, _, dow = cron.split()
+        minute, hour, dom, months, dow = cron.split()
+        month_set = {int(m) for m in months.split(",")} if months != "*" else None
         if dow in DAYS:
             day = DAYS[dow]
         elif dom != "*":
             suffix = {"1": "st", "2": "nd", "3": "rd"}.get(dom, "th")
-            day = f"{dom}{suffix} of each month"
+            day = (f"{dom}{suffix} of " + ", ".join(date(2000, m, 1).strftime("%b") for m in sorted(month_set))
+                   if month_set else f"{dom}{suffix} of each month")
         else:
             day = "Daily"
         weeks = ed.get("weeks")
@@ -59,11 +61,13 @@ def build() -> str:
             day = f"Alternate {day}"
         # next send: first upcoming date matching the cron day and (if biweekly) the ISO-week parity
         nxt = None
-        for k in range(1, 40):
+        for k in range(1, 400):
             d = local_today() + timedelta(days=k)
             if dow in DAYS and d.isoweekday() % 7 != int(dow) % 7:
                 continue
             if dow not in DAYS and dom != "*" and d.day != int(dom):
+                continue
+            if month_set and d.month not in month_set:
                 continue
             if weeks and ("even" if d.isocalendar()[1] % 2 == 0 else "odd") != weeks:
                 continue

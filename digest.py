@@ -58,7 +58,14 @@ EDITIONS = {
     "leads": {"context": "context-leads.md", "seen": "seen-leads.json",
               "title": "Sponsor Leads", "subject": "Sponsor Leads", "max_cost": 1.00,
               "accent": "#9A3B3B", "min_items": 1, "leads": True, "state": "leads-state.json", "images": False},
+    "quarterly": {"context": "context-quarterly.md", "seen": "seen-quarterly.json",
+                  "title": "The Quarter in AI", "subject": "The Quarter in AI", "max_cost": 2.00,
+                  "accent": "#3B3B3B", "min_items": 1, "synthesis": True, "images": False},
 }
+
+# Editions the quarterly synthesis reads. The Ledger Brief and Sponsor Leads are weekly
+# operational tools, not the AI radar, so they stay out.
+SYNTHESIS_EDITIONS = ["wpr", "industry", "tools", "skills", "ideas", "grants"]
 
 # Trackers read by the ledgers edition — WPR's own published data, no web search.
 LEDGER_SOURCES = [
@@ -749,6 +756,87 @@ def close_feedback(numbers: list[int]) -> None:
             print(f"feedback: could not close issue #{n} ({err})")
 
 
+def quarter_bounds(label: str | None) -> tuple[str, date, date]:
+    """'2026Q3' -> ('Q3 2026', Jul 1, Sep 30). Default: the most recently completed quarter."""
+    if label:
+        year, q = int(label[:4]), int(label[-1])
+    else:
+        today = local_today()
+        q, year = (today.month - 1) // 3, today.year
+        if q == 0:
+            q, year = 4, year - 1
+    start = date(year, 3 * (q - 1) + 1, 1)
+    end = (date(year + (q == 4), (3 * q) % 12 + 1, 1)) - timedelta(days=1)
+    return f"Q{q} {year}", start, end
+
+
+def research_synthesis(client: anthropic.Anthropic, context: str, edition: dict,
+                       quarter: str | None) -> tuple[list[dict], str]:
+    """Quarterly mode: one Claude call over everything the AI editions surfaced in the
+    quarter, plus the reader's votes. No web tools. Returns (items, quarter label)."""
+    label, start, end = quarter_bounds(quarter)
+    sections, total = [], 0
+    for key in SYNTHESIS_EDITIONS:
+        ed = EDITIONS[key]
+        picks = [x for x in json.loads((ROOT / ed["seen"]).read_text(encoding="utf-8"))
+                 if start.isoformat() <= x["date"] <= end.isoformat()]
+        if not picks:
+            continue
+        total += len(picks)
+        lines = []
+        for x in picks:
+            detail = " — ".join(v for v in (x.get("what"), x.get("pitch")) if v)
+            tag = f" [{x['access']}]" if x.get("access") else ""
+            lines.append(f"- {x['date']}{tag} {x['name']}{' — ' + detail if detail else ''} ({x['url']})")
+        sections.append(f"## {ed['title']} — {len(picks)} picks\n" + "\n".join(lines))
+    if not total:
+        return [], label
+    votes = ""
+    for key in SYNTHESIS_EDITIONS:
+        if EDITIONS[key].get("feedback"):
+            votes += f"\n## Reader feedback file for {EDITIONS[key]['title']}\n" + \
+                     (ROOT / EDITIONS[key]["feedback"]).read_text(encoding="utf-8")
+
+    prompt = f"""{context}
+
+# Everything the editions surfaced in {label} ({start:%b %d} – {end:%b %d, %Y}): {total} picks
+Older picks carry only a name and link; newer ones also carry the description and pitch. Work with what's here.
+
+{chr(10).join(sections)}
+{votes}
+
+# Task
+
+Write the {label} synthesis as {3}–{MAX_ITEMS} items, following "How to rank and pitch" above. Every
+claim must trace to picks listed here — cite them by name in the text — and never invent adoption,
+numbers, or events. For url, use the link of the single most representative pick for that item.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"items": [{{"name": "Short headline for the pattern or recommendation",
+"url": "https://...",
+"what": "The pattern, in one or two plain sentences, naming the picks it rests on (max 45 words)",
+"pitch": "Why it matters for WPR next quarter (max 45 words)",
+"applications": ["Concrete move for next quarter (max 30 words)", "optional second move"],
+"access": "kind · evidence (e.g. Pattern · 9 picks across 4 editions)"}}]}}"""
+
+    response = client.messages.create(model=MODEL, max_tokens=12000,
+                                      messages=[{"role": "user", "content": prompt}])
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    if cost > edition["max_cost"]:
+        raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${edition['max_cost']:.2f} cap")
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    try:
+        items = json.loads(answer)["items"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    items = validate_items(items, edition.get("min_items", MIN_ITEMS))
+    print(f"model={MODEL} quarter={label} picks={total} items={len(items)} cost=${cost:.2f}")
+    return items, label
+
+
 def fetch_og_image(url: str) -> str | None:
     """Best-effort og:image lookup. Decorative only — never fails the run."""
     try:
@@ -849,7 +937,8 @@ def main() -> None:
     dry_run = "--dry-run" in sys.argv
     force = "--force" in sys.argv  # manual dispatch only: bypass the off-week and same-day guards
     positional = [a for a in sys.argv[1:] if not a.startswith("-")]
-    edition = EDITIONS[positional[0] if positional else "wpr"]
+    edition = dict(EDITIONS[positional[0] if positional else "wpr"])
+    quarter = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--quarter=") and a.split("=", 1)[1]), None)
     today = local_today()
     context = (ROOT / edition["context"]).read_text(encoding="utf-8")
     seen_path = ROOT / edition["seen"]
@@ -877,6 +966,12 @@ def main() -> None:
             return
         if unavailable:
             notice = "Not checked this week (source unavailable): " + ", ".join(unavailable)
+    elif edition.get("synthesis"):
+        items, label = research_synthesis(client, context, edition, quarter)
+        if not items:
+            print(f"no picks recorded in {label} — skipping send")
+            return
+        edition["title"] = edition["subject"] = f"{edition['title']}: {label}"
     elif edition.get("feeds"):
         candidates, unavailable = gather_feeds()
         if unavailable:
@@ -897,7 +992,9 @@ def main() -> None:
     more = f" + {len(items) - 1} more" if len(items) > 1 else ""
     subject = f"{edition['subject']} — {items[0]['name']}{more} ({today:%b %d})"
     send(subject, body, env("DIGEST_TO"))
-    seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat()} for it in items)
+    # what/pitch/access are kept so the quarterly synthesis has substance, not just names.
+    seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat(),
+                 "what": it["what"], "pitch": it["pitch"], "access": it["access"]} for it in items)
     seen_path.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
     if new_state is not None:
         (ROOT / edition["state"]).write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")

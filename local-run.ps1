@@ -30,6 +30,7 @@ $today = (Get-Date).DayOfWeek.ToString()
 $runs = @()
 if ($byDay.ContainsKey($today)) { $runs += $byDay[$today] }
 if ((Get-Date).Day -eq 1) { $runs += "digest-grants.yml" }
+if ((Get-Date).Day -eq 1 -and (Get-Date).Month -in 1, 4, 7, 10) { $runs += "digest-quarterly.yml" }
 foreach ($wf in $runs) {
     gh workflow run $wf --repo RowanFlynnPilot/wpr-ai-digest 2>&1 | ForEach-Object { Log $_ }
     Log "dispatched $wf"
