@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "name": "Proving you're human became the local-news product",
+    "url": "https://pressgazette.co.uk/news/press-gazette-launches-newsroom-tool-to-stop-ai-fakes-before-publication/",
+    "date": "2026-09-26",
+    "what": "Ten picks across five AI in Local News editions were about verifying humans and images: Backstory, Originator Profile, Made by Humans, Apple Reference Image, the Press Gazette unverifiable-writers investigation, and the collapse of 200+ AI 'local news' sites.",
+    "pitch": "WPR's advantage over synthetic competitors is being checkably human. Prism's fake-local network collapsed on its own; what remains contestable is whether readers can verify a byline, a photo, or a submitted tip.",
+    "access": "Pattern \u00b7 10 picks across 5 AI in Local News editions (08-23 to 09-14)"
+  },
+  {
+    "name": "Agents look reliable because someone patches them weekly",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wm8vkp/my_agent_works_four_months_straight_the_truth_is/",
+    "date": "2026-09-26",
+    "what": "Five AI Field Notes picks (09-26) plus claude plugin eval (09-11) and plugin validate (09-24) converge: the agent that 'ran flawlessly' was patched weekly, coding agents fix the failing test rather than the bug, and static CLAUDE.md files rot.",
+    "pitch": "Every WPR build that runs unattended \u2014 trackers, Fire Watch, the newsletter pipeline \u2014 has this failure shape. The remedy in the picks is a harness with eval cases and validation, not longer instructions.",
+    "access": "Pattern \u00b7 7 picks across 3 editions (5 concentrated in Field Notes 09-26)"
+  },
+  {
+    "name": "The vendors finally shipped the guardrail layer",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-09-26",
+    "what": "Claude Code added --restricted mode and /claude-api cost-optimize (08-28) then output and effort caps (2.1.261\u2013269); Managed Agents added domain-restricted web tools, sandbox memory and 'auto' permissions; Messages API added on-demand compaction (09-18).",
+    "pitch": "These are exactly the controls a solo operator running unattended jobs needs: bounded spend, bounded blast radius. Turning them on is an afternoon and removes a whole class of runaway-cost and wrong-site risk.",
+    "access": "Pattern \u00b7 7 picks across 4 WPR AI Digest editions (08-23, 08-28, 09-12, 09-18)"
+  },
+  {
+    "name": "Speech and live audio moved into the base API tier",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog",
+    "date": "2026-09-26",
+    "what": "Gemini 3.5 Transcribe and Transcribe Live went GA (08-28), followed by Gemini 3.8 Live and Live Extended Thinking (09-18), GPT-Live-1 in the API (09-12), agentic video understanding (09-04) and OpenAI Ultrafast mode (08-23).",
+    "pitch": "Fire Watch and Gavel are audio products. Transcription stopped being a separate vendor line item and became a cheap, streaming API tier \u2014 which changes both cost per hour and what 'same day' can mean.",
+    "access": "Pattern \u00b7 6 picks across 5 WPR AI Digest editions (08-23 to 09-18)"
+  },
+  {
+    "name": "Attribution and payment rails are being built around publishers",
+    "url": "https://digiday.com/media/google-rolls-out-pay-value-ai-licensing-program-to-publishers/",
+    "date": "2026-09-26",
+    "what": "Apple reportedly paying publishers for news in Siri answers (08-23), Google's Preferred Sources button (08-24) and 'AI contribution' pilot in Search Console (09-14), the Press Gazette deals-and-lawsuits tracker (08-31), and OpenAI's journalism ecosystem expansion (09-18).",
+    "pitch": "Most of this is aimed at large publishers, but Preferred Sources and the Search Console pilot are self-serve and free to check. Missing them costs nothing visible, which is why they get missed.",
+    "access": "Pattern \u00b7 5 picks across 4 AI in Local News editions (08-23 to 09-18)"
+  },
+  {
+    "name": "Bake off Gemini 3.5 Transcribe against the Fire Watch pipeline",
+    "url": "https://ai.google.dev/gemini-api/docs/transcribe",
+    "date": "2026-09-26",
+    "what": "Gemini 3.5 Transcribe (GA) and Transcribe Live, plus GPT-Live-1, make a purpose-built speech endpoint cheap enough to test against Fire Watch's dispatch audio and Gavel's meeting recordings.",
+    "pitch": "Dispatch audio is short, noisy and dense with street and agency names \u2014 the case where a dedicated transcription model either clearly wins or clearly doesn't. One week settles it with real numbers.",
+    "access": "Try next quarter \u00b7 Fire Watch and Gavel; from 4 speech picks (08-28, 09-12, 09-18)"
+  },
+  {
+    "name": "Build a 30-case failure set for Ledgers and the court tracker",
+    "url": "https://www.lennysnewsletter.com/p/advanced-evals-how-to-find-and-fix",
+    "date": "2026-09-26",
+    "what": "'Error discovery before metrics' (Field Notes 09-26) argues you collect real failures before scoring anything; claude plugin eval (2.1.269) and plugin validate (2.1.281) supply the runner and the MCP checks.",
+    "pitch": "Ledgers and the court, permit and property trackers extract structured facts from messy documents, and failures currently surface when a reader notices. A fixture file turns that into a pre-deploy check.",
+    "access": "Try next quarter \u00b7 Ledgers and court/permit/property trackers; from 3 picks (Field Notes 09-26, Skills Radar 09-11, 09-24)"
+  },
+  {
+    "name": "Publish WPR's AI policy and byline rules",
+    "url": "https://www.austinchronicle.com/ai-policy/",
+    "date": "2026-09-26",
+    "what": "The Austin Chronicle published a plain newsroom AI policy (09-11), SPJ proposed Code of Ethics edits for the AI age (08-23), and Made by Humans (09-14) checks copy before publication.",
+    "pitch": "WPR already uses AI across most builds without a public statement of how. A one-page policy takes a week, protects the obituary platform and Ledgers from doubt, and helps with LION groups and grant applications.",
+    "access": "Try next quarter \u00b7 obituary platform, Gavel, newsletter; from 3 picks (08-23, 09-11, 09-14)"
+  },
+  {
+    "name": "Model-name churn and office-suite AI didn't earn their space",
+    "url": "https://openai.com/index/gpt-6-astra/",
+    "date": "2026-09-26",
+    "what": "Gemini 3.5 Flash-Lite, 3.7 Flash then 3.8 Flash arrived inside five weeks, alongside GPT-6 Astra, Ultrafast GPT-5.6 Sol, Claude Fable 5.1 and Sakana Fugu Max \u2014 plus 30 Tools Radar picks like custom web fonts in Sheets charts.",
+    "pitch": "None of these changed a WPR build. The releases that mattered were narrow: Transcribe, cost-optimize, plugin eval, Scrapling. Frontier naming and Workspace feature drip can be skimmed or skipped.",
+    "access": "Fading \u00b7 ~12 model-release picks plus 30 Workspace/ChatGPT picks, none traceable to a build change"
+  }
+]
