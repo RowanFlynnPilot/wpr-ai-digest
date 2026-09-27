@@ -72,6 +72,10 @@ EDITIONS = {
     "fleet": {"context": "context-fleet.md", "seen": "seen-fleet.json",
               "title": "Fleet Health", "subject": "Fleet Health", "max_cost": 1.00,
               "accent": "#455A64", "min_items": 1, "fleet": True, "images": False},
+    "statehouse": {"context": "context-statehouse.md", "seen": "seen-statehouse.json",
+                   "title": "Statehouse Watch", "subject": "Statehouse Watch", "max_cost": 1.00,
+                   "accent": "#283593", "min_items": 0, "statehouse": True, "state": "statehouse-state.json",
+                   "images": False},
     "quarterly": {"context": "context-quarterly.md", "seen": "seen-quarterly.json",
                   "title": "The Quarter in AI", "subject": "The Quarter in AI", "max_cost": 2.00,
                   "accent": "#3B3B3B", "min_items": 1, "synthesis": True, "images": False},
@@ -127,6 +131,13 @@ release's page before selecting it, to confirm the date, what's in it, and wheth
 # read public repos; a FLEET_TOKEN secret (fine-grained PAT, read-only) adds private repos and
 # Dependabot alerts.
 FAILED = {"failure", "timed_out", "startup_failure", "action_required"}
+
+# Statehouse Watch: the Legislature's own feeds. Titles carry no subject ("2025 Assembly Bill
+# 1233", "CR 26-052 Hearing Information"), so each new item's page is fetched for its
+# "relating to" line — and, for proposed rules, the agency and the public comment deadline.
+LEGIS = "https://docs.legis.wisconsin.gov"
+STATEHOUSE_FEEDS = [("bill", "/feed/custom/introduced"), ("committee", "/feed/custom/committee"),
+                    ("floor", "/feed/custom/floor"), ("rule", "/feed/code/register")]
 
 # Editions the quarterly synthesis reads. The Ledger Brief and Sponsor Leads are weekly
 # operational tools, not the AI radar, so they stay out.
@@ -1183,6 +1194,114 @@ Respond with ONLY a raw JSON object, no prose or code fences:
     return items, None, notes
 
 
+def _legis_text(url: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html.unescape(_fetch(url).decode("utf-8", "replace"))))
+
+
+def statehouse_items(seen_ids: set[str] | None) -> tuple[list[str], list[str], list[str]]:
+    """New feed entries since the last run (first run: the last 31 days), enriched from their
+    pages. Returns (lines for the prompt, every current entry id, unavailable feeds)."""
+    cutoff = local_today() - timedelta(days=31)
+    lines, all_ids, unavailable, rules = [], [], [], {}
+    for kind, path in STATEHOUSE_FEEDS:
+        try:
+            entries = list(ET.fromstring(_fetch(LEGIS + path)).iter("item"))
+        except Exception as err:
+            print(f"source unavailable: {kind} feed ({err})")
+            unavailable.append(f"{kind} feed")
+            continue
+        for it in entries:
+            link = (it.findtext("link") or "").strip()
+            all_ids.append(link)
+            try:
+                day = email.utils.parsedate_to_datetime(it.findtext("pubDate")).date()
+            except Exception:
+                day = local_today()
+            if (day < cutoff) if seen_ids is None else (link in seen_ids):
+                continue
+            title = (it.findtext("title") or "").strip()
+            if kind == "rule":
+                m = re.search(r"CR \d\d-\d{3}", title)
+                if m:
+                    stage = re.sub(r"\s*-?\s*\d{4}-\d\d-\d\d\s*$", "", title.replace(m.group(0), "")).strip(" -,")
+                    rules.setdefault(m.group(0), []).append((stage or "filed", day))
+                continue
+            detail = ""
+            if kind == "bill":
+                try:
+                    rel = re.search(r"[Rr]elating to:?\s*(.{0,220}?)(?:\s+History|\s+Status|\.\s|$)", _legis_text(link))
+                    detail = f" — relating to: {rel.group(1)}" if rel else ""
+                except Exception:
+                    pass
+            else:
+                detail = " — " + _plain(it.findtext("description") or "", 300)
+            lines.append(f"- [{kind} · {day}] {title}{detail} ({link})")
+    for cr, stages in rules.items():
+        url = f"{LEGIS}/code/chr/all/{cr.lower().replace(' ', '_').replace('-', '_')}"
+        try:
+            page = _legis_text(url)
+            agency = re.search(r"Status: \w+ (.{3,80}?\([A-Z]{1,5}\))", page)
+            related = re.search(r"Related to: (.{3,220}?) (?:Comment|Statement of Scope|Rule Text)", page)
+            comment = re.search(r"Comment on this Clearinghouse Rule \(through ([\d/]+)\)", page)
+            label = f"{', '.join(sorted({n for n, _ in stages}))} · {max(d for _, d in stages):%b %d}"
+            lines.append(f"- [proposed rule · {label}] {cr}"
+                         f"{' · ' + agency.group(1) if agency else ''}"
+                         f"{' — related to: ' + related.group(1) if related else ''}"
+                         f"{' — public comment open through ' + comment.group(1) if comment else ''} ({url})")
+        except Exception as err:
+            lines.append(f"- [proposed rule] {cr} — page unavailable ({err}) ({url})")
+    return lines, all_ids, unavailable
+
+
+def research_statehouse(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], list[str], list[str]]:
+    """Statehouse mode: free feed diff; one cheap call only when something is new, which may
+    still return nothing relevant (then no email, but the items are marked as seen)."""
+    state_path = ROOT / edition["state"]
+    seen_ids = set(json.loads(state_path.read_text(encoding="utf-8"))) if state_path.exists() else None
+    lines, all_ids, unavailable = statehouse_items(seen_ids)
+    new_state = sorted(set(all_ids) | (seen_ids or set()))
+    print(f"statehouse: {len(lines)} new entries")
+    if not lines:
+        return [], new_state, unavailable
+    prompt = f"""{context}
+
+# New from the Wisconsin Legislature since the last check ({local_today():%A, %B %d, %Y})
+
+{chr(10).join(lines)}
+
+# Task
+
+Keep only entries that matter for WPR as "What matters" above defines; most weeks, most entries won't.
+Return an empty list if none qualify — that is a normal outcome. For each kept entry, use only what is
+listed here (don't invent bill contents, sponsors, votes, or dates) and use its listed link as url.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"items": [{{"name": "Bill/rule number: the subject in plain words",
+"url": "https://...",
+"what": "What it would do or what just happened to it (max 30 words)",
+"pitch": "Why it matters for WPR or Marathon County readers (max 40 words)",
+"applications": ["Concrete next step: story angle, who to call, or deadline to note (max 30 words)"],
+"access": "stage · deadline if any (e.g. Proposed rule · comments through Oct 23)"}}]}}"""
+    response = client.messages.create(model=MODEL, max_tokens=8000,
+                                      messages=[{"role": "user", "content": prompt}])
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Model stopped with {response.stop_reason!r} (max_tokens means the answer was cut off)")
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    if cost > edition["max_cost"]:
+        raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${edition['max_cost']:.2f} cap")
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    try:
+        items = json.loads(answer)["items"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    items = validate_items(items, edition.get("min_items", MIN_ITEMS))
+    print(f"model={MODEL} statehouse_entries={len(lines)} items={len(items)} cost=${cost:.2f}")
+    return items, new_state, unavailable
+
+
 def fetch_og_image(url: str) -> str | None:
     """Best-effort og:image lookup. Decorative only — never fails the run."""
     try:
@@ -1312,11 +1431,14 @@ def main() -> None:
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
     new_state, notice = None, ""
     feedback_issues = collect_feedback(edition) if edition.get("feedback") else []
-    if edition.get("sources") or edition.get("leads") or edition.get("fleet"):
+    if edition.get("sources") or edition.get("leads") or edition.get("fleet") or edition.get("statehouse"):
         diff_fn = (research_fleet if edition.get("fleet") else research_leads if edition.get("leads")
-                   else research_sources)
+                   else research_statehouse if edition.get("statehouse") else research_sources)
         items, new_state, unavailable = diff_fn(client, context, edition)
         if not items:
+            # Entries reviewed but found irrelevant still count as seen, or they'd be re-judged every week.
+            if new_state is not None and not dry_run:
+                (ROOT / edition["state"]).write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
             print("nothing to report — skipping send")
             return
         if unavailable:
