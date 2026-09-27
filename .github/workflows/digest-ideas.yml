@@ -20,6 +20,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   digest:
@@ -29,6 +30,7 @@ jobs:
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       DIGEST_TO: rowan.flynn@wausaupilotandreview.com
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -49,6 +51,6 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git pull --ff-only
           python hub.py
-          git add seen-ideas.json docs
+          git add seen-ideas.json feedback-ideas.md docs
           git commit -m "ideas digest: $(TZ=America/Chicago date +%Y-%m-%d)" || echo "nothing to record"
           git push
