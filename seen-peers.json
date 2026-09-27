@@ -70,5 +70,85 @@
     "what": "Bridge created a senior editor role explicitly scoped to growth and audience strategy.",
     "pitch": "A structural signal, not a routine replacement: growth lives inside the editing chain rather than in marketing. Useful precedent for how WPR scopes whoever owns the newsletter pipeline and jobs board.",
     "access": "Newsroom \u2014 Bridge Michigan \u2014 free"
+  },
+  {
+    "name": "Michigan police\u2013immigration reporting lookup",
+    "url": "https://outliermedia.org/michigan-police-immigration-migrants-border-patrol/",
+    "date": "2026-09-27",
+    "what": "Searchable tool showing whether a reader's Michigan police department reports migrants to federal immigration agents.",
+    "pitch": "This is the Ledger pattern applied to a records request: one dataset, one clear answer per town. Wisconsin agencies file comparable detainer and cooperation records, so the build transfers almost directly.",
+    "access": "Built \u2014 Outlier Media; free to read"
+  },
+  {
+    "name": "Outlier's published tracking methodology",
+    "url": "https://outliermedia.org/border-patrol-detroit-michigan-immigration-reporting/",
+    "date": "2026-09-27",
+    "what": "Post explaining how Outlier gathered, verified and caveated records on police cooperation with immigration enforcement.",
+    "pitch": "WPR's Ledgers ship without a public methodology. Outlier's shows readers where the records came from and what they don't prove \u2014 the missing piece funders and partner newsrooms ask for.",
+    "access": "Built \u2014 Outlier Media; free, methodology public"
+  },
+  {
+    "name": "ICE arrests of Asian New Yorkers tracker",
+    "url": "https://documentedny.com/2026/09/17/ice-arrests-asian-pacific-islanders/",
+    "date": "2026-09-27",
+    "what": "Tracker cutting federal immigration arrest data by ethnicity, surfacing a sharp rise among Asian New Yorkers.",
+    "pitch": "Same public arrest data other trackers use, sliced a new way \u2014 by community rather than geography. A demographic recut turns a static tracker into recurring stories and newsletter hooks.",
+    "access": "Built \u2014 Documented; free"
+  },
+  {
+    "name": "Chicago School Board 2026 voter guide",
+    "url": "https://blockclubchicago.org/2026/09/24/chicago-school-board-election-2026-voter-guide/",
+    "date": "2026-09-27",
+    "what": "Candidate-by-candidate guide covering one low-turnout school board race, organized by district.",
+    "pitch": "WPR already builds voter guides. The borrowable move is depth on a single overlooked race instead of thin coverage of the whole ballot \u2014 Wausau school board fits exactly.",
+    "access": "Built \u2014 Block Club Chicago; free"
+  },
+  {
+    "name": "Milwaukee displacement risk dashboard",
+    "url": "https://urbanmilwaukee.com/2026/09/16/new-dashboard-tracks-displacement-risk/",
+    "date": "2026-09-27",
+    "what": "Dashboard mapping which Milwaukee neighborhoods face the highest displacement risk, surfaced by Urban Milwaukee.",
+    "pitch": "Wisconsin housing data already assembled and public \u2014 the closest analog to WPR's Rent Ledger. Built outside the newsroom, so treat this as a data partner rather than a newsroom build to copy.",
+    "access": "Built \u2014 third-party dashboard; free, covered by Urban Milwaukee"
+  },
+  {
+    "name": "Cardinal News sustainability recognition",
+    "url": "https://cardinalnews.org/2026/09/11/cardinal-news-recognized-for-sustainability-by-online-local-news-publishers/",
+    "date": "2026-09-27",
+    "what": "Rural multi-county nonprofit newsroom recognized by online local publishers for business sustainability.",
+    "pitch": "Cardinal covers a rural, multi-county footprint like WPR's and is being held up as a revenue model. Their mix is the most realistic target WPR has to benchmark against.",
+    "access": "Revenue \u2014 Cardinal News; free to read, entry fees may apply"
+  },
+  {
+    "name": "'Follow the money' reader mandate",
+    "url": "https://thebeaconnews.org/stories/2026/09/09/community-voice-follow-the-money/",
+    "date": "2026-09-27",
+    "what": "The Beacon published what readers said they most want covered: public money and how it's spent.",
+    "pitch": "Converts a call-out into a published accountability mandate. WPR's Ledgers already follow money; having readers say so in their own words is the membership and grant argument WPR lacks.",
+    "access": "Audience \u2014 The Beacon; free"
+  },
+  {
+    "name": "200 readers on local elections",
+    "url": "https://cardinalnews.org/2026/09/21/what-200-readers-told-us-about-whats-most-important-in-virginia-local-elections/",
+    "date": "2026-09-27",
+    "what": "Story reporting what 200 readers said matters most to them in local elections.",
+    "pitch": "A cheap pre-election call-out that sets the coverage agenda and produces a publishable story by itself. Feeds straight into the question set for WPR's voter guide tools.",
+    "access": "Audience \u2014 Cardinal News; free"
+  },
+  {
+    "name": "Speed date a Documenter",
+    "url": "https://outliermedia.org/detroit-documenters-networking-event-jobs-opportunities/",
+    "date": "2026-09-27",
+    "what": "Fast-rotation networking event pairing residents with civic meeting documenters to recruit and retain them.",
+    "pitch": "Gavel summarizes meetings automatically but recruits nobody. This is a low-cost, repeatable format for finding residents willing to sit in the meetings Gavel flags as important.",
+    "access": "Audience \u2014 Outlier Media; free event"
+  },
+  {
+    "name": "Legal action as routine newsroom practice",
+    "url": "https://blockclubchicago.org/2026/08/27/block-club-wins-national-first-amendment-award-for-midway-blitz-coverage-lawsuits/",
+    "date": "2026-09-27",
+    "what": "Small newsroom recognized for immigration enforcement coverage and for suing over press access.",
+    "pitch": "A newsroom WPR's size treating litigation as standard practice, not last resort. WPR's court, permit and Fire Watch pipelines all depend on access that can be cut off without warning.",
+    "access": "Newsroom \u2014 Block Club Chicago; free"
   }
 ]
