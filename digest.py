@@ -15,6 +15,7 @@ import time
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 from email.mime.text import MIMEText
@@ -58,10 +59,36 @@ EDITIONS = {
     "leads": {"context": "context-leads.md", "seen": "seen-leads.json",
               "title": "Sponsor Leads", "subject": "Sponsor Leads", "max_cost": 1.00,
               "accent": "#9A3B3B", "min_items": 1, "leads": True, "state": "leads-state.json", "images": False},
+    "peers": {"context": "context-peers.md", "seen": "seen-peers.json",
+              "title": "Peer Newsroom Watch", "subject": "Peer Newsroom Watch", "max_cost": 3.00,
+              "accent": "#2E7D32", "min_items": 1, "peers": True, "searches": 3, "fetches": 8,
+              "fetch_tokens": 5000, "rounds": 12},
     "quarterly": {"context": "context-quarterly.md", "seen": "seen-quarterly.json",
                   "title": "The Quarter in AI", "subject": "The Quarter in AI", "max_cost": 2.00,
                   "accent": "#3B3B3B", "min_items": 1, "synthesis": True, "images": False},
 }
+
+# Peer newsrooms for the peers edition. Most run WordPress, whose REST API returns a whole
+# month of posts in a few requests; their RSS feeds only reach back 2-4 days. Wisconsin
+# Examiner and Mississippi Today refuse the API (403), so they fall back to RSS.
+PEER_SITES = {
+    "Wisconsin Watch": "wisconsinwatch.org", "Milwaukee NNS": "milwaukeenns.org",
+    "Madison365": "madison365.com", "Wisconsin Examiner": "wisconsinexaminer.com",
+    "Urban Milwaukee": "urbanmilwaukee.com", "CU-CitizenAccess": "cu-citizenaccess.org",
+    "Block Club Chicago": "blockclubchicago.org", "Sahan Journal": "sahanjournal.com",
+    "MinnPost": "www.minnpost.com", "Signal Akron": "signalakron.org", "Signal Cleveland": "signalcleveland.org",
+    "The Beacon": "thebeaconnews.org", "Outlier Media": "outliermedia.org", "Documented": "documentedny.com",
+    "Cardinal News": "cardinalnews.org", "Mississippi Today": "mississippitoday.org", "VTDigger": "vtdigger.org",
+    "THE CITY": "www.thecity.nyc", "The Oaklandside": "oaklandside.org",
+    "Charlottesville Tomorrow": "www.cvilletomorrow.org", "Mountain State Spotlight": "mountainstatespotlight.org",
+    "Bridge Michigan": "www.bridgemi.com", "Richland Source": "www.richlandsource.com",
+}
+PEER_WINDOW_DAYS = 31
+PEERS_INTRO = f"""The candidate posts above were shortlisted from every headline these newsrooms
+published in the last {PEER_WINDOW_DAYS} days, as likely being about the newsroom itself rather than ordinary
+news. Fetch each one you might select to confirm what the newsroom actually built, launched, tried, or
+changed — drop any that turn out to be ordinary coverage. The url field must be that post. Use
+web_search (limited to these newsrooms' sites) only to follow something a post points at."""
 
 # Editions the quarterly synthesis reads. The Ledger Brief and Sponsor Leads are weekly
 # operational tools, not the AI radar, so they stay out.
@@ -344,14 +371,131 @@ def gather_feeds() -> tuple[str, list[str]]:
     return "\n".join(lines), unavailable
 
 
+def _peer_posts(name: str, domain: str, after: str) -> list[dict]:
+    """One newsroom's posts since `after`: WordPress REST API with category names, else RSS."""
+    try:
+        cats = {c["id"]: html.unescape(c["name"]) for c in json.loads(_fetch(
+            f"https://{domain}/wp-json/wp/v2/categories?per_page=100&orderby=count&order=desc&_fields=id,name"))}
+        posts, page = [], 1
+        while True:
+            batch = json.loads(_fetch(f"https://{domain}/wp-json/wp/v2/posts?after={after}&per_page=100"
+                                      f"&page={page}&_fields=date,link,title,categories"))
+            posts += batch
+            if len(batch) < 100 or page >= 6:
+                break
+            page += 1
+        return [{"title": html.unescape(x["title"]["rendered"]), "url": x["link"], "date": x["date"][:10],
+                 "cats": [cats[c] for c in x.get("categories", []) if c in cats][:2]} for x in posts]
+    except Exception as api_err:
+        cutoff = datetime.fromisoformat(after).replace(tzinfo=TZ).timestamp()
+        rows = []
+        for item in ET.fromstring(_fetch(f"https://{domain}/feed/")).iter("item"):
+            when = email.utils.parsedate_to_datetime(item.findtext("pubDate"))
+            if when.timestamp() >= cutoff:
+                rows.append({"title": html.unescape(item.findtext("title") or ""), "url": item.findtext("link"),
+                             "date": when.date().isoformat(),
+                             "cats": [c.text for c in item.findall("category") if c.text][:2]})
+        print(f"{name}: API refused ({api_err}); used RSS ({len(rows)} posts)")
+        return rows
+
+
+def gather_peers() -> tuple[dict[str, list[dict]], list[str]]:
+    """Peers mode, step 1: every post the peer newsrooms published in the window."""
+    after = (local_today() - timedelta(days=PEER_WINDOW_DAYS)).isoformat() + "T00:00:00"
+    by_newsroom, unavailable = {}, []
+
+    def one(item):
+        name, domain = item
+        try:
+            return name, _peer_posts(name, domain, after), None
+        except Exception as err:
+            return name, [], err
+
+    with ThreadPoolExecutor(6) as pool:
+        for name, rows, err in pool.map(one, PEER_SITES.items()):
+            if err is not None:
+                print(f"source unavailable: {name} ({err})")
+                unavailable.append(name)
+            elif rows:
+                by_newsroom[name] = rows
+    if len(unavailable) == len(PEER_SITES):
+        raise RuntimeError("Every peer newsroom was unreachable — aborting")
+    print(f"peers: {sum(len(r) for r in by_newsroom.values())} posts from {len(by_newsroom)} newsrooms, "
+          f"{len(unavailable)} unavailable")
+    return by_newsroom, unavailable
+
+
+def shortlist_peers(client: anthropic.Anthropic, context: str, seen: list[dict],
+                    by_newsroom: dict[str, list[dict]]) -> tuple[str, float]:
+    """Peers mode, step 2: one cheap call over every headline — without URLs, which were two
+    thirds of the tokens — picks the few posts about the newsrooms themselves. Returns the
+    shortlist (with URLs, ready for research) and what the call cost."""
+    index, sections = {}, []
+    for name, rows in by_newsroom.items():
+        lines = []
+        for row in rows:
+            pid = f"#{len(index) + 1}"
+            index[pid] = (name, row)
+            lines.append(f"- {pid} {'[' + ', '.join(row['cats']) + '] ' if row['cats'] else ''}{row['title']}")
+        sections.append(f"## {name} — {len(rows)} posts\n" + "\n".join(lines))
+    already = "\n".join(f"- {x['name']}" for x in seen) or "- (none yet)"
+    prompt = f"""{context}
+
+# Already covered in previous issues (do not shortlist)
+{already}
+
+# Every headline these newsrooms published in the last {PEER_WINDOW_DAYS} days
+Each line: an id, the post's categories in brackets when it has any, and the headline.
+
+{chr(10).join(sections)}
+
+# Task
+
+Almost all of these are ordinary news coverage. Shortlist up to 15 posts that are likely about the
+newsroom itself — something it built, launched, tried, changed, or asked readers for (see "How to rank
+and pitch" above). Categories such as announcements, members, community posts, or "from the newsroom"
+are strong hints; headlines alone often give it away. Prefer a miss over padding: if only three
+qualify, return three.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"shortlist": [{{"id": "#123", "why": "what the newsroom appears to have done, a few words"}}]}}"""
+    with client.messages.stream(model=MODEL, max_tokens=16000,
+                                messages=[{"role": "user", "content": prompt}]) as stream:
+        response = stream.get_final_message()
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Shortlist stopped with {response.stop_reason!r}")
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    try:
+        picks = json.loads(answer)["shortlist"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Shortlist was not JSON. Answer began: {answer[:300]!r}") from err
+    lines = []
+    for pick in picks:
+        if pick.get("id") not in index:
+            continue
+        name, row = index[pick["id"]]
+        lines.append(f"- [{name} · {row['date']}{' · ' + ', '.join(row['cats']) if row['cats'] else ''}] "
+                     f"{row['title']} — shortlisted because: {pick.get('why', '')} ({row['url']})")
+    print(f"peers shortlist: {len(lines)} of {len(index)} posts, ~{u.input_tokens} input tokens, cost=${cost:.2f}")
+    return "\n".join(lines), cost
+
+
 def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None,
-                 window_days: int = 10, candidates: str | None = None, feedback: str | None = None) -> str:
+                 window_days: int = 10, candidates: str | None = None, feedback: str | None = None,
+                 intro: str | None = None) -> str:
     already = "\n".join(f"- {s['name']}" for s in seen) or "- (none yet)"
     library = ""
     if installed is not None:
         lines = "\n".join(f"- {s['name']}: {s['description']}" for s in installed) or "- (none)"
         library = f"\n# Already installed in our library (never surface these or close variants)\n{lines}\n"
-    if candidates:
+    if candidates and intro:
+        intro = f"Today is {local_today():%A, %B %d, %Y}. " + intro
+        source_block = f"\n# This month's shortlisted posts\n{candidates}\n"
+    elif candidates:
         intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
 top Reddit threads (in rank order), recent Substack posts (with like and comment counts), and Hacker
 News posts (points and comments; Show HN authors describe their own builds, and the discussion pages
@@ -416,12 +560,14 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
     window_days = 14 if edition.get("weeks") else 10
     feedback = (ROOT / edition["feedback"]).read_text(encoding="utf-8") if edition.get("feedback") else None
+    intro = PEERS_INTRO if edition.get("peers") else None
     messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days,
-                                                         candidates, feedback)}]
+                                                         candidates, feedback, intro)}]
     max_searches = edition.get("searches", MAX_SEARCHES)
     max_fetches = edition.get("fetches", MAX_FETCHES)
     # reddit.com is excluded: Reddit blocks Anthropic's crawler, and listing it makes the API 400.
-    search_domains = ["substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds") else None
+    search_domains = (["substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds")
+                      else list(PEER_SITES.values()) if edition.get("peers") else None)
     threads = set(re.findall(r"\(thread: (https://www\.reddit\.com/[^;)\s]+)", candidates or ""))
     comment_calls = 0
     max_rounds = edition.get("rounds", MAX_ROUNDS)
@@ -989,6 +1135,16 @@ def main() -> None:
             print(f"no picks recorded in {label} — skipping send")
             return
         edition["title"] = edition["subject"] = f"{edition['title']}: {label}"
+    elif edition.get("peers"):
+        by_newsroom, unavailable = gather_peers()
+        if unavailable:
+            notice = "Not reached this month: " + ", ".join(unavailable)
+        candidates, spent = shortlist_peers(client, context, seen, by_newsroom)
+        if not candidates:
+            print("peers: nothing about the newsrooms themselves this month — skipping send")
+            return
+        # One cap for both passes: research gets whatever the shortlist left.
+        items = research(client, context, seen, dict(edition, max_cost=edition["max_cost"] - spent), candidates)
     elif edition.get("feeds"):
         candidates, unavailable = gather_feeds()
         if unavailable:
