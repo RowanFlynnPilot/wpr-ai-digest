@@ -28,7 +28,7 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       SMTP_USER: ${{ secrets.SMTP_USER }}
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      DIGEST_TO: rowan.flynn@wausaupilotandreview.com
+      DIGEST_TO: rowan.flynn@wausaupilotandreview.com, editor@wausaupilotandreview.com
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
