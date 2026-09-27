@@ -63,6 +63,10 @@ EDITIONS = {
               "title": "Peer Newsroom Watch", "subject": "Peer Newsroom Watch", "max_cost": 3.00,
               "accent": "#2E7D32", "min_items": 1, "peers": True, "searches": 3, "fetches": 8,
               "fetch_tokens": 5000, "rounds": 12},
+    "data": {"context": "context-data.md", "seen": "seen-data.json",
+             "title": "New Data Watch", "subject": "New Data Watch", "max_cost": 3.00,
+             "accent": "#5D4037", "min_items": 1, "catalogs": True, "searches": 12, "fetches": 10,
+             "fetch_tokens": 6000, "rounds": 12},
     "quarterly": {"context": "context-quarterly.md", "seen": "seen-quarterly.json",
                   "title": "The Quarter in AI", "subject": "The Quarter in AI", "max_cost": 2.00,
                   "accent": "#3B3B3B", "min_items": 1, "synthesis": True, "images": False},
@@ -89,6 +93,30 @@ published in the last {PEER_WINDOW_DAYS} days, as likely being about the newsroo
 news. Fetch each one you might select to confirm what the newsroom actually built, launched, tried, or
 changed — drop any that turn out to be ordinary coverage. The url field must be that post. Use
 web_search (limited to these newsrooms' sites) only to follow something a post points at."""
+
+# New Data Watch. Marathon County and Wausau publish no open-data catalogs, and brand-new
+# datasets in the catalogs that do exist are rare (0-6 a month), so catalogs are only the free
+# first layer; the model also searches official publishers for releases in the window.
+DATA_CATALOGS = [  # (name, DCAT data.json url, Wisconsin-specific: count updates, not just new datasets)
+    ("WI DNR", "https://data-wi-dnr.opendata.arcgis.com/api/feed/dcat-us/1.1.json", True),
+    ("WisDOT", "https://data-wisdot.opendata.arcgis.com/api/feed/dcat-us/1.1.json", True),
+    ("CMS", "https://data.cms.gov/data.json", False),
+    ("CDC", "https://data.cdc.gov/data.json", False),
+]
+DATA_DOMAINS = [  # official publishers the model may search; subdomains are included
+    "wisconsin.gov", "wi.gov", "wisconsindot.gov", "census.gov", "bls.gov", "bea.gov", "cms.gov", "cdc.gov",
+    "epa.gov", "fbi.gov", "hud.gov", "huduser.gov", "usda.gov", "fcc.gov", "ed.gov", "data.gov",
+    "countyhealthrankings.org", "wispolicyforum.org", "apl.wisc.edu", "marathoncounty.gov",
+    "co.marathon.wi.us", "wausauwi.gov", "ncwrpc.org",
+]
+DATA_WINDOW_DAYS = 31
+DATA_INTRO = f"""The catalog entries above are new or updated datasets from the few official catalogs that
+publish machine-readable listings — thin by nature, and often routine. That is only the first layer. Also
+search the official publishers (your search is limited to them) for data released in the last
+{DATA_WINDOW_DAYS} days that matters for Wisconsin or Marathon County: scheduled statistical releases, new
+state reports and databases, newly public records sets, and releases announced for next month. Fetch a
+release's page before selecting it, to confirm the date, what's in it, and whether it goes down to county
+(or finer) level. The url field must be the release or dataset page itself."""
 
 # Editions the quarterly synthesis reads. The Ledger Brief and Sponsor Leads are weekly
 # operational tools, not the AI radar, so they stay out.
@@ -484,6 +512,35 @@ Respond with ONLY a raw JSON object, no prose or code fences:
     return "\n".join(lines), cost
 
 
+def gather_catalogs() -> tuple[str, list[str]]:
+    """New Data Watch, free layer: datasets first issued in the window (and, for Wisconsin
+    catalogs, ones updated in it). data.gov's CKAN API was retired (404), so it's search-only."""
+    since = (local_today() - timedelta(days=DATA_WINDOW_DAYS)).isoformat()
+    lines, unavailable = [], []
+    for name, url, wisconsin in DATA_CATALOGS:
+        try:
+            datasets = json.loads(_fetch(url)).get("dataset", [])
+        except Exception as err:
+            print(f"source unavailable: {name} ({err})")
+            unavailable.append(name)
+            continue
+        for d in datasets:
+            if "{{" in str(d.get("title", "")):  # unrendered template records in the DNR feed
+                continue
+            issued, modified = str(d.get("issued", ""))[:10], str(d.get("modified", ""))[:10]
+            if issued >= since:
+                kind = f"new, issued {issued}"
+            elif wisconsin and modified >= since:
+                kind = f"updated {modified}"
+            else:
+                continue
+            link = d.get("landingPage") or (d.get("identifier") if str(d.get("identifier", "")).startswith("http") else "")
+            lines.append(f"- [{name} · {kind}] {d.get('title', '')} — {_plain(d.get('description', ''), 200)}"
+                         f"{' (' + link + ')' if link else ''}")
+    print(f"catalogs: {len(lines)} new or updated entries, {len(unavailable)} unavailable")
+    return "\n".join(lines) or "(no new or updated catalog entries this month)", unavailable
+
+
 def build_prompt(context: str, seen: list[dict], min_items: int, installed: list[dict] | None = None,
                  window_days: int = 10, candidates: str | None = None, feedback: str | None = None,
                  intro: str | None = None) -> str:
@@ -494,7 +551,7 @@ def build_prompt(context: str, seen: list[dict], min_items: int, installed: list
         library = f"\n# Already installed in our library (never surface these or close variants)\n{lines}\n"
     if candidates and intro:
         intro = f"Today is {local_today():%A, %B %d, %Y}. " + intro
-        source_block = f"\n# This month's shortlisted posts\n{candidates}\n"
+        source_block = f"\n# Candidates gathered by script\n{candidates}\n"
     elif candidates:
         intro = f"""Today is {local_today():%A, %B %d, %Y}. The candidate posts above were gathered by script: this week's
 top Reddit threads (in rank order), recent Substack posts (with like and comment counts), and Hacker
@@ -560,14 +617,15 @@ def research(client: anthropic.Anthropic, context: str, seen: list[dict], editio
         installed = json.loads((ROOT / edition["installed"]).read_text(encoding="utf-8"))
     window_days = 14 if edition.get("weeks") else 10
     feedback = (ROOT / edition["feedback"]).read_text(encoding="utf-8") if edition.get("feedback") else None
-    intro = PEERS_INTRO if edition.get("peers") else None
+    intro = PEERS_INTRO if edition.get("peers") else DATA_INTRO if edition.get("catalogs") else None
     messages = [{"role": "user", "content": build_prompt(context, seen, min_items, installed, window_days,
                                                          candidates, feedback, intro)}]
     max_searches = edition.get("searches", MAX_SEARCHES)
     max_fetches = edition.get("fetches", MAX_FETCHES)
     # reddit.com is excluded: Reddit blocks Anthropic's crawler, and listing it makes the API 400.
     search_domains = (["substack.com", *IDEA_SUBSTACKS.values()] if edition.get("feeds")
-                      else list(PEER_SITES.values()) if edition.get("peers") else None)
+                      else list(PEER_SITES.values()) if edition.get("peers")
+                      else DATA_DOMAINS if edition.get("catalogs") else None)
     threads = set(re.findall(r"\(thread: (https://www\.reddit\.com/[^;)\s]+)", candidates or ""))
     comment_calls = 0
     max_rounds = edition.get("rounds", MAX_ROUNDS)
@@ -1135,6 +1193,11 @@ def main() -> None:
             print(f"no picks recorded in {label} — skipping send")
             return
         edition["title"] = edition["subject"] = f"{edition['title']}: {label}"
+    elif edition.get("catalogs"):
+        candidates, unavailable = gather_catalogs()
+        if unavailable:
+            notice = "Catalogs not reached this month: " + ", ".join(unavailable)
+        items = research(client, context, seen, edition, candidates)
     elif edition.get("peers"):
         by_newsroom, unavailable = gather_peers()
         if unavailable:
