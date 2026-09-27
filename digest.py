@@ -8,8 +8,10 @@ import json
 import os
 import re
 import email.utils
+import base64
 import hashlib
 import smtplib
+import statistics
 import sys
 import time
 import urllib.error
@@ -67,6 +69,9 @@ EDITIONS = {
              "title": "New Data Watch", "subject": "New Data Watch", "max_cost": 3.00,
              "accent": "#5D4037", "min_items": 1, "catalogs": True, "searches": 12, "fetches": 10,
              "fetch_tokens": 6000, "rounds": 12},
+    "fleet": {"context": "context-fleet.md", "seen": "seen-fleet.json",
+              "title": "Fleet Health", "subject": "Fleet Health", "max_cost": 1.00,
+              "accent": "#455A64", "min_items": 1, "fleet": True, "images": False},
     "quarterly": {"context": "context-quarterly.md", "seen": "seen-quarterly.json",
                   "title": "The Quarter in AI", "subject": "The Quarter in AI", "max_cost": 2.00,
                   "accent": "#3B3B3B", "min_items": 1, "synthesis": True, "images": False},
@@ -117,6 +122,11 @@ search the official publishers (your search is limited to them) for data release
 state reports and databases, newly public records sets, and releases announced for next month. Fetch a
 release's page before selecting it, to confirm the date, what's in it, and whether it goes down to county
 (or finer) level. The url field must be the release or dataset page itself."""
+
+# Fleet Health: every repo the owner has, checked through the GitHub API. GITHUB_TOKEN can
+# read public repos; a FLEET_TOKEN secret (fine-grained PAT, read-only) adds private repos and
+# Dependabot alerts.
+FAILED = {"failure", "timed_out", "startup_failure", "action_required"}
 
 # Editions the quarterly synthesis reads. The Ledger Brief and Sponsor Leads are weekly
 # operational tools, not the AI radar, so they stay out.
@@ -1050,6 +1060,129 @@ Respond with ONLY a raw JSON object, no prose or code fences:
     return items, label
 
 
+def _gh_api(path: str, token: str):
+    req = urllib.request.Request(f"https://api.github.com{path}", headers={
+        "Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json", "User-Agent": "wpr-ai-digest"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.loads(r.read())
+
+
+def fleet_findings() -> tuple[list[dict], int, list[str]]:
+    """Every problem across the owner's repos: failing workflows (with the failed step),
+    crons that stopped firing while still scheduled, workflows GitHub disabled for
+    inactivity, and (with FLEET_TOKEN) open high/critical Dependabot alerts."""
+    fleet_token = os.environ.get("FLEET_TOKEN")
+    token = fleet_token or env("GITHUB_TOKEN")
+    owner = REPO.split("/")[0]
+    repos = (_gh_api("/user/repos?affiliation=owner&per_page=100", token) if fleet_token
+             else _gh_api(f"/users/{owner}/repos?type=owner&per_page=100", token))
+    repos = [r for r in repos if not r["archived"] and not r["fork"]]
+    now = datetime.now(TZ)
+
+    def check(repo: dict) -> list[dict]:
+        full, found = repo["full_name"], []
+        page = repo["html_url"] + "/actions"
+        for wf in _gh_api(f"/repos/{full}/actions/workflows?per_page=100", token).get("workflows", []):
+            name, wf_page = wf["name"], f"{repo['html_url']}/actions/workflows/{wf['path'].rsplit('/', 1)[-1]}"
+            if wf["state"] == "disabled_inactivity":
+                found.append({"repo": full, "workflow": name, "kind": "Disabled by GitHub",
+                              "detail": "scheduled workflow switched off after 60 days without repo activity", "url": wf_page})
+                continue
+            if wf["state"] != "active":
+                continue
+            runs = _gh_api(f"/repos/{full}/actions/workflows/{wf['id']}/runs?per_page=30", token).get("workflow_runs", [])
+            done = [r for r in runs if r["status"] == "completed"]
+            if done and done[0]["conclusion"] in FAILED:
+                streak = next((i for i, r in enumerate(done) if r["conclusion"] not in FAILED), len(done))
+                step = ""
+                try:
+                    for job in _gh_api(f"/repos/{full}/actions/runs/{done[0]['id']}/jobs", token).get("jobs", []):
+                        bad = next((st["name"] for st in job.get("steps") or [] if st.get("conclusion") == "failure"), None)
+                        if job.get("conclusion") == "failure":
+                            step = f"job '{job['name']}'" + (f", step '{bad}'" if bad else "")
+                            break
+                except Exception:
+                    pass
+                found.append({"repo": full, "workflow": name, "kind": "Failing",
+                              "detail": f"{streak}{'+' if streak == len(done) else ''} consecutive failed runs since "
+                                        f"{done[streak - 1]['created_at'][:10]}; {step or 'failed step unknown'}",
+                              "url": done[0]["html_url"]})
+            sched = [datetime.fromisoformat(r["created_at"].replace("Z", "+00:00")) for r in runs if r["event"] == "schedule"]
+            if len(sched) >= 3:
+                usual = statistics.median((a - b).total_seconds() / 3600 for a, b in zip(sched, sched[1:]))
+                idle = (now - sched[0]).total_seconds() / 3600
+                if idle > max(3 * usual, 48):
+                    source = base64.b64decode(_gh_api(f"/repos/{full}/contents/{wf['path']}", token)["content"]).decode("utf-8", "replace")
+                    if "schedule:" in source:  # a removed cron is intentional, not a fault
+                        found.append({"repo": full, "workflow": name, "kind": "Stopped firing",
+                                      "detail": f"last scheduled run {idle / 24:.0f} days ago; it usually runs every "
+                                                f"{usual:.0f} hours and the file still has a schedule", "url": wf_page})
+        if fleet_token:
+            try:
+                alerts = _gh_api(f"/repos/{full}/dependabot/alerts?state=open&severity=high,critical&per_page=100", token)
+                if alerts:
+                    found.append({"repo": full, "workflow": "", "kind": "Security",
+                                  "detail": f"{len(alerts)} open high/critical Dependabot alerts, e.g. "
+                                            f"{alerts[0]['security_advisory']['summary'][:90]}",
+                                  "url": repo["html_url"] + "/security/dependabot"})
+            except Exception:
+                pass  # alerts disabled on the repo
+        return found
+
+    with ThreadPoolExecutor(8) as pool:
+        findings = [f for group in pool.map(check, repos) for f in group]
+    notes = [] if fleet_token else ["Private repos and security alerts not checked (add a FLEET_TOKEN secret)"]
+    print(f"fleet: {len(repos)} repos checked, {len(findings)} problems")
+    return findings, len(repos), notes
+
+
+def research_fleet(client: anthropic.Anthropic, context: str, edition: dict) -> tuple[list[dict], None, list[str]]:
+    """Fleet mode: API checks find the problems for free; one small call ranks them and
+    suggests likely causes. Returns no items (so no email) when the fleet is healthy."""
+    findings, checked, notes = fleet_findings()
+    if not findings:
+        return [], None, notes
+    listing = "\n".join(f"- [{f['kind']}] {f['repo']}{' · ' + f['workflow'] if f['workflow'] else ''}: "
+                        f"{f['detail']} ({f['url']})" for f in findings)
+    prompt = f"""{context}
+
+# Problems found this week across {checked} repos ({local_today():%A, %B %d, %Y})
+
+{listing}
+
+# Task
+
+Write one item per repo with problems (merge several problems in one repo into one item), ranked by
+impact as "How to rank" above directs. Base every claim on the findings; for causes, say what is
+likely and why, and mark it as a guess. For url, use the url of that repo's most important finding.
+
+Respond with ONLY a raw JSON object, no prose or code fences:
+{{"items": [{{"name": "repo name: what's wrong, in a few words",
+"url": "https://...",
+"what": "What is broken and since when (max 30 words)",
+"pitch": "What readers, revenue, or other WPR tools lose while it stays broken (max 35 words)",
+"applications": ["Likely cause (a guess, max 25 words)", "Fix: the concrete first step (max 30 words)"],
+"access": "kind · duration (e.g. Failing · since Aug 13)"}}]}}"""
+    response = client.messages.create(model=MODEL, max_tokens=8000,
+                                      messages=[{"role": "user", "content": prompt}])
+    if response.stop_reason != "end_turn":
+        raise RuntimeError(f"Model stopped with {response.stop_reason!r} (max_tokens means the answer was cut off)")
+    u = response.usage
+    cost = (u.input_tokens * IN_RATE + u.output_tokens * OUT_RATE) / 1e6
+    if cost > edition["max_cost"]:
+        raise RuntimeError(f"Run cost ${cost:.2f} exceeded the ${edition['max_cost']:.2f} cap")
+    answer = "".join(b.text for b in response.content if b.type == "text").strip()
+    if answer.startswith("```"):
+        answer = answer.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+    try:
+        items = json.loads(answer)["items"]
+    except (json.JSONDecodeError, KeyError, TypeError) as err:
+        raise RuntimeError(f"Model did not return an items JSON object. Answer began: {answer[:300]!r}") from err
+    items = validate_items(items, edition.get("min_items", MIN_ITEMS))
+    print(f"model={MODEL} fleet_problems={len(findings)} items={len(items)} cost=${cost:.2f}")
+    return items, None, notes
+
+
 def fetch_og_image(url: str) -> str | None:
     """Best-effort og:image lookup. Decorative only — never fails the run."""
     try:
@@ -1179,14 +1312,16 @@ def main() -> None:
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
     new_state, notice = None, ""
     feedback_issues = collect_feedback(edition) if edition.get("feedback") else []
-    if edition.get("sources") or edition.get("leads"):
-        diff_fn = research_leads if edition.get("leads") else research_sources
+    if edition.get("sources") or edition.get("leads") or edition.get("fleet"):
+        diff_fn = (research_fleet if edition.get("fleet") else research_leads if edition.get("leads")
+                   else research_sources)
         items, new_state, unavailable = diff_fn(client, context, edition)
         if not items:
-            print("no tracker changes since last brief — skipping send")
+            print("nothing to report — skipping send")
             return
         if unavailable:
-            notice = "Not checked this week (source unavailable): " + ", ".join(unavailable)
+            notice = ("; ".join(unavailable) if edition.get("fleet")
+                      else "Not checked this week (source unavailable): " + ", ".join(unavailable))
     elif edition.get("synthesis"):
         items, label = research_synthesis(client, context, edition, quarter)
         if not items:
