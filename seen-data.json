@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "name": "Wisconsin Policy Forum 2026 Property Values and Taxes DataTool",
+    "url": "https://wispolicyforum.org/research/2026-property-values-and-taxes/",
+    "date": "2026-09-26",
+    "what": "September 2026 interactive tool comparing equalized property values, levies and tax rates for every Wisconsin municipality.",
+    "pitch": "Statewide levies posted their biggest jump in nearly two decades; this puts Wausau, Weston, Rothschild and Marathon towns on the same axis as peers, with per-municipality history.",
+    "access": "Release \u00b7 Wisconsin Policy Forum \u00b7 free (Tableau tool plus media release PDF)"
+  },
+  {
+    "name": "DWD August 2026 Local Employment and Unemployment Data",
+    "url": "https://www.dwd.wisconsin.gov/press/2026/260923-august-local.htm",
+    "date": "2026-09-26",
+    "what": "Monthly BLS estimates of unemployment and employment for all 72 Wisconsin counties, 13 metros, largest cities.",
+    "pitch": "Released Sept 23; rates rose year-over-year in 64 of 72 counties. Marathon County and the Wausau MSA are in every monthly file \u2014 a ready recurring tracker WPR lacks.",
+    "access": "Release \u00b7 Wisconsin DWD (BLS LAUS) \u00b7 free (next: Sept data Oct 21)"
+  },
+  {
+    "name": "DNR EM PFAS \u2014 Municipal System PFAS Sampling",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::em-pfas-municipal-system-pfas-sampling",
+    "date": "2026-09-26",
+    "what": "Point layer of PFAS sampling results at Wisconsin municipal drinking water systems, refreshed September 26, 2026.",
+    "pitch": "Direct feed for the existing PFAS and drinking water tracker: new sampling rounds at Wausau, Rothschild, Mosinee and Kronenwetter systems, with detections and compound-level results.",
+    "access": "Update \u00b7 WI DNR Open Data \u00b7 free (GeoJSON/CSV/API download)"
+  },
+  {
+    "name": "WisDOT STIP Projects (4 Year) and Construction Projects (2 Year)",
+    "url": "https://data-wisdot.opendata.arcgis.com/datasets/WisDOT::stip-projects-4-year",
+    "date": "2026-09-26",
+    "what": "Line layers of programmed state transportation projects for the next four and two years, updated September 26.",
+    "pitch": "Gives Marathon County a forward calendar of highway work \u2014 the planning counterpart to WPR's 511WI road conditions tracker \u2014 with cost, program and improvement type per project.",
+    "access": "Update \u00b7 WisDOT Open Data \u00b7 free (shapefile/GeoJSON/API)"
+  },
+  {
+    "name": "DPI 2025-26 School and District Report Cards",
+    "url": "https://dpi.wi.gov/accountability/report-cards/timeline",
+    "date": "2026-09-26",
+    "what": "Annual accountability ratings for every Wisconsin school and district, with a downloadable statewide data file.",
+    "pitch": "Secure preliminary release hits districts October 1 and the inquiry window closes October 12; public release with the annual download lands in November \u2014 time to build the Marathon County comparison now.",
+    "access": "Coming next month \u00b7 Wisconsin DPI \u00b7 free (public file November, secure release Oct 1)"
+  },
+  {
+    "name": "DNR EM PFAS \u2014 Surface Water and Fish Tissue Sampling",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::em-pfas-surface-water-and-fish-tissue-sampling",
+    "date": "2026-09-26",
+    "what": "Point layer of PFAS results in Wisconsin surface waters and fish tissue, refreshed September 26, 2026.",
+    "pitch": "Extends the PFAS tracker beyond tap water to the Wisconsin River, Lake Wausau and Big Eau Pleine \u2014 the waters people actually fish, tied to DNR consumption advisories.",
+    "access": "Update \u00b7 WI DNR Open Data \u00b7 free (GeoJSON/CSV/API)"
+  },
+  {
+    "name": "DNR Remediation and Redevelopment \u2014 Sediment Impacts Boundary",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::remediation-and-redevelopment-sediment-impacts-boundary",
+    "date": "2026-09-26",
+    "what": "Polygon boundaries of Wisconsin sediment study and cleanup project areas, refreshed September 26, 2026.",
+    "pitch": "Adds an areal dimension to the BRRTS contamination tracker, which is point-based: sediment study areas show how far river-bottom contamination extends near Wausau's riverfront redevelopment.",
+    "access": "Update \u00b7 WI DNR Open Data \u00b7 free (GeoJSON/shapefile download)"
+  }
+]
