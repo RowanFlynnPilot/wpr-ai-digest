@@ -23,6 +23,7 @@ Federal: Census (ACS, population estimates, business patterns), BLS (county unem
 
 # Not worth surfacing
 
+- Announcements of single events (a disease case, an incident, a ribbon-cutting) — that's news the newsroom already gets, not data; include one only if it points to a dataset or a new ongoing report
 - Routine refreshes with nothing new in them
 - Data with no Wisconsin coverage, or national-only aggregates that can't be broken down to the state
 - Dashboards with no downloadable data behind them, unless the release itself is newsworthy
