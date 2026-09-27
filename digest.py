@@ -715,7 +715,11 @@ def collect_feedback(edition: dict) -> list[int]:
         print("feedback: no GITHUB_TOKEN — using the feedback file as it stands")
         return []
     owner = REPO.split("/")[0]
-    issues = _github("GET", f"/issues?state=open&creator={owner}&per_page=100", token)
+    try:
+        issues = _github("GET", f"/issues?state=open&creator={owner}&per_page=100", token)
+    except Exception as err:  # feedback is optional; a GitHub hiccup must not cost the week's issue
+        print(f"feedback: could not read vote issues ({err}) — using the feedback file as it stands")
+        return []
     marks = {v: k for k, v in VOTE_MARKS.items()}
     votes, numbers = [], []
     for issue in issues:
