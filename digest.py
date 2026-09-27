@@ -964,6 +964,14 @@ def main() -> None:
         print(f"{edition['subject']} already sent today — skipping")
         return
 
+    # One synthesis per quarter: each send records its quarter, so a scheduled run for a
+    # quarter already covered (e.g. by an early manual send) is a free no-op.
+    if edition.get("synthesis") and not dry_run and not force:
+        label = quarter_bounds(quarter)[0]
+        if any(x.get("quarter") == label for x in seen):
+            print(f"{label} synthesis already sent — skipping")
+            return
+
     client = anthropic.Anthropic(api_key=env("ANTHROPIC_API_KEY"))
     new_state, notice = None, ""
     feedback_issues = collect_feedback(edition) if edition.get("feedback") else []
@@ -1003,7 +1011,8 @@ def main() -> None:
     send(subject, body, env("DIGEST_TO"))
     # what/pitch/access are kept so the quarterly synthesis has substance, not just names.
     seen.extend({"name": it["name"], "url": it["url"], "date": today.isoformat(),
-                 "what": it["what"], "pitch": it["pitch"], "access": it["access"]} for it in items)
+                 "what": it["what"], "pitch": it["pitch"], "access": it["access"],
+                 **({"quarter": label} if edition.get("synthesis") else {})} for it in items)
     seen_path.write_text(json.dumps(seen, indent=2) + "\n", encoding="utf-8")
     if new_state is not None:
         (ROOT / edition["state"]).write_text(json.dumps(new_state, indent=1) + "\n", encoding="utf-8")
