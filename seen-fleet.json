@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "name": "wpr-jobs: Pages deploy failing, jobs board stale",
+    "url": "https://github.com/RowanFlynnPilot/wpr-jobs/actions/runs/28709339947",
+    "date": "2026-09-26",
+    "what": "Deploy to GitHub Pages has failed twice since July 4; step 'Run actions/deploy-pages@v4' fails, so the published board hasn't updated in ~12 weeks.",
+    "pitch": "The Stripe-paid jobs board shows nearly three months of stale listings; employers pay for postings readers never see, and refund requests become likely.",
+    "access": "Failing \u00b7 since Jul 4"
+  },
+  {
+    "name": "wpr-property-transactions: scraper and price history both failing",
+    "url": "https://github.com/RowanFlynnPilot/wpr-property-transactions/actions/runs/31881265344",
+    "date": "2026-09-26",
+    "what": "price-history failing since August 2 and scrape-transactions since August 13, each twice; no new transaction data for roughly six weeks.",
+    "pitch": "The property tracker is stale on site, and Ledger Brief plus Sponsor Leads digests lose their transaction input \u2014 breakage spreads to both email products.",
+    "access": "Failing \u00b7 since Aug 2"
+  },
+  {
+    "name": "wpr-events: scheduled deploy disabled by GitHub",
+    "url": "https://github.com/RowanFlynnPilot/wpr-events/actions/workflows/publish.yml",
+    "date": "2026-09-26",
+    "what": "Build & Deploy was switched off by GitHub after 60 days without repo activity; the calendar has not rebuilt since.",
+    "pitch": "The events calendar embedded in WordPress silently stops refreshing, so readers see past or missing events with no error anywhere to signal it.",
+    "access": "Disabled by GitHub \u00b7 60+ days inactive"
+  },
+  {
+    "name": "wpr-immunity-ledger: weekly deploy stopped firing",
+    "url": "https://github.com/RowanFlynnPilot/wpr-immunity-ledger/actions/workflows/deploy.yml",
+    "date": "2026-09-26",
+    "what": "Build and deploy last ran 26 days ago despite a 168-hour schedule still in the workflow file; roughly three runs missed.",
+    "pitch": "A live Ledger tracker is 26 days stale for readers, and the Ledger Brief and Sponsor Leads digests draw on outdated ledger data.",
+    "access": "Stopped firing \u00b7 last run Aug 31"
+  },
+  {
+    "name": "wpr-cleanup-ledger: quarterly bulk ingest failing",
+    "url": "https://github.com/RowanFlynnPilot/wpr-cleanup-ledger/actions/runs/36173394311",
+    "date": "2026-09-26",
+    "what": "Quarterly bulk ingest failed on September 25 in job 'attempt-2 / quarterly', at a step that exits 1 when FAIL_AFTER_REACH is true.",
+    "pitch": "The quarterly ledger refresh did not land, so the cleanup ledger page and the digests that read it miss this quarter's records.",
+    "access": "Failing \u00b7 since Sep 25"
+  },
+  {
+    "name": "wpr-brewers-tracker: prospect rankings check failing",
+    "url": "https://github.com/RowanFlynnPilot/wpr-brewers-tracker/actions/runs/33539123077",
+    "date": "2026-09-26",
+    "what": "Prospect rankings check failed once on September 1 at step 'Compare config with MLB Pipeline'; unchecked since.",
+    "pitch": "The sports widget can drift out of sync with MLB's prospect list, so readers see outdated Brewers rankings with no warning.",
+    "access": "Failing \u00b7 since Sep 1"
+  },
+  {
+    "name": "wpr-trails: weekly pipeline failing for three months",
+    "url": "https://github.com/RowanFlynnPilot/wpr-trails/actions/runs/35509207796",
+    "date": "2026-09-26",
+    "what": "Weekly Pipeline has failed 13 straight runs since June 28, always at step 'Pull source data'; output stale ~13 weeks.",
+    "pitch": "Trail data has been frozen since June; low direct revenue impact, but the failing cron adds noise that hides more urgent breakages.",
+    "access": "Failing \u00b7 since Jun 28"
+  },
+  {
+    "name": "racine-obit-demo: Pages build failing",
+    "url": "https://github.com/RowanFlynnPilot/racine-obit-demo/actions/runs/28607619706",
+    "date": "2026-09-26",
+    "what": "pages-build-deployment has failed three times since July 2 at step 'Deploy to GitHub Pages'.",
+    "pitch": "A demo repo, so no reader or revenue impact; it only clutters the failure list each week until archived or fixed.",
+    "access": "Failing \u00b7 since Jul 2"
+  }
+]
