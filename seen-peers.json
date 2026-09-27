@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "name": "Truth Sleuth (Wisconsin Watch \u00d7 Center for Media Engagement)",
+    "url": "https://wisconsinwatch.org/2026/09/wisconsin-truth-sleuth-election-misinformation-fact-checking-falsehoods/",
+    "date": "2026-09-26",
+    "what": "Crowdsourced misinformation reporting tool with a newsroom fact-checking dashboard, built with UT-Austin's Center for Media Engagement.",
+    "pitch": "It is multi-newsroom by design \u2014 submitters pick which agency receives the report \u2014 so WPR could join rather than build, and OEC could route flags into Watch Ledger entries.",
+    "access": "Built \u2014 Wisconsin Watch \u2014 free (free reader account to submit; joining as an agency requires contacting Wisconsin Watch/CME)"
+  },
+  {
+    "name": "ICE arrests in Wisconsin tracker (news app)",
+    "url": "https://wisconsinwatch.org/2026/09/ice-arrests-in-wisconsin-reach-a-new-peak/",
+    "date": "2026-09-26",
+    "what": "Standing news app tracking Wisconsin ICE arrests, framed as 'follow what happens next' rather than a one-off story.",
+    "pitch": "Same-state peer turning a spike story into a permanent tracker off Wisconsin records WPR can also reach \u2014 the exact Ledger pattern, on a beat WPR has no archive for.",
+    "access": "Built \u2014 Wisconsin Watch \u2014 free"
+  },
+  {
+    "name": "Beacon Documenters training cohort",
+    "url": "https://thebeaconnews.org/stories/2026/09/15/documenters-training/",
+    "date": "2026-09-26",
+    "what": "Second training class put 48 residents from 33 ZIP codes into local government meetings as note-takers.",
+    "pitch": "Gavel automates meeting summaries but cannot put humans in rooms; the Beacon shows the recruiting and training pipeline \u2014 89 trained since November 2025 \u2014 that would give Gavel verified human notes.",
+    "access": "Audience \u2014 The Beacon (Kansas City) \u2014 free to read; Documenters-network model, paid stipends to participants"
+  },
+  {
+    "name": "VTDigger 2026 General Election Guide",
+    "url": "https://vtdigger.org/2026/09/15/2026-vermont-general-election-guide/",
+    "date": "2026-09-26",
+    "what": "Single election guide product combining candidate and race pages, campaign finance data and voting resources.",
+    "pitch": "WPR already ships results and voter guide tools, but not campaign finance. VTDigger bundles all three under one URL \u2014 a concrete gap to close before November.",
+    "access": "Built \u2014 VTDigger \u2014 free"
+  },
+  {
+    "name": "Ask Wisconsin Watch: reader-submitted candidate questions",
+    "url": "https://wisconsinwatch.org/2026/08/wisconsin-watch-election-2026-candidates-send-us-your-questions/",
+    "date": "2026-09-26",
+    "what": "Call-out asking readers to supply the questions the newsroom puts to 2026 candidates.",
+    "pitch": "A Wisconsin peer is sourcing voter guide content from readers on the same ballot WPR covers, which makes both the questions and the answers shareable.",
+    "access": "Audience \u2014 Wisconsin Watch \u2014 free"
+  },
+  {
+    "name": "Beacon community survey published as a story",
+    "url": "https://thebeaconnews.org/stories/2026/09/09/community-voice-follow-the-money/",
+    "date": "2026-09-26",
+    "what": "The Beacon published its audience survey findings, reporting readers most want money and spending coverage.",
+    "pitch": "Publishing survey results as a story, not an internal memo, is free trust-building \u2014 and it validates that spending accountability, WPR's Settlement and Rent Ledgers, is what readers actually ask for.",
+    "access": "Audience \u2014 The Beacon \u2014 free"
+  },
+  {
+    "name": "Sahan Journal \u00d7 Mixed Blood Theatre housing story call-out",
+    "url": "https://sahanjournal.com/inside-sahan-journal/everybody-needs-somewhere-to-live-sahan-community-live-mixed-blood-theatre/",
+    "date": "2026-09-26",
+    "what": "Newsroom partners with a theater to collect residents' housing stories for a live community event.",
+    "pitch": "Rent Ledger holds filings but not testimony. An arts-venue partner supplies a room, an audience and a reason for tenants to talk \u2014 cheap reach beyond existing WPR readers.",
+    "access": "Audience \u2014 Sahan Journal \u2014 free"
+  },
+  {
+    "name": "NNS intergenerational dialogues on violence",
+    "url": "https://milwaukeenns.org/2026/09/07/we-dont-have-a-choice-but-to-be-survivors-what-we-learned-from-the-intergenerational-dialogues-for-women-and-girls-about-violence/",
+    "date": "2026-09-26",
+    "what": "Wisconsin newsroom ran facilitated community dialogues as a reporting method and published the lessons.",
+    "pitch": "A Wisconsin peer treating convening as reporting, with the method written up. Care Ledger beats \u2014 caregiving, crisis response \u2014 need exactly this lived-experience layer that records cannot supply.",
+    "access": "Audience \u2014 Milwaukee NNS \u2014 free"
+  },
+  {
+    "name": "Bridge Michigan executive editor for growth and audience strategy",
+    "url": "https://bridgemi.com/center-michigan/bridge-michigan-names-bill-emkow-executive-editor-for-growth-and-audience-strategy/",
+    "date": "2026-09-26",
+    "what": "Bridge created a senior editor role explicitly scoped to growth and audience strategy.",
+    "pitch": "A structural signal, not a routine replacement: growth lives inside the editing chain rather than in marketing. Useful precedent for how WPR scopes whoever owns the newsletter pipeline and jobs board.",
+    "access": "Newsroom \u2014 Bridge Michigan \u2014 free"
+  }
+]
