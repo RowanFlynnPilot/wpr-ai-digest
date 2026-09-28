@@ -123,5 +123,37 @@
     "name": "LION Publishers 2026 peer learning groups",
     "url": "https://lionpublishers.com/sign-up-to-join-a-lion-2026-peer-learning-group/",
     "date": "2026-09-14"
+  },
+  {
+    "name": "The Medill Survey 2026: How the Chicago Area Gets its News",
+    "url": "https://localnewsinitiative.northwestern.edu/posts/2026/09/15/chicago-area-news-consumption-survey-2026/index.html",
+    "date": "2026-09-28",
+    "what": "Northwestern survey of 1,223 adults on local news habits and how comfortable readers are with newsroom AI.",
+    "pitch": "Released Sept. 15 with hard numbers: readers tolerate AI for spelling and grammar and little else, and only 11% asked a chatbot a local news question. Evidence, not vibes, for WPR's AI limits.",
+    "access": "free (full PDF report downloadable)"
+  },
+  {
+    "name": "Cloudflare default blocking of AI training and agent crawlers",
+    "url": "https://mediacopilot.ai/cloudflare-ai-crawler-controls/",
+    "date": "2026-09-28",
+    "what": "Cloudflare now blocks AI training and agent bots by default on free-tier and newly added publisher domains.",
+    "pitch": "Effective Sept. 15, so WPR's bot exposure may have changed with no one touching a setting. Search crawlers still pass, but the allow/block/charge choice is now WPR's to make deliberately.",
+    "access": "free tier included; paid plans add controls"
+  },
+  {
+    "name": "Open Door (Village Media + OpenAI)",
+    "url": "https://www.axios.com/2026/09/15/openai-canada-villager-media-news",
+    "date": "2026-09-28",
+    "what": "Local news chain's AI tool steering residents to food, housing and health services from a vetted directory.",
+    "pitch": "A small-market service product a newsroom owns outright, built on a curated directory of 200-plus agencies rather than the open web \u2014 plus a rare look at what an OpenAI deal actually contains.",
+    "access": "paid partnership; publisher-owned product, no public pricing"
+  },
+  {
+    "name": "Unsealed NYT v. OpenAI/Microsoft court records",
+    "url": "https://www.niemanlab.org/2026/09/an-astonishing-theft-of-unprecedented-proportions-court-records-show-what-microsoft-and-openai-actually-thought-about-ai-training/",
+    "date": "2026-09-28",
+    "what": "Newly unredacted filings show Microsoft and OpenAI staff privately calling AI training theft and news substitution.",
+    "pitch": "Posted Sept. 18: executives concede chatbots substitute for publishers and that paywalls were worked around. Useful leverage and framing before WPR decides to block, license, or stay quiet.",
+    "access": "free (court filing and summary)"
   }
 ]
