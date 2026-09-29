@@ -133,5 +133,45 @@
     "name": "Watch Ledger: 23 more Flock cameras, none of them here",
     "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
     "date": "2026-09-22"
+  },
+  {
+    "name": "Cleanup Ledger: Enbridge pipeline valve site in Hansen Township closes out with continuing obligations",
+    "url": "https://rowanflynnpilot.github.io/wpr-cleanup-ledger/",
+    "date": "2026-09-29",
+    "what": "Enbridge Energy's Jackson Road valve site closed Sept. 23 with a continuing obligation attached.",
+    "pitch": "A pipeline company's contamination case at 6053 Jackson Rd closes, but the continuing obligation means something stays in the ground. Enbridge is a name readers know \u2014 worth explaining what's left behind and who's responsible.",
+    "access": "3 new events, one site"
+  },
+  {
+    "name": "Property transactions: $795,000 for buildings-only on a Town of Norrie road",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-09-29",
+    "what": "149 new Marathon County sales recorded, including a $795,000 Norrie single-family sale listed at zero acres.",
+    "pitch": "A near-$800K price on a 'buildings/improvements only' record with 0.0 acres is unusual enough to be either a big rural estate or a data quirk. Either answer is a short story.",
+    "access": "149 new sales"
+  },
+  {
+    "name": "Coming Soon: two Stewart Avenue addresses still sending signals months after first permit",
+    "url": "https://rowanflynnpilot.github.io/wpr-coming-soon/",
+    "date": "2026-09-29",
+    "what": "New arrivals on Sept. 23 refreshed pending signals at 2510 and 4611 Stewart Ave, Wausau.",
+    "pitch": "A restaurant alteration permit at 2510 Stewart from July and an alcohol license extension at 4611 Stewart from June both got fresh activity. Two Stewart Ave openings in the pipeline \u2014 readers always want to know what's going in.",
+    "access": "2 refreshed signals"
+  },
+  {
+    "name": "Gavel: County Board and Environmental Resources Committee both set for Nov. 24",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-09-29",
+    "what": "Sixteen new meetings posted, including a Wausau Citizen Advisory Committee meeting Sept. 30.",
+    "pitch": "Wednesday's Citizen Advisory Committee is the only near-term item and is worth staffing. The Nov. 24 Environmental Resources Committee is a natural place to raise the Enbridge closure once the BRRTS file is in hand.",
+    "access": "16 new meetings"
+  },
+  {
+    "name": "Watch Ledger: 28 new ALPR cameras added, all in the Kenosha area",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-09-29",
+    "what": "28 camera records arrived, with sampled entries in Kenosha County, including one operated by Lowe's.",
+    "pitch": "No Marathon County hook in the sample, so this is background not a story yet. But a private retailer listed as camera operator alongside Flock Safety is a thread worth pulling if the same pattern reaches Wausau.",
+    "access": "28 new cameras, net -1"
   }
 ]
