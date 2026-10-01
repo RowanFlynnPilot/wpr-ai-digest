@@ -13,5 +13,53 @@
     "name": "RJI Student Innovation Fellowships (newsroom/host applications)",
     "url": "https://rjionline.org/student-innovation-fellowships/",
     "date": "2026-09-01"
+  },
+  {
+    "name": "LMA AI Growth Lab (Local Media Association + Google)",
+    "url": "https://localmedia.org/2026/09/lma-opens-applications-for-newsrooms-to-join-the-ai-growth-lab/",
+    "date": "2026-10-01",
+    "what": "Six-month AI implementation cohort for up to 12 local newsrooms, with Google training, coaching and capstone prototypes.",
+    "pitch": "Eligibility is community-based, locally controlled outlets publishing original local journalism weekly \u2014 WPR exactly. Small orgs explicitly welcomed, peers matched by market size, and the prototype menu overlaps WPR's existing public-document tooling.",
+    "access": "free (Google-funded, no stipend) \u00b7 deadline Oct 14, 2026, 11:59pm ET \u00b7 Nov\u2013Apr program"
+  },
+  {
+    "name": "CUNY Newmark AI Journalism Labs \u2014 2027 Leaders and Creators tracks",
+    "url": "https://www.journalism.cuny.edu/j-plus/ai-journalism-labs/",
+    "date": "2026-10-01",
+    "what": "Tuition-free 2027 cohort program where news leaders research an AI challenge over roughly fourteen weeks.",
+    "pitch": "Microsoft covers tuition and a travel stipend for the mandatory New York kickoff, so cost to a two-person nonprofit is time only. Application asks for a specific AI challenge \u2014 WPR already has one running.",
+    "access": "free (tuition-free, Microsoft Journalism funded; travel stipend) \u00b7 deadline Oct 16, 2026"
+  },
+  {
+    "name": "Report for America 2027\u20132028 host newsroom application",
+    "url": "https://www.reportforamerica.org/news-rooms/",
+    "date": "2026-10-01",
+    "what": "RFA places an early-career reporter in your newsroom and pays up to half the salary.",
+    "pitch": "A third byline WPR cannot otherwise afford: RFA funds half a corps member's salary up to $27,500 and coaches the newsroom through local fundraising \u2014 directly useful to OEC's donor base, with nonprofits eligible.",
+    "access": "free to apply \u00b7 deadline Oct 19, 2026 \u00b7 RFA pays half salary, up to $27,500"
+  },
+  {
+    "name": "Tarbell Fellowship 2027\u201328 (Tarbell Center for AI Journalism)",
+    "url": "https://www.tarbellcenter.org/fellowship",
+    "date": "2026-10-01",
+    "what": "Three-month AI journalism training plus a nine-month funded reporting placement covering artificial intelligence at a partner newsroom.",
+    "pitch": "The only fully salaried AI journalism fellowship open right now. Placements run through Tarbell's partner newsrooms, so the realistic WPR play is both applying and asking to join the partner roster.",
+    "access": "funded fellowship \u00b7 deadline Nov 22, 2026 \u00b7 $75,000\u2013$120,000 salary ($115,000\u2013$135,000 senior)"
+  },
+  {
+    "name": "RJI Professional Innovation Fellowships (2027 class)",
+    "url": "https://rjionline.org/about-rji-fellowships/",
+    "date": "2026-10-01",
+    "what": "Remote fellowships paying individuals or organizations to build a free tool or resource for journalism.",
+    "pitch": "The Emerging Technology track pays $100,000 to build exactly what OEC already does, and deliverables must end up free for any newsroom. Remote with only a couple of Columbia visits \u2014 survivable for a two-person shop.",
+    "access": "free to apply \u00b7 opens Nov 2, 2026, deadline Jan 8, 2027 \u00b7 $75,000 individual/institutional, $100,000 emerging technology"
+  },
+  {
+    "name": "Lenfest AI Collaborative and Fellowship Program \u2014 expanded cohort",
+    "url": "https://www.lenfestinstitute.org/institute-news/lenfest-institute-openai-ai-fellowship-expansion/",
+    "date": "2026-10-01",
+    "what": "Embedded AI engineering fellowships for news organizations, newly expanded with OpenAI money, credits and engineering support.",
+    "pitch": "Announced Sept 28: $5M plus up to $5M in software credits, a wider range of news organizations invited, and an explicit push to turn fellowship projects into reusable shared tooling \u2014 OEC's exact thesis.",
+    "access": "rolling letters of inquiry (no open call yet) \u00b7 $5M fund plus up to $5M OpenAI credits"
   }
 ]
