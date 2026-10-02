@@ -163,5 +163,61 @@
     "name": "OpenAI journalism ecosystem expansion",
     "url": "https://openai.com/index/supporting-journalism-from-classrooms-to-newsrooms/",
     "date": "2026-09-18"
+  },
+  {
+    "name": "Claude Sonnet 5.5",
+    "url": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+    "date": "2026-10-02",
+    "what": "New mid-tier Claude with 1M-token context, 128K output, released September 28, 2026.",
+    "pitch": "A 1M context at $2/$10 per MTok plus $0.20 cache reads makes whole agenda packets and inspection PDFs one call instead of chunk-and-stitch across every Ledger scraper.",
+    "access": "paid \u2014 $2/MTok input, $10/MTok output, $0.20 cache read"
+  },
+  {
+    "name": "GPT-6.1 Sol",
+    "url": "https://openai.com/index/introducing-gpt-6-1-sol/",
+    "date": "2026-10-02",
+    "what": "OpenAI's September 29 model priced at $2/$10 per MTok with $0.10 cached input.",
+    "pitch": "Benchmarked specifically on messy professional PDFs with tables and fine print, at a fifth of Astra's price \u2014 the cheapest credible second opinion for permit and assessment PDF parsing.",
+    "access": "paid \u2014 $2/MTok input, $0.10 cached, $10/MTok output"
+  },
+  {
+    "name": "Claude Opus 5.5",
+    "url": "https://platform.claude.com/docs/en/release-notes/overview",
+    "date": "2026-10-02",
+    "what": "Long-horizon agentic Claude with 1M context and always-on adaptive thinking, cheaper than Opus 5.",
+    "pitch": "$4/$20 versus Opus 5's $5/$25, with 128K output and effort-controlled thinking \u2014 the model to point Claude Code at for multi-file Ledger Framework refactors that previously stalled.",
+    "access": "paid \u2014 $4/MTok input, $20/MTok output"
+  },
+  {
+    "name": "ElevenLabs Speech-to-Text transcript editing (and Eleven v4)",
+    "url": "https://elevenlabs.io/docs/changelog/2026/9/28",
+    "date": "2026-10-02",
+    "what": "Batch and realtime transcription now accept a 2,000-character natural-language edit instruction.",
+    "pitch": "Fire Watch's weak point is garbled scanner audio: street names, unit numbers, agency jargon. A standing edit instruction normalizes those inside the transcription call, before Haiku classification sees them.",
+    "access": "paid \u2014 ElevenLabs API credits; editing priced per the batch/realtime guides"
+  },
+  {
+    "name": "Emergency Mode for News",
+    "url": "https://www.niemanlab.org/2026/09/when-disaster-strikes-newsrooms-scramble-a-new-website-aims-to-help-tame-the-chaos/",
+    "date": "2026-10-02",
+    "what": "OpenNews/NC Local/Newspack site with disaster checklists, WordPress lite-site plugin, liveblog plugin, microgrants.",
+    "pitch": "WPR is WordPress plus iframes \u2014 a text-only low-bandwidth site plugin and liveblog plugin are the exact missing pieces for a Marathon County tornado or ice-storm outage week.",
+    "access": "free \u2014 open checklists and plugins; $30,000 in microgrants being distributed"
+  },
+  {
+    "name": "Gemini 3.8 Flash TTS and Flash-Lite TTS (GA)",
+    "url": "https://ai.google.dev/gemini-api/docs/changelog",
+    "date": "2026-10-02",
+    "what": "GA text-to-speech models plus voice design, voice replication and a 150+ voice endpoint.",
+    "pitch": "Flash-Lite TTS is built for high-throughput production, which is what a daily audio edition needs; a designed persistent voice gives WPR one consistent narrator without hiring one.",
+    "access": "paid \u2014 Gemini API TTS models; Flash-Lite TTS positioned for high-volume use"
+  },
+  {
+    "name": "OpenAI Decisions API",
+    "url": "https://openai.com/index/devday-2026-recap/",
+    "date": "2026-10-02",
+    "what": "Classification endpoint that answers developer-defined questions from a finite predefined answer set.",
+    "pitch": "A purpose-built classifier beats prompting a chat model for triage: fixed label sets, text or image input, built for real-time routing \u2014 exactly Fire Watch's alert-or-ignore decision.",
+    "access": "waitlist \u2014 limited preview as of September 29, broad release promised shortly"
   }
 ]
