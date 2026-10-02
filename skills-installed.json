@@ -120,6 +120,11 @@
     "source": "skills"
   },
   {
+    "name": "find-skills",
+    "description": "Helps users discover and install agent skills when they ask questions like \"how do I do X\", \"find a skill for X\", \"is there a skill that can...\", or express int",
+    "source": "skills"
+  },
+  {
     "name": "frontend-design",
     "description": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making ch",
     "source": "skills"
@@ -155,8 +160,18 @@
     "source": "skills"
   },
   {
+    "name": "mobile-native",
+    "description": "Make a web app feel native on a phone \u2014 the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers stic",
+    "source": "skills"
+  },
+  {
     "name": "persuasive-ux",
     "description": "Apply BJ Fogg's 7 Persuasive Technology Tools (Captology) to UX analysis and design.",
+    "source": "skills"
+  },
+  {
+    "name": "prototype",
+    "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one th",
     "source": "skills"
   },
   {
