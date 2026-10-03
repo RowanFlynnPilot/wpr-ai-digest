@@ -48,5 +48,77 @@
     "name": "Fugleramme, the listening picture frame",
     "url": "https://www.reddit.com/r/SideProject/comments/1wozqy6/my_birdrelated_hobby_project_became_the_1_hacker/",
     "date": "2026-09-26"
+  },
+  {
+    "name": "The scraper block escalation ladder (r/webscraping)",
+    "url": "https://www.reddit.com/r/webscraping/comments/1wtjvuy/my_escalation_ladder_when_a_site_blocks_my_basic/",
+    "date": "2026-10-03",
+    "what": "A diagnostic ladder for scraper blocks: confirm it's a block, fix headers, persist sessions, then escalate to a browser.",
+    "pitch": "WPR's scrapers break when a county vendor changes anti-bot settings. The thread plus comments give a repair order that skips guesswork, and the best tip costs nothing: find the page's own JSON call.",
+    "access": "Fits our work \u00b7 r/webscraping #1 this week"
+  },
+  {
+    "name": "Chess post-mortem skills (audio aligned to timestamps, every claim engine-checked)",
+    "url": "https://news.ycombinator.com/item?id=49857528",
+    "date": "2026-10-03",
+    "what": "Claude Code skills transcribe voice notes locally, align them to move clocks, verify claims with Stockfish, narrate a video.",
+    "pitch": "This is Gavel's shape exactly: messy audio plus a timestamped official record. The transferable parts are clock-matching transcript to events and a verifier pass that re-checks every written claim against a deterministic source.",
+    "access": "Fits our work \u00b7 Show HN \u00b7 75 points, 56 comments"
+  },
+  {
+    "name": "Language models for text classification: baselines and calibration",
+    "url": "https://magazine.sebastianraschka.com/p/classifier-history-and-jev",
+    "date": "2026-10-03",
+    "what": "Raschka walks classifier history to today's decision APIs, with accuracy, cost and confidence-calibration comparisons.",
+    "pitch": "WPR pays an LLM per item for classification work. His point: bag-of-words plus logistic regression is still the baseline to beat (about 90% on IMDb), and confidence needs calibrating before you trust a threshold.",
+    "access": "Fits our work \u00b7 Ahead of AI \u00b7 420 likes \u00b7 free post"
+  },
+  {
+    "name": "Nine thinking-discipline rules for coding agents",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1wt2xo7/9_prompt_rules_cut_my_coding_agents_wasted/",
+    "date": "2026-10-03",
+    "what": "A short global-instruction block that stops agents re-checking settled answers and hopping between approaches mid-task.",
+    "pitch": "Rare A/B evidence: 360 runs, five repeats per cell, up to 70% less wasted thinking. Tested on GLM, not Claude, but the rules are plain-language and cost nothing to try on long agent sessions.",
+    "access": "Fits our work \u00b7 r/PromptEngineering #1 this week"
+  },
+  {
+    "name": "Orchestrator that is never allowed to write code",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wtrix3/gpt61_sol_is_cheap_we_made_it_77_cheaper_by_never/",
+    "date": "2026-10-03",
+    "what": "Expensive model reads, plans, delegates and reviews; every write or shell call it attempts is refused.",
+    "pitch": "Real numbers across three builds: 77% cheaper overall, with the honest cost stated \u2014 43 minutes versus 7. For WPR's overnight jobs, slow is free, and the planner stops quietly doing the work itself.",
+    "access": "Fits our work \u00b7 r/AI_Agents #2 this week"
+  },
+  {
+    "name": "HN.watch \u2014 explainer video rendered as HTML, not pixels",
+    "url": "https://news.ycombinator.com/item?id=49879401",
+    "date": "2026-10-03",
+    "what": "Every Hacker News story gets an LLM-written explainer video built from HTML and generated on first click.",
+    "pitch": "Video as code: far faster and cheaper than diffusion, cached after the first render, and text comes out legible. A short explainer per Ledger is sponsorable inventory a local underwriter would buy.",
+    "access": "Could pay \u00b7 Show HN \u00b7 223 points, 97 comments"
+  },
+  {
+    "name": "Lathoa \u2014 the AI that is wrong on purpose",
+    "url": "https://news.ycombinator.com/item?id=49909648",
+    "date": "2026-10-03",
+    "what": "A kids' math app where a robot plants one bad step and the player must find and explain it.",
+    "pitch": "Turns distrust of AI into the product: no chat with the model, a harness with evaluation steps that guarantees exactly one planted error. A weekly civic-data version is sponsorable by a library, school district or credit union.",
+    "access": "Could pay \u00b7 Show HN \u00b7 52 points, 49 comments"
+  },
+  {
+    "name": "Poisoning an agent's memory, 216 out of 216 times",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wtbtna/i_tried_to_poison_an_ai_agents_memory_it_worked/",
+    "date": "2026-10-03",
+    "what": "Memory servers that auto-replace an older fact accepted every plausible-looking false correction in testing.",
+    "pitch": "Surprising detail: a flat contradiction is the easy case. The dangerous write keeps the true value and adds an exception clause, which reads exactly like a careful colleague's correction \u2014 and nothing flags it.",
+    "access": "Fascinating \u00b7 r/AI_Agents #7 this week"
+  },
+  {
+    "name": "'You said no MCP' \u2014 tools in a code sandbox instead of a context dump",
+    "url": "https://news.ycombinator.com/item?id=49906637",
+    "date": "2026-10-03",
+    "what": "A harness team reverses its MCP stance by exposing tools to a JavaScript sandbox the agent composes in code.",
+    "pitch": "The useful reframe: tools should behave like a documented API \u2014 structured returns, discovered when needed \u2014 rather than a wall of definitions in every session. That is how CLIs stay cheap and composable.",
+    "access": "Fascinating \u00b7 Hacker News \u00b7 679 points, 362 comments"
   }
 ]
