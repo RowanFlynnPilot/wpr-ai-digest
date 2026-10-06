@@ -173,5 +173,45 @@
     "what": "28 camera records arrived, with sampled entries in Kenosha County, including one operated by Lowe's.",
     "pitch": "No Marathon County hook in the sample, so this is background not a story yet. But a private retailer listed as camera operator alongside Flock Safety is a thread worth pulling if the same pattern reaches Wausau.",
     "access": "28 new cameras, net -1"
+  },
+  {
+    "name": "Property transactions: 186 new Marathon County deeds land at once, with Wausau single-family sales near $310K",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-10-06",
+    "what": "186 new DOR sale records posted; total holdings re-set from 644 to 627.",
+    "pitch": "The biggest single data drop in the brief. A batch this size is where repeat buyers, LLC purchases, municipal acquisitions and outlier prices hide \u2014 worth a sort before the week's news meeting.",
+    "access": "186 new sales records"
+  },
+  {
+    "name": "Gavel: Wausau Finance and Common Council both meet Tuesday, Oct. 13",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-10-06",
+    "what": "Eight meetings added, including Finance at 5:15 p.m. and Common Council at 6:30 p.m. Oct. 13.",
+    "pitch": "Back-to-back finance and council on one night is the week's clearest staffing call. Check whether either agenda touches any address showing up in this week's 186 new property records.",
+    "access": "8 new meetings"
+  },
+  {
+    "name": "Watch Ledger: roster drops 8 net even as 12 new Flock cameras appear",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-10-06",
+    "what": "Twelve cameras added and roughly twenty dropped off; several new entries list no operator.",
+    "pitch": "A net decline means cameras came down or stopped reporting \u2014 as newsworthy as new ones going up. Two of three sampled new cameras have null operator and null zone, meaning no agency is named.",
+    "access": "12 added, net -8"
+  },
+  {
+    "name": "Cleanup Ledger: two contamination case events, both outside Marathon County",
+    "url": "https://rowanflynnpilot.github.io/wpr-cleanup-ledger/",
+    "date": "2026-10-06",
+    "what": "Premier Auto Body in Marshfield closed; a new case opened at 2111 Jefferson St., Wisconsin Rapids.",
+    "pitch": "Thin for a Marathon audience, but the Marshfield closure sits in WPR's coverage footprint. The Jefferson Rapids opening is brand new \u2014 what triggered it is the only question that matters.",
+    "access": "2 new case events"
+  },
+  {
+    "name": "Court tracker: Wausau man pleads not guilty in bail jumping, disorderly conduct case",
+    "url": "https://rowanflynnpilot.github.io/wpr-court-tracker/",
+    "date": "2026-10-06",
+    "what": "Case 2026CM000231 in Marathon County moved to a not-guilty plea on Oct. 1.",
+    "pitch": "A single misdemeanor plea is routine unless the defendant or the underlying case is recognizable. Worth two minutes to check the name before deciding it isn't a story.",
+    "access": "1 case update"
   }
 ]
