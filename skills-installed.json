@@ -1,7 +1,17 @@
 [
   {
+    "name": "a11y-debugging",
+    "description": "Uses Chrome DevTools MCP for accessibility (a11y) debugging and auditing based on web.dev guidelines. Use when testing semantic HTML, ARIA labels, focus states,",
+    "source": "plugins"
+  },
+  {
     "name": "accessibility",
     "description": "Review screenshots, mockups, designs, and UI flows for accessibility using WCAG 2.1. Use when the user asks for an accessibility audit, WCAG review, inclusive d",
+    "source": "skills"
+  },
+  {
+    "name": "animate",
+    "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right \u2014 should it animate at all, what purpose, which tool, ",
     "source": "skills"
   },
   {
@@ -25,9 +35,24 @@
     "source": "skills"
   },
   {
+    "name": "better-writing",
+    "description": "Writes and reviews your interface copy, from labels and errors to empty states and confirmations, so it matches your product's voice and tells people what to do",
+    "source": "skills"
+  },
+  {
     "name": "canvas-design",
     "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, d",
     "source": "skills"
+  },
+  {
+    "name": "chrome-devtools",
+    "description": "Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, ana",
+    "source": "plugins"
+  },
+  {
+    "name": "chrome-devtools-cli",
+    "description": "Use this skill to write shell scripts or run shell commands to automate tasks in the browser or otherwise use Chrome DevTools via CLI.",
+    "source": "plugins"
   },
   {
     "name": "cognitive-load-conversion",
@@ -35,9 +60,24 @@
     "source": "skills"
   },
   {
+    "name": "cookie-debugging",
+    "description": "Uses Chrome DevTools MCP for inspecting, debugging, and testing cookies, session state, authentication issues, and cookie consent compliance. Use when diagnosin",
+    "source": "plugins"
+  },
+  {
+    "name": "core-web-vitals",
+    "description": "Optimize Core Web Vitals (LCP, INP, CLS) for better page experience using field and lab evidence. Use when asked to \"improve Core Web Vitals\", \"fix LCP\", \"reduc",
+    "source": "skills"
+  },
+  {
     "name": "craft",
     "description": "Apply 12 concrete visual-craft rules to UI code and designs \u2014 bans on gradients, glow effects, transition:all, placeholder text, and visual monotony, plus disci",
     "source": "skills"
+  },
+  {
+    "name": "debug-optimize-lcp",
+    "description": "Guides debugging and optimizing Largest Contentful Paint (LCP) using Chrome DevTools MCP tools. Use this skill whenever the user asks about LCP performance, slo",
+    "source": "plugins"
   },
   {
     "name": "dieter-rams-principles",
@@ -135,6 +175,16 @@
     "source": "skills"
   },
   {
+    "name": "html-video",
+    "description": "Make short motion videos (walkthroughs, product demos, teasers, social reels, explainer clips) by building an HTML page whose every frame is a pure function of ",
+    "source": "skills"
+  },
+  {
+    "name": "hyperframes-animation",
+    "description": "\"All animation knowledge for HyperFrames \u2014 atomic motion rules, multi-phase scene blueprints, scene transitions, broader motion-design techniques, AND the seven",
+    "source": "skills"
+  },
+  {
     "name": "impeccable",
     "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise",
     "source": "skills"
@@ -160,8 +210,18 @@
     "source": "skills"
   },
   {
+    "name": "memory-leak-debugging",
+    "description": "Diagnoses and resolves memory leaks in JavaScript/Node.js applications. Use when a user reports high memory usage, OOM errors, or wants to capture, compare, or ",
+    "source": "plugins"
+  },
+  {
     "name": "mobile-native",
     "description": "Make a web app feel native on a phone \u2014 the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers stic",
+    "source": "skills"
+  },
+  {
+    "name": "performance",
+    "description": "Optimize web performance for faster loading and better user experience. Use when asked to \"speed up my site\", \"optimize performance\", \"reduce load time\", \"fix s",
     "source": "skills"
   },
   {
@@ -175,8 +235,33 @@
     "source": "skills"
   },
   {
+    "name": "review-animations",
+    "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+    "source": "skills"
+  },
+  {
+    "name": "seo",
+    "description": "Optimize for search engine visibility and ranking. Use when asked to \"improve SEO\", \"optimize for search\", \"fix meta tags\", \"add structured data\", \"sitemap opti",
+    "source": "skills"
+  },
+  {
+    "name": "seo-schema",
+    "description": ">",
+    "source": "skills"
+  },
+  {
+    "name": "troubleshooting",
+    "description": "Uses Chrome DevTools MCP and documentation to troubleshoot connection and target issues. Trigger this skill when list_pages, new_page, or navigate_page fail, or",
+    "source": "plugins"
+  },
+  {
     "name": "ux-heuristics-review",
     "description": "Apply the 10 Usability Heuristics to critique existing UI or guide new product design. Use this skill whenever the user shares a screenshot, mockup, or written ",
+    "source": "skills"
+  },
+  {
+    "name": "web-design-guidelines",
+    "description": "Review UI code for Web Interface Guidelines compliance. Use when asked to \"review my UI\", \"check accessibility\", \"audit design\", \"review UX\", or \"check my site ",
     "source": "skills"
   },
   {
