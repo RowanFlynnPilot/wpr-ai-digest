@@ -148,5 +148,29 @@
     "name": "Claude for Small Business \u2014 new workflows, integrations and free workshops",
     "url": "https://claude.com/blog/claude-for-small-business-launches-new-workflows-integrations-and-training-programs",
     "date": "2026-09-23"
+  },
+  {
+    "name": "Skills in the Gemini app and Google Workspace (replacing Gems)",
+    "url": "https://workspaceupdates.googleblog.com/2026/09/skills-gemini-app-workspace.html",
+    "date": "2026-10-07",
+    "what": "Reusable saved prompts that steer Gemini on a task, rolling out to Workspace and replacing Gems.",
+    "pitch": "WPR's repeat jobs \u2014 house style, headline sets, meeting-agenda summaries \u2014 become one saved instruction two people can both reuse, instead of re-typing prompts. Gems are being phased out, so existing setups need moving.",
+    "access": "free \u2014 included with the Gemini app and Workspace plans; Workspace rollout over coming weeks"
+  },
+  {
+    "name": "Native Markdown files in Google Docs and Drive",
+    "url": "http://workspaceupdates.googleblog.com/2026/10/preview-edit-and-collaborate-on-Markdown-files-natively-across-Drive-and-Docs.html",
+    "date": "2026-10-07",
+    "what": "Open, edit and comment on .md files directly in Docs, with formatted previews in Drive.",
+    "pitch": "Chatbots hand back Markdown. Until now pasting it into Docs mangled tables and headings. From October 5 it opens clean, keeps comments, and two editors can work on it live.",
+    "access": "free \u2014 all Workspace customers and personal Google accounts, rolling out from October 5"
+  },
+  {
+    "name": "AI Engine 3.8.3 for WordPress",
+    "url": "https://wordpress.org/plugins/ai-engine/",
+    "date": "2026-10-07",
+    "what": "WordPress plugin adding an on-site chatbot, AI forms and a writing assistant in the editor.",
+    "pitch": "The October 1 update fixes the Editor Assistant session errors that broke mid-edit, stops replies cutting off mid-sentence, and makes non-OpenAI chatbots actually read your uploaded knowledge \u2014 the parts a two-person newsroom touches.",
+    "access": "free core plugin on WordPress.org; optional paid Pro add-on, and you supply your own AI account"
   }
 ]
