@@ -40,8 +40,18 @@
     "source": "skills"
   },
   {
+    "name": "blender-rendering",
+    "description": "Render Blender scenes with the right engine and settings \u2014 Cycles for photoreal, EEVEE for speed/stylized, sample counts, denoising (OptiX/OIDN), light path tun",
+    "source": "skills"
+  },
+  {
     "name": "canvas-design",
     "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, d",
+    "source": "skills"
+  },
+  {
+    "name": "cartography-geoviz",
+    "description": ">-",
     "source": "skills"
   },
   {
@@ -207,6 +217,11 @@
   {
     "name": "low-effort-high-reward",
     "description": "Rank a list of things to do by effort (low / medium / high) against reward (low / medium / high), so it's obvious what to do first. Run it inside a codebase and",
+    "source": "skills"
+  },
+  {
+    "name": "maplibre-terrain-rendering",
+    "description": "Drawing elevation in MapLibre GL JS once a raster-dem source works \u2014 hillshade and `hillshade-method`, the `color-relief` layer and the `[\"elevation\"]` expressi",
     "source": "skills"
   },
   {
