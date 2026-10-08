@@ -54,5 +54,69 @@
     "what": "Polygon boundaries of Wisconsin sediment study and cleanup project areas, refreshed September 26, 2026.",
     "pitch": "Adds an areal dimension to the BRRTS contamination tracker, which is point-based: sediment study areas show how far river-bottom contamination extends near Wausau's riverfront redevelopment.",
     "access": "Update \u00b7 WI DNR Open Data \u00b7 free (GeoJSON/shapefile download)"
+  },
+  {
+    "name": "DNR Solid Waste \u2013 Landfills and Historic Waste Site Extents",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::solid-waste-landfills-and-historic-waste-site-extents",
+    "date": "2026-10-08",
+    "what": "Statewide points and polygons for active, inactive and historic landfill and waste disposal sites.",
+    "pitch": "Historic dumps are the contamination story BRRTS alone misses: closed sites next to homes, schools and new subdivisions. Statewide, parcel-scale, and it refreshed October 8.",
+    "access": "Update \u00b7 WI DNR \u00b7 free, open download (GeoJSON/CSV/shapefile + ArcGIS REST API)"
+  },
+  {
+    "name": "DNR Remediation and Redevelopment \u2013 Wisconsin Assessment Monies (WAM) Award Location Points",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::remediation-and-redevelopment-wisconsin-assessment-monies-wam-award-location-points",
+    "date": "2026-10-08",
+    "what": "Point locations of DNR brownfield assessment grants awarded to address closed or closing industrial sites.",
+    "pitch": "Puts public dollars on the map at the exact brownfields WPR already tracks in BRRTS, and at the parcels cities later wrap in TIF districts. Refreshed October 8.",
+    "access": "Update \u00b7 WI DNR \u00b7 free, open download (GeoJSON/CSV/shapefile + ArcGIS REST API)"
+  },
+  {
+    "name": "WisDOT Airport FAR Part 77 Surfaces",
+    "url": "https://data-wisdot.opendata.arcgis.com/datasets/WisDOT::airport-far-part-77-surfaces-1",
+    "date": "2026-10-08",
+    "what": "New statewide polygons of federal imaginary airspace surfaces around every Wisconsin airport runway.",
+    "pitch": "First public statewide version, issued October 1. Central Wisconsin Airport in Mosinee and Wausau Downtown Airport both throw height-restricted surfaces across land that developers keep proposing to build on.",
+    "access": "New dataset \u00b7 WisDOT \u00b7 free, open download (GeoJSON/shapefile + ArcGIS REST API)"
+  },
+  {
+    "name": "DNR Remediation and Redevelopment \u2013 Sediment Impacts Points",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::remediation-and-redevelopment-sediment-impacts-points",
+    "date": "2026-10-08",
+    "what": "Point features for activities with current or past sediment contamination in Wisconsin waterways.",
+    "pitch": "The point companion to the sediment boundary layer, and easier to geocode and list. Wisconsin River impoundments through Marathon County carry legacy sediment contamination that pairs with PFAS fish-tissue work.",
+    "access": "Update \u00b7 WI DNR \u00b7 free, open download (GeoJSON/CSV/shapefile + ArcGIS REST API)"
+  },
+  {
+    "name": "CDC Epidemic Trends and Rt: COVID-19, Influenza, and RSV",
+    "url": "https://data.cdc.gov/d/ahfs-x44r",
+    "date": "2026-10-08",
+    "what": "Archived time-varying reproductive number estimates and epidemic trend categories at national, state and local levels.",
+    "pitch": "Issued October 2 and updating on a schedule, with Wisconsin values and history back through prior seasons. Exactly the recurring backbone WPR's scoped communicable-disease tracker lacks.",
+    "access": "New dataset \u00b7 CDC \u00b7 free, open data (Socrata API, CSV/JSON)"
+  },
+  {
+    "name": "WisDOT WEVI EV Charging Stations",
+    "url": "https://data-wisdot.opendata.arcgis.com/datasets/WisDOT::wevi-ev-charging-stations",
+    "date": "2026-10-08",
+    "what": "Sites awarded fast-charging funding under Wisconsin's Electric Vehicle Infrastructure program, with location attributes.",
+    "pitch": "A public-money siting dataset refreshed September 8, covering the I-39/51 and Highway 29 corridors through Marathon County. Awards are tied to named host businesses and host municipalities.",
+    "access": "Update \u00b7 WisDOT \u00b7 free, open download (GeoJSON/CSV/shapefile + ArcGIS REST API)"
+  },
+  {
+    "name": "Wisconsin Policy Forum: Condo Production Continues to Lag in Wisconsin (Focus #12)",
+    "url": "https://wispolicyforum.org/research/condo-production-continues-to-lag-in-wisconsin/",
+    "date": "2026-10-08",
+    "what": "September 2026 statewide brief on condominium construction trends and the housing-supply gap.",
+    "pitch": "Condo and owner-occupied multifamily supply is the missing piece in Wausau's downtown housing debate, and the Forum's housing briefs typically carry underlying permit counts WPR can localize.",
+    "access": "Release \u00b7 Wisconsin Policy Forum \u00b7 free PDF"
+  },
+  {
+    "name": "Wisconsin Policy Forum: Chronic Absenteeism briefing (Forum Friday, Oct. 30)",
+    "url": "https://wispolicyforum.org/events/forum-friday-wisconsins-stubbornly-high-rate-of-chronic-absenteeism/",
+    "date": "2026-10-08",
+    "what": "Scheduled Forum release and briefing on Wisconsin's persistently high chronic absenteeism rates.",
+    "pitch": "Dated and plannable. Forum education releases usually come with district-level tables, which would drop straight into WPR's DPI education tracker alongside ACT scores and dropout rates.",
+    "access": "Coming next month \u00b7 Wisconsin Policy Forum \u00b7 free (public briefing and report)"
   }
 ]
