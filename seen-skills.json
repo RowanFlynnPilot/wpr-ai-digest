@@ -43,5 +43,45 @@
     "name": "claude plugin validate \u2014 MCP server checks (Claude Code 2.1.281)",
     "url": "https://code.claude.com/docs/en/changelog",
     "date": "2026-09-24"
+  },
+  {
+    "name": "Claude Haiku 5.5",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "what": "New cheapest, fastest Anthropic small model, now default Haiku on the API with 1M context.",
+    "pitch": "WPR's 40+ scrapers burn tokens turning HTML and agendas into JSON. A 1M-context model at ten cents per million input tokens makes nightly extraction crons effectively free.",
+    "access": "paid \u00b7 $0.10/$0.50 per Mtok ($0.50/$2.50 for prompts over 100K) \u00b7 model id claude-haiku-5-5"
+  },
+  {
+    "name": "Claude Code mods (plugin authoring APIs, 2.1.292\u20132.1.294)",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "what": "TypeScript code shipped in plugins that rewrites Claude Code behavior, tools, prompts and UI.",
+    "pitch": "A solo dev policing 40 repos can encode guardrails as executable code instead of repeating CLAUDE.md rules. This week added prompt caching, prompt.autocomplete hooks, deferred tool schemas, and mod test mocks.",
+    "access": "free \u00b7 built into Claude Code 2.1.292+ \u00b7 ship as a plugin, validate with claude plugin validate"
+  },
+  {
+    "name": "claude plugin install --marketplace",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "what": "New flag that adds a plugin marketplace if needed and installs from it in one command.",
+    "pitch": "Rowan reinstalls the same skill set on every new machine and CI image. One command now replaces marketplace add plus install, under the same policy checks.",
+    "access": "free \u00b7 Claude Code 2.1.292+ \u00b7 claude plugin install <plugin> --marketplace <source>"
+  },
+  {
+    "name": "Claude Code WebFetch truncation fix (2.1.290)",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "what": "WebFetch no longer silently drops page text past 100,000 characters; it reports and accepts offset.",
+    "pitch": "WPR fetches very long agendas, dockets and meeting minutes. Silent truncation meant records quietly vanished from any long page Claude read, with no error to catch in review.",
+    "access": "free \u00b7 update Claude Code to 2.1.290 or later"
+  },
+  {
+    "name": "Scrapfly Cloud Browser Credential Vault (beta)",
+    "url": "https://scrapfly.io/docs/release-notes",
+    "date": "2026-10-08",
+    "what": "End-to-end encrypted vault holding passwords, passkeys, TOTP seeds and cookies for stealth cloud browser sessions.",
+    "pitch": "Login-gated portals are the hardest part of WPR scraping. Credentials stay out of repo CI secrets, and logins run through real Chromium autofill and WebAuthn paths, so sessions look human.",
+    "access": "paid \u00b7 Scrapfly account, vault beta open to all accounts \u00b7 skills via npx skills add scrapfly/skills"
   }
 ]
