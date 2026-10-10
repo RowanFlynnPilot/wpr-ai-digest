@@ -90,6 +90,11 @@
     "source": "plugins"
   },
   {
+    "name": "deslop",
+    "description": "Remove AI writing patterns from prose. Use this skill when writing, drafting, editing, reviewing, or revising any text to eliminate predictable AI tells, slop, ",
+    "source": "skills"
+  },
+  {
     "name": "dieter-rams-principles",
     "description": "Evaluate and improve digital product design using Dieter Rams' 10 Principles of Good",
     "source": "skills"
@@ -185,6 +190,11 @@
     "source": "skills"
   },
   {
+    "name": "grant-proposal-builder",
+    "description": "Nonprofit and research grant proposal assembly with structured sections, budget templates, and evaluation alignment. Use when writing grant proposals, funding a",
+    "source": "skills"
+  },
+  {
     "name": "html-video",
     "description": "Make short motion videos (walkthroughs, product demos, teasers, social reels, explainer clips) by building an HTML page whose every frame is a pure function of ",
     "source": "skills"
@@ -272,6 +282,11 @@
   {
     "name": "ux-heuristics-review",
     "description": "Apply the 10 Usability Heuristics to critique existing UI or guide new product design. Use this skill whenever the user shares a screenshot, mockup, or written ",
+    "source": "skills"
+  },
+  {
+    "name": "vercel-react-best-practices",
+    "description": "React and Next.js performance optimization guidelines from Vercel Engineering. This skill should be used when writing, reviewing, or refactoring React/Next.js c",
     "source": "skills"
   },
   {
