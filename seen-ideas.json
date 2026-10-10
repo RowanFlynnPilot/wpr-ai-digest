@@ -120,5 +120,77 @@
     "what": "A harness team reverses its MCP stance by exposing tools to a JavaScript sandbox the agent composes in code.",
     "pitch": "The useful reframe: tools should behave like a documented API \u2014 structured returns, discovered when needed \u2014 rather than a wall of definitions in every session. That is how CLIs stay cheap and composable.",
     "access": "Fascinating \u00b7 Hacker News \u00b7 679 points, 362 comments"
+  },
+  {
+    "name": "6 of 31 scrapers died silently \u2014 the zero-row check",
+    "url": "https://www.reddit.com/r/webscraping/comments/1wz43q0/631_of_our_scrapers_died_unnoticed_how_many_of/",
+    "date": "2026-10-10",
+    "what": "Scrapers that exit cleanly with zero rows go unnoticed for months; success means row counts, not exit codes.",
+    "pitch": "WPR runs dozens of GitHub Actions scrapers feeding Ledgers. A quiet one doesn't error \u2014 it just stops adding evictions or inspections, and nobody notices until a reader does.",
+    "access": "Fits our work \u00b7 r/webscraping #4 this week"
+  },
+  {
+    "name": "The $4,700 retry loop and the identical-error tripwire",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1wykdzx/an_agent_got_stuck_in_a_loop_and_burned_4700_of_a/",
+    "date": "2026-10-10",
+    "what": "An agent retried a failing tool 31,000 times overnight; fix is pre-call budget checks plus retry caps.",
+    "pitch": "The best comment beats the budget cap: count identical tool-error strings and stop after about five. That kills a runaway for cents instead of at the invoice line.",
+    "access": "Fits our work \u00b7 r/AI_Agents #3 this week"
+  },
+  {
+    "name": "Scrapers shipped as JSON manifests (with a record contract)",
+    "url": "https://www.reddit.com/r/webscraping/comments/1x0hm26/shipping_scrapers_as_json_manifests/",
+    "date": "2026-10-10",
+    "what": "Express each scraper as a declarative JSON config so a site change is an edit, not a redeploy.",
+    "pitch": "WPR maintains site-specific Python for every court, permit and inspection source. Manifests move that into data another newsroom can adapt \u2014 but only with the comment's caveat attached.",
+    "access": "Fits our work \u00b7 r/webscraping #6 this week \u00b7 open-source prototype"
+  },
+  {
+    "name": "Kill-words for sycophancy, plus a reviewer that must cite",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1wy10ki/gemini_chatgpt_and_claude_all_lean_towards/",
+    "date": "2026-10-10",
+    "what": "Short saved trigger words that switch a model into challenge, failure post-mortem, or honest-odds mode.",
+    "pitch": "Models agree with you by default, which is dangerous when the thing being checked is a published accountability dataset. The comments sharpen it: criticism must cite a line, or it doesn't count.",
+    "access": "Fits our work \u00b7 r/PromptEngineering #2 this week \u00b7 free"
+  },
+  {
+    "name": "Crawler Zoo \u2014 verify the bots that claim to be Googlebot",
+    "url": "https://www.reddit.com/r/webscraping/comments/1wx5qzu/i_built_a_site_that_logs_and_classifies_scrapers/",
+    "date": "2026-10-10",
+    "what": "A site that fingerprints every visiting bot, checks claimed identities by reverse plus forward DNS, and traps robots.txt violators.",
+    "pitch": "Flip side of WPR's own scraping: which AI crawlers take Wausau Pilot's reporting, and which lie about who they are. Cheap to instrument, and it's a local story too.",
+    "access": "Fits our work \u00b7 r/webscraping #2 this week \u00b7 free site, self-describable method"
+  },
+  {
+    "name": "Job search that ranks fit and names your gaps",
+    "url": "https://www.reddit.com/r/PromptEngineering/comments/1x0jkfu/chatgpt_will_find_jobs_that_actually_fit_you_rank/",
+    "date": "2026-10-10",
+    "what": "Interview the seeker first, screen against dealbreakers, rank real listings, and say where they're weak.",
+    "pitch": "WPR already runs a Supabase and Stripe jobs board. Fit-ranking plus an honest gap note is the feature that makes seekers return weekly \u2014 which is what employers actually buy.",
+    "access": "Could pay \u00b7 r/PromptEngineering #1 this week \u00b7 free prompt pattern"
+  },
+  {
+    "name": "People pay for the boring reliability layer, not the capability",
+    "url": "https://www.reddit.com/r/microsaas/comments/1wxscl0/built_a_wrapper_api_over_youtube_captions_and/",
+    "date": "2026-10-10",
+    "what": "A paid API wrapping a free transcript library, because at volume the free path breaks and needs babysitting.",
+    "pitch": "Every scraper WPR runs is technically free for anyone to rebuild. What small newsrooms will actually pay for is someone else absorbing blocks, retries and portal redesigns.",
+    "access": "Could pay \u00b7 r/microsaas #7 this week \u00b7 free writeup"
+  },
+  {
+    "name": "CSSV \u2014 a CSV file with a CSS block on top",
+    "url": "https://www.reddit.com/r/SideProject/comments/1wywx85/cssv_commaseparated_styled_values/",
+    "date": "2026-10-10",
+    "what": "Plain CSV that renders as a styled HTML table in a browser; delete the CSS and it's CSV again.",
+    "pitch": "Novel format thinking: the presentation rides with the data, stays plain text, diffs in a pull request, and any existing CSV already qualifies. Zero new tooling to learn.",
+    "access": "Fascinating \u00b7 r/SideProject #2 this week \u00b7 open format"
+  },
+  {
+    "name": "The planet candidate found with Claude Code \u2014 and how it was checked",
+    "url": "https://www.reddit.com/r/ClaudeAI/comments/1wzw8zd/i_think_i_found_a_planet_nobody_knew_existed_i/",
+    "date": "2026-10-10",
+    "what": "A non-astronomer used agents for the grunt analysis while he set the questions and the pass/fail tests.",
+    "pitch": "The verification pattern is the transferable part: confirm the signal in older independent data, then re-review from fresh read-only sessions and a second model that never saw the first reasoning.",
+    "access": "Fascinating \u00b7 r/ClaudeAI #1 this week \u00b7 free"
   }
 ]
