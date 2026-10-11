@@ -126,5 +126,85 @@
     "what": "pages-build-deployment has failed three times since 2026-07-02 at the 'Deploy to GitHub Pages' step.",
     "pitch": "A demo repo with no reader or revenue exposure; the only cost is noise in the weekly check until it's fixed or archived.",
     "access": "Failing \u00b7 since Jul 2"
+  },
+  {
+    "name": "wpr-jobs: Pages deploy has failed since July, jobs board frozen",
+    "url": "https://github.com/RowanFlynnPilot/wpr-jobs/actions/runs/28709339947",
+    "date": "2026-10-11",
+    "what": "Deploy to GitHub Pages failing, 2 consecutive runs since 2026-07-04; job 'deploy' dies at actions/deploy-pages@v4.",
+    "pitch": "The paid Stripe jobs board hasn't picked up any new listing for over three months \u2014 employers pay for postings readers never see.",
+    "access": "Failing \u00b7 since Jul 4"
+  },
+  {
+    "name": "wpr-coming-soon: pipeline failing every run for a week",
+    "url": "https://github.com/RowanFlynnPilot/wpr-coming-soon/actions/runs/38065331764",
+    "date": "2026-10-11",
+    "what": "build workflow has failed 7 consecutive runs since 2026-10-04 at step 'Run python -m pipeline'.",
+    "pitch": "The Coming Soon tracker on the site is a week stale, and the Ledger Brief and Sponsor Leads digests lose their freshest lead source.",
+    "access": "Failing \u00b7 since Oct 4"
+  },
+  {
+    "name": "wpr-cleanup-ledger: quarterly bulk ingest failing since late September",
+    "url": "https://github.com/RowanFlynnPilot/wpr-cleanup-ledger/actions/runs/37369476680",
+    "date": "2026-10-11",
+    "what": "Quarterly bulk ingest has failed 2+ consecutive runs since 2026-09-25; the failing step was not identified.",
+    "pitch": "The cleanup Ledger misses this quarter's records, so the embedded tracker and the Ledger Brief digest both run on outdated data.",
+    "access": "Failing \u00b7 since Sep 25"
+  },
+  {
+    "name": "wpr-immunity-ledger: weekly deploy hasn't run in 41 days",
+    "url": "https://github.com/RowanFlynnPilot/wpr-immunity-ledger/actions/workflows/deploy.yml",
+    "date": "2026-10-11",
+    "what": "Build and deploy last ran 41 days ago despite a schedule of every 168 hours; six weekly runs silently skipped.",
+    "pitch": "The immunity Ledger embedded on the site is six weeks stale, and the Ledger Brief digest draws from frozen data without any error to flag it.",
+    "access": "Stopped firing \u00b7 last run Aug 31"
+  },
+  {
+    "name": "wpr-permit-tracker: monthly cron stopped firing three weeks ago",
+    "url": "https://github.com/RowanFlynnPilot/wpr-permit-tracker/actions/workflows/monthly.yml",
+    "date": "2026-10-11",
+    "what": "The 'monthly' workflow last ran 22 days ago although it normally runs every 168 hours and still has a schedule.",
+    "pitch": "The permit tracker embedded on the site shows three-week-old permits; readers checking new construction and business openings get stale results with no warning.",
+    "access": "Stopped firing \u00b7 last run Sep 19"
+  },
+  {
+    "name": "wpr-events: scheduled build switched off by GitHub",
+    "url": "https://github.com/RowanFlynnPilot/wpr-events/actions/workflows/publish.yml",
+    "date": "2026-10-11",
+    "what": "Build & Deploy was disabled by GitHub after 60 days without repo activity; the scheduled publish no longer runs at all.",
+    "pitch": "The events calendar embedded on the site stops refreshing, so readers see past events and miss upcoming listings \u2014 a steady, visible reader-facing loss.",
+    "access": "Disabled by GitHub \u00b7 60-day inactivity"
+  },
+  {
+    "name": "wpr-brewers-tracker: prospect rankings check failing since September",
+    "url": "https://github.com/RowanFlynnPilot/wpr-brewers-tracker/actions/runs/36913334337",
+    "date": "2026-10-11",
+    "what": "Prospect rankings check has failed 2 consecutive runs since 2026-09-01 at step 'Compare config with MLB Pipeline'.",
+    "pitch": "The sports widget's prospect rankings drift out of sync with MLB Pipeline, so readers see outdated names and the check that would catch it is dead.",
+    "access": "Failing \u00b7 since Sep 1"
+  },
+  {
+    "name": "wpr-trails: weekly pipeline dead for 15 straight weeks",
+    "url": "https://github.com/RowanFlynnPilot/wpr-trails/actions/runs/37203979508",
+    "date": "2026-10-11",
+    "what": "Weekly Pipeline has failed 15 consecutive runs since 2026-06-28; job 'rebuild' fails at step 'Pull source data'.",
+    "pitch": "Trail data is three and a half months stale. Lower priority than the Ledgers, but it has been quietly broken longest of anything still running.",
+    "access": "Failing \u00b7 since Jun 28"
+  },
+  {
+    "name": "wpr-fish-fry: link-check failed once last week",
+    "url": "https://github.com/RowanFlynnPilot/wpr-fish-fry/actions/runs/37364256791",
+    "date": "2026-10-11",
+    "what": "link-check failed on 2026-10-05, one run only; the failing step was not identified.",
+    "pitch": "Likely one or more dead restaurant links in the fish fry guide \u2014 a small reader annoyance, not a data outage. Cheapest item on this list.",
+    "access": "Failing \u00b7 since Oct 5"
+  },
+  {
+    "name": "racine-obit-demo: demo Pages deploy failing since July",
+    "url": "https://github.com/RowanFlynnPilot/racine-obit-demo/actions/runs/28607619706",
+    "date": "2026-10-11",
+    "what": "pages-build-deployment has failed 3 consecutive runs since 2026-07-02 at step 'Deploy to GitHub Pages'.",
+    "pitch": "A demo repo with no readers and no downstream consumers. Nothing is lost while it stays broken \u2014 fix only if you still plan to show it.",
+    "access": "Failing \u00b7 since Jul 2"
   }
 ]
