@@ -10,6 +10,11 @@
     "source": "skills"
   },
   {
+    "name": "ad-hook-analyzer",
+    "description": "\"Score and force-rank the openings of candidate video ads - from a script, transcript, storyboard, shot list, or a description of a finished cut - to decide whi",
+    "source": "skills"
+  },
+  {
     "name": "animate",
     "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right \u2014 should it animate at all, what purpose, which tool, ",
     "source": "skills"
@@ -205,6 +210,11 @@
     "source": "skills"
   },
   {
+    "name": "hyperframes-creative",
+    "description": "Non-animation creative direction for HyperFrames videos. Use for design spec (frame.md / design.md) handling, palettes, typography, narration, beat planning, au",
+    "source": "skills"
+  },
+  {
     "name": "impeccable",
     "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise",
     "source": "skills"
@@ -242,6 +252,11 @@
   {
     "name": "mobile-native",
     "description": "Make a web app feel native on a phone \u2014 the small CSS and meta-tag fixes that separate \"a website in a browser\" from something that feels installed. Covers stic",
+    "source": "skills"
+  },
+  {
+    "name": "motion-graphics",
+    "description": ">",
     "source": "skills"
   },
   {
