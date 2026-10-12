@@ -155,5 +155,37 @@
     "what": "Newly unredacted filings show Microsoft and OpenAI staff privately calling AI training theft and news substitution.",
     "pitch": "Posted Sept. 18: executives concede chatbots substitute for publishers and that paywalls were worked around. Useful leverage and framing before WPR decides to block, license, or stay quiet.",
     "access": "free (court filing and summary)"
+  },
+  {
+    "name": "Local Media Association AI Growth Lab (with Google)",
+    "url": "https://localmedia.org/2026/09/lma-opens-applications-for-newsrooms-to-join-the-ai-growth-lab/",
+    "date": "2026-10-12",
+    "what": "Six-month AI training lab for up to 12 local newsrooms, November through April, with coaching.",
+    "pitch": "Deadline is Wednesday, Oct. 14 at 11:59 p.m. ET. Explicitly open to small, community-controlled outlets publishing original local journalism weekly, and built around off-the-shelf prototypes rather than developer work.",
+    "access": "free to apply; up to 12 newsrooms selected; deadline Oct. 14"
+  },
+  {
+    "name": "Nieman Lab report from the AI x Investigative Journalism Forum",
+    "url": "https://niemanlab.org/2026/10/uber-agents-undercover-ai-personas-and-other-ways-newsrooms-are-using-ai-in-investigations",
+    "date": "2026-10-12",
+    "what": "Writeup of how Times, NPR and AP teams used AI on the Epstein files and investigations.",
+    "pitch": "The most useful honest accounting this month: what worked on huge document dumps, what the chat interfaces got wrong, and the warning that AI generates leads, not publishable evidence.",
+    "access": "free to read; LibreChat is open-source and self-hosted"
+  },
+  {
+    "name": "McClatchy's \"Content Scaling Agents\" after deep newsroom layoffs",
+    "url": "https://www.techpolicy.press/cutting-local-journalists-mcclatchy-embraces-ai-content/",
+    "date": "2026-10-12",
+    "what": "Reported account of a 30-paper chain cutting accountability reporters while expanding AI-generated article summaries.",
+    "pitch": "A chain paper losing its city hall and schools reporter is a market opening for WPR, and the byline strike and disclosure fights show how badly a surprise AI rollout can damage trust.",
+    "access": "free to read"
+  },
+  {
+    "name": "Press Gazette investigation: Quartz's 50-stories-a-day AI-assisted byline",
+    "url": "https://pressgazette.co.uk/publishers/digital-journalism/quartz-website-mainly-produced-by-one-ai-assisted-reporter-writing-50-stories-per-day",
+    "date": "2026-10-12",
+    "what": "One unreachable byline produced 52 Quartz articles in a day, mostly AI-assisted rewrites of others' reporting.",
+    "pitch": "A named-brand outlet now runs on rewrites with no bio, photo or contact for the author. That contrast is WPR's clearest membership argument, and a checklist for vetting syndication partners.",
+    "access": "free to read"
   }
 ]
