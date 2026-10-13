@@ -5,6 +5,11 @@
     "source": "plugins"
   },
   {
+    "name": "access",
+    "description": "Manage Telegram channel access \u2014 approve pairings, edit allowlists, set DM/group policy. Use when the user asks to pair, approve someone, check who's allowed, o",
+    "source": "plugins"
+  },
+  {
     "name": "accessibility",
     "description": "Review screenshots, mockups, designs, and UI flows for accessibility using WCAG 2.1. Use when the user asks for an accessibility audit, WCAG review, inclusive d",
     "source": "skills"
@@ -13,6 +18,11 @@
     "name": "ad-hook-analyzer",
     "description": "\"Score and force-rank the openings of candidate video ads - from a script, transcript, storyboard, shot list, or a description of a finished cut - to decide whi",
     "source": "skills"
+  },
+  {
+    "name": "agent-development",
+    "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent ex",
+    "source": "plugins"
   },
   {
     "name": "animate",
@@ -50,9 +60,29 @@
     "source": "skills"
   },
   {
+    "name": "build-mcp-app",
+    "description": "This skill should be used when the user wants to build an \"MCP app\", add \"interactive UI\" or \"widgets\" to an MCP server, \"render components in chat\", build \"MCP",
+    "source": "plugins"
+  },
+  {
+    "name": "build-mcp-server",
+    "description": "This skill should be used when the user asks to \"build an MCP server\", \"create an MCP\", \"make an MCP integration\", \"wrap an API for Claude\", \"expose tools to Cl",
+    "source": "plugins"
+  },
+  {
+    "name": "build-mcpb",
+    "description": "This skill should be used when the user wants to \"package an MCP server\", \"bundle an MCP\", \"make an MCPB\", \"ship a local MCP server\", \"distribute a local MCP\", ",
+    "source": "plugins"
+  },
+  {
     "name": "canvas-design",
     "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, d",
     "source": "skills"
+  },
+  {
+    "name": "cardputer-buddy",
+    "description": "Iterate on the Cardputer-Adv MicroPython app bundle (Claude Buddy, Snake, Hello) after the device is already provisioned via m5-onboard. Use when the user wants",
+    "source": "plugins"
   },
   {
     "name": "cartography-geoviz",
@@ -70,9 +100,34 @@
     "source": "plugins"
   },
   {
+    "name": "claude-automation-recommender",
+    "description": "Analyze a codebase and recommend Claude Code automations (hooks, subagents, skills, plugins, MCP servers). Use when user asks for automation recommendations, wa",
+    "source": "plugins"
+  },
+  {
+    "name": "claude-md-improver",
+    "description": "Audit and improve CLAUDE.md files in repositories. Use when user asks to check, audit, update, improve, or fix CLAUDE.md files. Scans for all CLAUDE.md files, e",
+    "source": "plugins"
+  },
+  {
+    "name": "claude-security",
+    "description": "\"Claude Security: scan the codebase (the whole repository or a scoped part of it), scan changes (this branch's or a pull request's diff, or one commit), or sugg",
+    "source": "plugins"
+  },
+  {
     "name": "cognitive-load-conversion",
     "description": "Audit UI designs, flows, copy, and layouts to reduce cognitive load and maximize conversion. Apply this skill whenever a user shares a screen, mockup, flow, for",
     "source": "skills"
+  },
+  {
+    "name": "command-development",
+    "description": "This skill should be used when the user asks to \"create a slash command\", \"add a command\", \"write a custom command\", \"define command arguments\", \"use command fr",
+    "source": "plugins"
+  },
+  {
+    "name": "configure",
+    "description": "Set up the Telegram channel \u2014 save the bot token and review access policy. Use when the user pastes a Telegram bot token, asks to configure Telegram, asks \"how ",
+    "source": "plugins"
   },
   {
     "name": "cookie-debugging",
@@ -103,6 +158,16 @@
     "name": "dieter-rams-principles",
     "description": "Evaluate and improve digital product design using Dieter Rams' 10 Principles of Good",
     "source": "skills"
+  },
+  {
+    "name": "example-command",
+    "description": "An example user-invoked skill that demonstrates frontmatter options and the skills/<name>/SKILL.md layout",
+    "source": "plugins"
+  },
+  {
+    "name": "example-skill",
+    "description": "This skill should be used when the user asks to \"demonstrate skills\", \"show skill format\", \"create a skill template\", or discusses skill development patterns. P",
+    "source": "plugins"
   },
   {
     "name": "feature-prioritization",
@@ -200,6 +265,11 @@
     "source": "skills"
   },
   {
+    "name": "hook-development",
+    "description": "This skill should be used when the user asks to \"create a hook\", \"add a PreToolUse/PostToolUse/Stop hook\", \"validate tool use\", \"implement prompt-based hooks\", ",
+    "source": "plugins"
+  },
+  {
     "name": "html-video",
     "description": "Make short motion videos (walkthroughs, product demos, teasers, social reels, explainer clips) by building an HTML page whose every frame is a pure function of ",
     "source": "skills"
@@ -240,9 +310,24 @@
     "source": "skills"
   },
   {
+    "name": "m5-onboard",
+    "description": "End-to-end onboarding for a freshly-plugged-in M5Stack ESP32 device (Cardputer, Cardputer-Adv, Core, CoreS3, Stick) \u2014 detect on USB, flash UIFlow 2.0 firmware, ",
+    "source": "plugins"
+  },
+  {
     "name": "maplibre-terrain-rendering",
     "description": "Drawing elevation in MapLibre GL JS once a raster-dem source works \u2014 hillshade and `hillshade-method`, the `color-relief` layer and the `[\"elevation\"]` expressi",
     "source": "skills"
+  },
+  {
+    "name": "math-olympiad",
+    "description": "",
+    "source": "plugins"
+  },
+  {
+    "name": "mcp-integration",
+    "description": "This skill should be used when the user asks to \"add MCP server\", \"integrate MCP\", \"configure MCP in plugin\", \"use .mcp.json\", \"set up Model Context Protocol\", ",
+    "source": "plugins"
   },
   {
     "name": "memory-leak-debugging",
@@ -270,9 +355,34 @@
     "source": "skills"
   },
   {
+    "name": "playground",
+    "description": "Creates interactive HTML playgrounds \u2014 self-contained single-file explorers that let users configure something visually through controls, see a live preview, an",
+    "source": "plugins"
+  },
+  {
+    "name": "plugin-settings",
+    "description": "This skill should be used when the user asks about \"plugin settings\", \"store plugin configuration\", \"user-configurable plugin\", \".local.md files\", \"plugin state",
+    "source": "plugins"
+  },
+  {
+    "name": "plugin-structure",
+    "description": "This skill should be used when the user asks to \"create a plugin\", \"scaffold a plugin\", \"understand plugin structure\", \"organize plugin components\", \"set up plu",
+    "source": "plugins"
+  },
+  {
+    "name": "project-artifact",
+    "description": "Generate and publish a project status artifact \u2014 an opinionated, tabbed status page for a project too big for one update (overview & success criteria, the works",
+    "source": "plugins"
+  },
+  {
     "name": "prototype",
     "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one th",
     "source": "skills"
+  },
+  {
+    "name": "receipts",
+    "description": "Generate a personal Claude Code usage & impact report (\"receipts\") from this machine's local session transcripts \u2014 for justifying Claude Code usage/spend to a m",
+    "source": "plugins"
   },
   {
     "name": "review-animations",
@@ -288,6 +398,31 @@
     "name": "seo-schema",
     "description": ">",
     "source": "skills"
+  },
+  {
+    "name": "session-report",
+    "description": "Generate an explorable HTML report of Claude Code session usage (tokens, cache, subagents, skills, expensive prompts) from ~/.claude/projects transcripts.",
+    "source": "plugins"
+  },
+  {
+    "name": "siege",
+    "description": "\"Work on one hard mathematics problem in rounds: each round a judge writes a few self-contained questions, independent workers answer them, and the judge keeps ",
+    "source": "plugins"
+  },
+  {
+    "name": "skill-creator",
+    "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an e",
+    "source": "plugins"
+  },
+  {
+    "name": "skill-development",
+    "description": "This skill should be used when the user wants to \"create a skill\", \"add a skill to plugin\", \"write a new skill\", \"improve skill description\", \"organize skill co",
+    "source": "plugins"
+  },
+  {
+    "name": "solo",
+    "description": "\"Work on one hard mathematics problem in this session yourself, with no sub-agents: reason in stages, record each settled step in a notes file so that nothing w",
+    "source": "plugins"
   },
   {
     "name": "troubleshooting",
@@ -318,5 +453,10 @@
     "name": "wpr-brand",
     "description": "Wausau Pilot & Review's brand \u2014 the four design systems in use across WPR's 44-repo tool fleet (Follow the Money, Newspack \"Joseph\", Almanac, Ballpark), which o",
     "source": "skills"
+  },
+  {
+    "name": "writing-hookify-rules",
+    "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on ho",
+    "source": "plugins"
   }
 ]
