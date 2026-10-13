@@ -213,5 +213,45 @@
     "what": "Case 2026CM000231 in Marathon County moved to a not-guilty plea on Oct. 1.",
     "pitch": "A single misdemeanor plea is routine unless the defendant or the underlying case is recognizable. Worth two minutes to check the name before deciding it isn't a story.",
     "access": "1 case update"
+  },
+  {
+    "name": "Care Ledger: enforcement file and a follow-up visit at license 0008499",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-13",
+    "what": "A March 2025 complaint survey at license 0008499 carried an enforcement document, followed by an August verification visit.",
+    "pitch": "Most assisted-living surveys end with a statement of deficiencies only. This one drew a separate enforcement PDF and a return visit five months later \u2014 the state's escalation ladder, on a Marathon County license.",
+    "access": "1 enforcement case, 2 linked surveys"
+  },
+  {
+    "name": "Care Ledger: archive jumps from 152 to 546 inspection records",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-13",
+    "what": "The ledger more than tripled overnight, backfilling years of survey and complaint records for local licenses.",
+    "pitch": "First time we can see repeat offenders instead of one-off inspections. Sort by license and count complaint/self-report surveys \u2014 the facilities with three or four are the story, not the ones with one.",
+    "access": "394 added records"
+  },
+  {
+    "name": "Care Ledger: a complaint-surveyed license that's no longer on the state roster",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-13",
+    "what": "License 0008655 shows a 2023 complaint/self-report survey and is now flagged as expired from the state list.",
+    "pitch": "A facility that drew a complaint investigation and then dropped off the licensing roster. Did it close, sell, or surrender? Residents had to go somewhere \u2014 that's the human end of the story.",
+    "access": "1 expired license"
+  },
+  {
+    "name": "Property transactions: 131 deeds land at once, including LLC buys well under market",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-10-13",
+    "what": "A batch of 131 early-October Marathon County sales posted, including a $58,895 Wausau house bought by an LLC.",
+    "pitch": "Huddle Up Housing LLC paid under $59,000 for 822 Single Ave the same week a Chellis Street house went for $170,000. Worth checking how many of the 131 went to LLCs and whether any names repeat.",
+    "access": "131 new sales"
+  },
+  {
+    "name": "Gavel: December county committee calendar posts, including Public Safety",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-10-13",
+    "what": "Seventeen meetings added, including a Dec. 8 Public Safety Committee and Dec. 10 Executive Committee.",
+    "pitch": "Not this week's story, but Public Safety is the committee that touches sheriff's camera and ALPR decisions. Worth watching the agenda when it posts against the Watch Ledger's 2,117-camera roster.",
+    "access": "17 meetings added, net 2 fewer"
   }
 ]
