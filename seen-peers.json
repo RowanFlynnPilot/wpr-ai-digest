@@ -150,5 +150,77 @@
     "what": "Small newsroom recognized for immigration enforcement coverage and for suing over press access.",
     "pitch": "A newsroom WPR's size treating litigation as standard practice, not last resort. WPR's court, permit and Fire Watch pipelines all depend on access that can be cut off without warning.",
     "access": "Newsroom \u2014 Block Club Chicago; free"
+  },
+  {
+    "name": "Signal Cleveland neighborhood trash call-out",
+    "url": "https://signalcleveland.org/tired-of-seeing-trash-in-your-cleveland-neighborhood-tell-us-about-it/",
+    "date": "2026-10-15",
+    "what": "Reader call-out asking residents to report trash-strewn spots in their own neighborhoods for a reporting project.",
+    "pitch": "WPR's Cleanup Ledger already tracks city cleanup actions, but has no reader front door. This is it: residents nominate sites, giving the ledger a steady local-evidence pipeline.",
+    "access": "Audience \u2014 Signal Cleveland \u00b7 free"
+  },
+  {
+    "name": "How to Vet NYC Public Schools Like a Reporter",
+    "url": "https://www.thecityreporter.nyc/2026/10/07/best-public-school-rank-vet-investigate-data/",
+    "date": "2026-10-15",
+    "what": "Step-by-step guide teaching readers to research a public school using the same records reporters use.",
+    "pitch": "WPR has the trackers but not the teaching layer. A vet-it-like-a-reporter guide turns Watch and Rent Ledgers into a reader skill and repeat visits.",
+    "access": "Built \u2014 THE CITY \u00b7 free"
+  },
+  {
+    "name": "Documented's monthly immigration data column",
+    "url": "https://documentedny.com/2026/10/02/austin-kocher-nyc-immigration-data/",
+    "date": "2026-10-15",
+    "what": "Monthly column written by an outside academic data expert rather than staff reporters.",
+    "pitch": "WPR publishes ledgers but nothing recurring that explains them. Cheap model: hand a standing data set to a named outside expert for a monthly read.",
+    "access": "Newsroom \u2014 Documented \u00b7 free, outside contributor"
+  },
+  {
+    "name": "Wisconsin Watch AI-and-careers call-out",
+    "url": "https://wisconsinwatch.org/2026/09/wisconsin-watch-help-us-report-on-what-ai-artificial-intelligence-means-for-career-choices/",
+    "date": "2026-10-15",
+    "what": "Statewide call-out asking readers how AI is changing their jobs and career decisions.",
+    "pitch": "Wisconsin peer sharing WPR's readers and funders. WPR runs tools, not topic call-outs; this is a ready template for a Wausau AI-and-jobs ask.",
+    "access": "Audience \u2014 Wisconsin Watch \u00b7 free"
+  },
+  {
+    "name": "Beacon community conversation on Flock cameras",
+    "url": "https://thebeaconnews.org/stories/2026/10/07/community-conversation-flock/",
+    "date": "2026-10-15",
+    "what": "Live community event about police Flock cameras, built from one reader's submitted question.",
+    "pitch": "WPR covers police tech through Fire Watch and the Watch Ledger but holds no events. Shows one reader question becoming a panel, coverage and a mailing list.",
+    "access": "Audience \u2014 The Beacon \u00b7 free event"
+  },
+  {
+    "name": "Beacon Documenters neighborhood observations",
+    "url": "https://thebeaconnews.org/stories/2026/10/06/what-documenters-see-in-kc-neighborhoods/",
+    "date": "2026-10-15",
+    "what": "Documenters assigned to observe neighborhoods instead of meetings, logging closed stores, sidewalks and new businesses.",
+    "pitch": "A people-powered feed for WPR's Coming Soon tracker, which now relies on staff noticing. Structured street-level observation is exactly the input it needs.",
+    "access": "Audience \u2014 The Beacon \u00b7 free, Documenters paid"
+  },
+  {
+    "name": "Oaklandside guide to other outlets' voter guides",
+    "url": "https://oaklandside.org/2026/10/05/oakland-endorsements-voter-guides-list/",
+    "date": "2026-10-15",
+    "what": "Curated index pointing readers to every other local voter guide and endorsement slate.",
+    "pitch": "WPR already builds voter guides; being the index of all area guides is a day's work that wins search traffic and goodwill from competitors.",
+    "access": "Built \u2014 The Oaklandside \u00b7 free"
+  },
+  {
+    "name": "Beacon City Hall beat expansion",
+    "url": "https://thebeaconnews.org/stories/2026/10/14/the-beacon-is-expanding-its-city-hall-coverage-meet-thomas-friestad/",
+    "date": "2026-10-15",
+    "what": "Beacon adds a dedicated reporter to deepen municipal government and City Hall coverage.",
+    "pitch": "Shows where peer newsrooms put new money: municipal accountability. Useful framing for WPR's funder case that Gavel lets one reporter carry a two-reporter meeting load.",
+    "access": "Newsroom \u2014 The Beacon \u00b7 n/a"
+  },
+  {
+    "name": "Mountain State Spotlight audience growth hire",
+    "url": "https://mountainstatespotlight.org/2026/09/24/audience-manager-hire/",
+    "date": "2026-10-15",
+    "what": "Small statewide nonprofit newsroom creates a dedicated audience growth position.",
+    "pitch": "Comparable size and budget to WPR, and evidence the next hire at newsrooms like this is audience rather than reporting \u2014 relevant to WPR's 2027 staffing choices.",
+    "access": "Newsroom \u2014 Mountain State Spotlight \u00b7 n/a"
   }
 ]
