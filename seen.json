@@ -219,5 +219,37 @@
     "what": "Classification endpoint that answers developer-defined questions from a finite predefined answer set.",
     "pitch": "A purpose-built classifier beats prompting a chat model for triage: fixed label sets, text or image input, built for real-time routing \u2014 exactly Fire Watch's alert-or-ignore decision.",
     "access": "waitlist \u2014 limited preview as of September 29, broad release promised shortly"
+  },
+  {
+    "name": "Claude Haiku 5.5",
+    "url": "https://www.anthropic.com/claude-haiku-5-5",
+    "date": "2026-10-16",
+    "what": "Anthropic's new small model: faster, far cheaper, and much stronger at classification and summarization.",
+    "pitch": "WPR runs Haiku on everything high-volume. Input drops from $1.00 to $0.10 per million and output $5.00 to $0.50 on sub-100k prompts, while benchmark scores roughly double.",
+    "access": "paid \u2014 $0.10/$0.50 per million tokens for prompts under 100k; $0.50/$2.50 above"
+  },
+  {
+    "name": "Cloudflare Clef-omni",
+    "url": "https://developers.cloudflare.com/changelog/post/2026-10-09-clef-omni-workers-ai/",
+    "date": "2026-10-16",
+    "what": "Open-weight decision model that scores fixed answer options directly from audio, video, image or text.",
+    "pitch": "Fire Watch transcribes then classifies. Clef-omni answers yes/no questions straight off dispatch audio in under 100ms with no transcript step, and the 30B MoE weights are on Hugging Face for self-hosting.",
+    "access": "open-source weights plus hosted on Workers AI at $0.15 per million input tokens"
+  },
+  {
+    "name": "Deepgram Nova-3 mid-stream keyterm updates",
+    "url": "https://developers.deepgram.com/changelog",
+    "date": "2026-10-16",
+    "what": "Live Nova-3 transcription streams now accept keyterm and formatting changes mid-session without reconnecting.",
+    "pitch": "Fire Watch and Gavel both need vocabulary that shifts mid-stream: Marathon County street names, agency call signs, board member names. Now swappable live via a Configure message, with Python SDK v7.13.0 support.",
+    "access": "paid \u2014 Deepgram pay-as-you-go; SDK update free; note the 500-token keyterm cap"
+  },
+  {
+    "name": "Gemini 4 Argon",
+    "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/",
+    "date": "2026-10-16",
+    "what": "Google's frontier long-horizon model, now generally available via API for complex coding and multi-step work.",
+    "pitch": "A solo dev's fallback when Claude Code stalls on a large refactor \u2014 Argon is pitched at hundreds-of-files architectural changes. Worth benchmarking before OEC work goes multi-newsroom.",
+    "access": "paid \u2014 introductory $2 per million input, $10 output, 95% off cached input"
   }
 ]
