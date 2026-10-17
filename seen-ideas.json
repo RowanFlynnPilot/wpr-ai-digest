@@ -192,5 +192,69 @@
     "what": "A non-astronomer used agents for the grunt analysis while he set the questions and the pass/fail tests.",
     "pitch": "The verification pattern is the transferable part: confirm the signal in older independent data, then re-review from fresh read-only sessions and a second model that never saw the first reasoning.",
     "access": "Fascinating \u00b7 r/ClaudeAI #1 this week \u00b7 free"
+  },
+  {
+    "name": "cc-stretch \u2014 stretchtext replies you expand only where you care",
+    "url": "https://www.reddit.com/r/ClaudeCode/comments/1x688sx/turning_a_crazy_idea_from_1967_into_a_claude_code/",
+    "date": "2026-10-17",
+    "what": "Claude Code plugin that cuts replies by about 83% and lets you expand any part on demand.",
+    "pitch": "Progressive disclosure written by the model instead of by hand \u2014 the missing UX for Gavel meeting summaries and Ledger entries, where some readers want one line and some want everything.",
+    "access": "Fits our work \u00b7 r/ClaudeCode #3 this week \u00b7 open-source (MIT)"
+  },
+  {
+    "name": "Graduated-trust permissions for an agent that touches real people",
+    "url": "https://www.reddit.com/r/AI_Agents/comments/1x620o5/how_i_automated_my_moms_wedding_venue_business/",
+    "date": "2026-10-17",
+    "what": "Agent began with approval on everything and earned auto-approval per action class only after its error rate held low.",
+    "pitch": "Fire Watch and Gavel both face the same question \u2014 when may an alert go out without an editor? The thread's commenters turn that into a measurable policy rather than a gut call.",
+    "access": "Fits our work \u00b7 r/AI_Agents #10 this week"
+  },
+  {
+    "name": "Frankensurf \u2014 a fetch router benchmarked against 28 scraping tools",
+    "url": "https://www.reddit.com/r/webscraping/comments/1x4sfpt/i_stitched_28_web_scrapers_and_browsers_into_one/",
+    "date": "2026-10-17",
+    "what": "Open-source router tries the cheapest fetch method first and escalates only when blocked, measured across 150 sites.",
+    "pitch": "Hard numbers for WPR's scraper fleet: routing read 88% of 150 sites versus 68.7% for the best single tool, while plain HTTP alone still handled nearly half.",
+    "access": "Fits our work \u00b7 r/webscraping #1 this week \u00b7 open-source (Apache-2.0)"
+  },
+  {
+    "name": "claude-show-your-work \u2014 before/after QA played back in the terminal",
+    "url": "https://www.reddit.com/r/ClaudeCode/comments/1x34qj4/claude_code_now_shows_images_and_videos_in_the/",
+    "date": "2026-10-17",
+    "what": "Claude Code plugin renders screenshots and Playwright recordings inline, including synced before/after runs of the same flow.",
+    "pitch": "Ends the switch-to-localhost loop after every change to WPR's React widgets. Thread caveat worth heeding: it auto-updates from main and sends telemetry unless you disable both.",
+    "access": "Fits our work \u00b7 r/ClaudeCode #2 this week \u00b7 open-source (MIT), pin the version"
+  },
+  {
+    "name": "Blumify \u2014 tracking what named people said and how their views moved",
+    "url": "https://news.ycombinator.com/item?id=50081151",
+    "date": "2026-10-17",
+    "what": "Site indexes podcast and video appearances to show how specific people's stated positions shift over time.",
+    "pitch": "The accountability feature local news lacks. Commenters caught it misattributing a quote between two executives, which proves the point: the product is timestamped sourcing, not summary.",
+    "access": "Could pay \u00b7 Show HN \u00b7 118 points"
+  },
+  {
+    "name": "Free micro-tools as the growth asset \u2014 with the estimates labelled",
+    "url": "https://www.reddit.com/r/microsaas/comments/1x4nlo2/going_to_start_shipping_free_tools_what_i_learnt/",
+    "date": "2026-10-17",
+    "what": "Builder ships small free calculators to reach buyers; the thread diagnoses what makes one actually get shared.",
+    "pitch": "A template for sponsorable reader tools: give a concrete number people forward to others, no email gate, and visibly mark which inputs are estimates versus measured data.",
+    "access": "Could pay \u00b7 r/microsaas #9 this week"
+  },
+  {
+    "name": "Indigene \u2014 a local-knowledge app designed so hallucinations die fast",
+    "url": "https://news.ycombinator.com/item?id=50064470",
+    "date": "2026-10-17",
+    "what": "Native-plant recommender for your exact location, cross-referenced against open datasets, with a public page documenting its AI use.",
+    "pitch": "A place-based reader tool with the verification posture a newsroom needs: open data behind every claim, model involvement disclosed publicly, and AI use flagged inside every pull request.",
+    "access": "Could pay \u00b7 Show HN \u00b7 118 points \u00b7 open-source"
+  },
+  {
+    "name": "Parsimony \u2014 benchmarking how much code a model leaves behind",
+    "url": "https://news.ycombinator.com/item?id=50077619",
+    "date": "2026-10-17",
+    "what": "Open benchmark counts net syntax units a model's patch adds, deleted code subtracted, so verbose fixes score worse.",
+    "pitch": "A maintenance metric for a solo developer holding dozens of repos: judge an agent by how little code it leaves, not only by whether the tests pass.",
+    "access": "Fascinating \u00b7 Show HN \u00b7 77 points \u00b7 open-source"
   }
 ]
