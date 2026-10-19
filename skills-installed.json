@@ -400,6 +400,66 @@
     "source": "plugins"
   },
   {
+    "name": "remotion-best-practices",
+    "description": "Router for all Remotion skills",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-captions",
+    "description": "Transcribing, displaying and animating captions",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-create",
+    "description": "Create a new Remotion video",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-docs",
+    "description": "Search Remotion documentation",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-interactivity",
+    "description": "Structure Remotion markup for interactivity",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-maps",
+    "description": "Remotion Map animation knowledge",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-markup",
+    "description": "Content, animation and effects best practices",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-multimedia",
+    "description": "Interacting with Mediabunny",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-render",
+    "description": "Export a Remotion video",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-saas",
+    "description": "Build an app with Remotion",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-studio",
+    "description": "Preview a Remotion video",
+    "source": "skills"
+  },
+  {
+    "name": "remotion-upgrade",
+    "description": "Upgrade Remotion, and related packages",
+    "source": "skills"
+  },
+  {
     "name": "review-animations",
     "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
     "source": "skills"
