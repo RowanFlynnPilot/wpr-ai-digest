@@ -253,5 +253,37 @@
     "what": "Seventeen meetings added, including a Dec. 8 Public Safety Committee and Dec. 10 Executive Committee.",
     "pitch": "Not this week's story, but Public Safety is the committee that touches sheriff's camera and ALPR decisions. Worth watching the agenda when it posts against the Watch Ledger's 2,117-camera roster.",
     "access": "17 meetings added, net 2 fewer"
+  },
+  {
+    "name": "Care Ledger: enforcement paperwork attached to a Marathon-area assisted living facility, with a follow-up verification visit",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-20",
+    "what": "New record for facility 0008499 includes a March 2025 enforcement document plus an August verification visit.",
+    "pitch": "Most Care Ledger entries are statements of deficiency alone. This one carries an enforcement document and a return visit \u2014 meaning the state thought the problem was serious enough to check whether it got fixed.",
+    "access": "1 new record, enforcement + verification docs"
+  },
+  {
+    "name": "Gavel: Wausau Finance Committee meets twice in eight days",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-10-20",
+    "what": "Fifteen meetings added, including Wausau Finance Committee on Oct. 20 and Oct. 27.",
+    "pitch": "Two finance meetings inside a week usually means budget season crunch or something that couldn't wait. Worth seeing which it is before the council votes on anything with a dollar figure attached.",
+    "access": "15 new meetings"
+  },
+  {
+    "name": "Cleanup Ledger: four DOT bridge contamination cases closed in Cleveland and Seneca towns",
+    "url": "https://rowanflynnpilot.github.io/wpr-cleanup-ledger/",
+    "date": "2026-10-20",
+    "what": "Four new events, all closures of WisDOT bridge-related BRRTS cases at CTH P and CTH D.",
+    "pitch": "Modest on their own, but a pattern worth a short piece: state highway bridge projects keep generating and then closing contamination cases in rural Marathon County. What's in the soil, and who pays to haul it?",
+    "access": "4 new case events"
+  },
+  {
+    "name": "Watch Ledger: roster shrinks even as 19 new cameras appear \u2014 and the new ones are private operators",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-10-20",
+    "what": "Nineteen cameras added but the total fell from 2,117 to 2,111, with retailers listed as operators.",
+    "pitch": "The new entries sampled are a Home Depot Rekor unit and an Axon camera run by a shopping center, not police. Private plate readers that police can query are a different accountability question than municipal ones.",
+    "access": "19 added, net -6"
   }
 ]
