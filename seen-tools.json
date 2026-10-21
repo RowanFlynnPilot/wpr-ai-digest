@@ -172,5 +172,45 @@
     "what": "WordPress plugin adding an on-site chatbot, AI forms and a writing assistant in the editor.",
     "pitch": "The October 1 update fixes the Editor Assistant session errors that broke mid-edit, stops replies cutting off mid-sentence, and makes non-OpenAI chatbots actually read your uploaded knowledge \u2014 the parts a two-person newsroom touches.",
     "access": "free core plugin on WordPress.org; optional paid Pro add-on, and you supply your own AI account"
+  },
+  {
+    "name": "Notion AI: rebuilt agents, new Auto router and credit system",
+    "url": "https://www.notion.com/releases/2026-10-19",
+    "date": "2026-10-21",
+    "what": "Notion's AI agents get their own browser, 24-hour tasks, a review mode and cheaper model routing.",
+    "pitch": "Notion's biggest AI update of the year, shipped Monday. For a two-person newsroom it turns the story tracker into something that actually does the chasing between editions.",
+    "access": "paid \u2014 free plan has limited AI credits; new credit system across plans; can connect your own ChatGPT Plus/Pro/Go plan"
+  },
+  {
+    "name": "Gmail AI Inbox for paid Workspace accounts",
+    "url": "https://workspaceupdates.googleblog.com/2026/10/gmails-ai-inbox-is-rolling-out-to-paid-Workspace-users.html",
+    "date": "2026-10-21",
+    "what": "Gmail view that pulls action items and deadlines out of threads and summarizes topics.",
+    "pitch": "Rolled out October 15 to business Workspace accounts, not just consumer Gmail. Tip emails, records-request replies and advertiser threads stop getting buried when two people share the inbox load.",
+    "access": "paid \u2014 included with Business Starter/Standard/Plus and Enterprise plans; US English only for now"
+  },
+  {
+    "name": "Inbox Zero email client (open source)",
+    "url": "https://www.getinboxzero.com/email-client",
+    "date": "2026-10-21",
+    "what": "Free, open-source AI email app for Gmail and Outlook on web, desktop and iPhone.",
+    "pitch": "A credible free alternative to Superhuman that hit Product Hunt's top ten last week. The client itself costs nothing, so WPR can test AI email triage without a subscription decision.",
+    "access": "open-source (AGPL) client, free; AI assistant tiers from $18/user/month annual, $20 monthly"
+  },
+  {
+    "name": "Routine next steps on the Google Meet post-meeting screen",
+    "url": "https://workspaceupdates.googleblog.com/2026/10/find-your-routine-next-steps-on-post-meeting-screen-in-Google-Meet.html",
+    "date": "2026-10-21",
+    "what": "One-tap routines that draft follow-up emails or push meeting action items into Google Tasks.",
+    "pitch": "Announced October 12. Small but real: the two of you stop re-typing what Gemini already captured, and recurring board or source calls hand off their own to-dos.",
+    "access": "paid \u2014 Workspace plans with Gemini; requires 'Take notes for me' on during the meeting"
+  },
+  {
+    "name": "AI Engine 3.8.5 / 3.8.6 for WordPress",
+    "url": "https://wordpress.org/plugins/ai-engine/",
+    "date": "2026-10-21",
+    "what": "Security-fix releases for the popular WordPress AI plugin, plus a one-click Claude site connector.",
+    "pitch": "Two patch releases on October 14 and 17 fix real permission leaks \u2014 one where site data tools could return API keys, another letting editors alter posts they shouldn't. Update the WPR site this week.",
+    "access": "free plugin (Pro add-on paid)"
   }
 ]
