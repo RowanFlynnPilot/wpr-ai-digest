@@ -83,5 +83,53 @@
     "what": "End-to-end encrypted vault holding passwords, passkeys, TOTP seeds and cookies for stealth cloud browser sessions.",
     "pitch": "Login-gated portals are the hardest part of WPR scraping. Credentials stay out of repo CI secrets, and logins run through real Chromium autofill and WebAuthn paths, so sessions look human.",
     "access": "paid \u00b7 Scrapfly account, vault beta open to all accounts \u00b7 skills via npx skills add scrapfly/skills"
+  },
+  {
+    "name": "mattpocock/skills (Skills For Real Engineers)",
+    "url": "https://github.com/mattpocock/skills",
+    "date": "2026-10-22",
+    "what": "Small, composable engineering skills for spec-writing, ticket breakdown, TDD, debugging and architecture review.",
+    "pitch": "The week's fastest-rising skill pack, and it targets exactly the solo-dev failure mode: agent builds the wrong thing across 40 repos with no spec and no tests.",
+    "access": "open-source (MIT) \u00b7 claude plugin install mattpocock-skills@claude-plugins-official"
+  },
+  {
+    "name": "Ponytail 5",
+    "url": "https://github.com/DietrichGebert/ponytail",
+    "date": "2026-10-22",
+    "what": "Single skill that makes the agent write only necessary code without cutting validation, security or tests.",
+    "pitch": "Ground-up v5 released this month, trending hard. Benchmarked on a FastAPI + React repo: 53% less code, 45% fewer tokens, and risky logic shipped with tests 98% of the time.",
+    "access": "open-source (MIT) \u00b7 install from the repo as a Claude Code plugin (see INSTALL.md)"
+  },
+  {
+    "name": "Anatomy",
+    "url": "https://github.com/wheresryan22/anatomy",
+    "date": "2026-10-22",
+    "what": "Agent skill generating interactive isometric SVG/WebGL figures that explain a concept as a working machine.",
+    "pitch": "Mid-October launch that went viral; ships standalone HTML, a lone SVG, or React/Next components \u2014 drop-in output for WPR's embeddable widget fleet, with zero dependencies.",
+    "access": "open-source (MIT) \u00b7 npx skills add wheresryan22/anatomy -g -a claude-code (installs to ~/.claude/skills/anatomy)"
+  },
+  {
+    "name": "Claude Code /auto-mode-setup",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-22",
+    "what": "Guided setup that reads your project and recent sessions to teach auto mode your environment.",
+    "pitch": "Added in 2.1.304 and now available on gateways and telemetry-disabled sessions. For unattended work across a 40-repo fleet, it cuts the permission prompts that stall long agent runs.",
+    "access": "free with Claude Code (included in paid Claude plans) \u00b7 run /auto-mode-setup"
+  },
+  {
+    "name": "Claude Duet (research preview)",
+    "url": "https://claude.com/resources/articles/claude-duet",
+    "date": "2026-10-22",
+    "what": "Proactive Claude agent app that monitors connected apps and sends a daily brief of what needs attention.",
+    "pitch": "Opened October 21 for US Pro/Max. Built on Opus 5.5, it watches inboxes and calendars and only pings when something matters \u2014 a triage layer for a one-person newsroom tech shop.",
+    "access": "waitlist \u00b7 included in Pro and Max plans, US only, shares existing usage limits"
+  },
+  {
+    "name": "top-claude-code-skills (Selan daily ranking)",
+    "url": "https://github.com/selan-ai/top-claude-code-skills",
+    "date": "2026-10-22",
+    "what": "Daily-regenerated GitHub ranking of Claude Code skills by stars, weekly momentum and monthly activity.",
+    "pitch": "Useful plumbing for this radar: it excludes forks, dead repos, star farms and anything shipping no SKILL.md, so weekly movers are pre-filtered rather than listicle noise.",
+    "access": "free \u00b7 CC0 repo, README regenerated daily (no install needed)"
   }
 ]
