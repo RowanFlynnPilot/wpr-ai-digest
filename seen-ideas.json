@@ -256,5 +256,69 @@
     "what": "Open benchmark counts net syntax units a model's patch adds, deleted code subtracted, so verbose fixes score worse.",
     "pitch": "A maintenance metric for a solo developer holding dozens of repos: judge an agent by how little code it leaves, not only by whether the tests pass.",
     "access": "Fascinating \u00b7 Show HN \u00b7 77 points \u00b7 open-source"
+  },
+  {
+    "name": "My bookmarks write the first draft \u2014 Ben's Bites newsletter pipeline",
+    "url": "https://www.bensbites.com/p/claudes-personal-agent",
+    "date": "2026-10-24",
+    "what": "Agent pipeline that sorts saved links into newsletter sections, graded against 78 past issues as ground truth.",
+    "pitch": "The archive already holds the answers: 2,629 saves matched to what actually ran became a free eval set. One model reading the whole week beat per-item scoring, at three cents an issue.",
+    "access": "Fits our work \u00b7 Ben's Bites \u00b7 45 likes (full write-up and build file free)"
+  },
+  {
+    "name": "Two-pass PDF extraction with a dumb validator behind it",
+    "url": "https://www.reddit.com/r/n8n/comments/1xcf0vb/how_are_you_handling_the_document_extraction_step/",
+    "date": "2026-10-24",
+    "what": "Classify the document first, extract to a strict schema second, then validate deterministically before anything reaches the database.",
+    "pitch": "Care Ledger and Settlement Ledger run on unstandardized PDFs. Practitioners agree: never trust model confidence, check the document's own math, and send failures to a human queue rather than a bigger model.",
+    "access": "Fits our work \u00b7 r/n8n #10 this week"
+  },
+  {
+    "name": "Help pages that carry instructions only an AI can see",
+    "url": "https://news.ycombinator.com/item?id=50159341",
+    "date": "2026-10-24",
+    "what": "Researchers read 545 WhatsApp help pages and found 102 hidden blocks written for a chatbot, not readers.",
+    "pitch": "Two moves for WPR. One is the investigation itself, repeatable on any institution's site. The other is defensive: text your scrapers hand to Claude can carry orders aimed at the model.",
+    "access": "Fits our work \u00b7 HN story \u00b7 742 points, 220 comments"
+  },
+  {
+    "name": "A slop score you can put in CI",
+    "url": "https://news.ycombinator.com/item?id=50151928",
+    "date": "2026-10-24",
+    "what": "Weighted regex detector for AI writing habits, scored per 1,000 words, paired with checks that the text still works.",
+    "pitch": "Turns 'this reads like a robot' into a number: human prose lands under 15, the base model averaged 121. The honest part is the failure \u2014 optimizing the score alone produced opinion pieces with no opinion and invented studies.",
+    "access": "Fits our work \u00b7 Show HN \u00b7 158 points, 113 comments (model and method open)"
+  },
+  {
+    "name": "Error messages written for the agent, not the log",
+    "url": "https://www.reddit.com/r/ChatGPTCoding/comments/1xbooyu/do_you_change_compiler_errors_to_help_coding/",
+    "date": "2026-10-24",
+    "what": "Pass mainstream tool errors raw; in your own checks, state the correct pattern and point to an example file.",
+    "pitch": "Developers found agents route around vague custom errors \u2014 inventing fake adapters just to get a clean exit \u2014 until the message named the replacement. Rowan's scrapers are full of house rules Claude has never seen.",
+    "access": "Fits our work \u00b7 r/ChatGPTCoding #10 this week"
+  },
+  {
+    "name": "Sell a finish line, not a subscription",
+    "url": "https://www.reddit.com/r/microsaas/comments/1xbqsyw/thinking_about_selling_one_week_instead_of_a/",
+    "date": "2026-10-24",
+    "what": "Replace a monthly plan with a one-week program that ends in a result the buyer can point to.",
+    "pitch": "Newsrooms buying OEC tools don't want another seat license; they want a thing shipped. Commenters' metric is sharp: ignore first-week sales, count how many buyers come back for a second week.",
+    "access": "Could pay \u00b7 r/microsaas #10 this week"
+  },
+  {
+    "name": "Nomback \u2014 direct-order apps that cut the 30% platform tax",
+    "url": "https://www.reddit.com/r/SideProject/comments/1xase0i/i_made_a_pizzeria_its_own_ordering_app_so/",
+    "date": "2026-10-24",
+    "what": "A solo dev builds pizzerias their own ordering apps on Supabase and Stripe, $399 setup plus $99 monthly.",
+    "pitch": "Exactly WPR's jobs-board stack, sold to the local businesses WPR already calls about sponsorship. Top comment nails the pitch order: show the owner the money delivery apps take before you show the price.",
+    "access": "Could pay \u00b7 r/SideProject #9 this week"
+  },
+  {
+    "name": "Death Plan Switch",
+    "url": "https://news.ycombinator.com/item?id=50161408",
+    "date": "2026-10-24",
+    "what": "Self-hosted dead man's switch that alerts the right people and hands over access if the solo dev disappears.",
+    "pitch": "Built by someone who was hospitalized in 2012 and couldn't get data to his second-in-command in time. WPR's ledgers, scrapers and alerts all run from one person's accounts and one person's memory.",
+    "access": "Fascinating \u00b7 Show HN \u00b7 110 points, 66 comments (MIT, free)"
   }
 ]
