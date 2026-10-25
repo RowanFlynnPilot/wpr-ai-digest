@@ -15,6 +15,11 @@
     "source": "skills"
   },
   {
+    "name": "accessibility-compliance",
+    "description": "Web accessibility patterns for news and academic sites. Use for WCAG audits, alt text, accessible data viz, and assistive tech.",
+    "source": "skills"
+  },
+  {
     "name": "ad-hook-analyzer",
     "description": "\"Score and force-rank the openings of candidate video ads - from a script, transcript, storyboard, shot list, or a description of a finished cut - to decide whi",
     "source": "skills"
@@ -27,6 +32,11 @@
   {
     "name": "animate",
     "description": "Build an animation from scratch, making the decisions in the order that determines whether it feels right \u2014 should it animate at all, what purpose, which tool, ",
+    "source": "skills"
+  },
+  {
+    "name": "best-practices",
+    "description": "Apply modern web development best practices for security, compatibility, and code quality. Use when asked to \"apply best practices\", \"security audit\", \"moderniz",
     "source": "skills"
   },
   {
@@ -60,6 +70,11 @@
     "source": "skills"
   },
   {
+    "name": "brand-review",
+    "description": "Review content against your brand voice, style guide, and messaging pillars, flagging deviations by severity with specific before/after fixes. Use when checking",
+    "source": "skills"
+  },
+  {
     "name": "break-ui",
     "description": "Try to break a piece of UI by feeding it worst-case data \u2014 long names, unbreakable emails, one-letter names, missing fields, huge counts, zero items, long label",
     "source": "skills"
@@ -80,14 +95,34 @@
     "source": "plugins"
   },
   {
+    "name": "campaign-and-launch-planning",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "campaign-plan",
+    "description": "Generate a full campaign brief with objectives, audience, messaging, channel strategy, content calendar, and success metrics. Use when planning a product launch",
+    "source": "skills"
+  },
+  {
     "name": "canvas-design",
     "description": "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, d",
+    "source": "skills"
+  },
+  {
+    "name": "caption-writer",
+    "description": ">-",
     "source": "skills"
   },
   {
     "name": "cardputer-buddy",
     "description": "Iterate on the Cardputer-Adv MicroPython app bundle (Claude Buddy, Snake, Hello) after the device is already provisioned via m5-onboard. Use when the user wants",
     "source": "plugins"
+  },
+  {
+    "name": "carousel-writer",
+    "description": ">-",
+    "source": "skills"
   },
   {
     "name": "cartography-geoviz",
@@ -130,14 +165,44 @@
     "source": "skills"
   },
   {
+    "name": "collabs-and-cross-promotion",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "command-development",
     "description": "This skill should be used when the user asks to \"create a slash command\", \"add a command\", \"write a custom command\", \"define command arguments\", \"use command fr",
     "source": "plugins"
   },
   {
+    "name": "community-management",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "competitive-brief",
+    "description": "Research competitors and generate a positioning and messaging comparison with content gaps, opportunities, and threats. Use when building sales battlecards, whe",
+    "source": "skills"
+  },
+  {
     "name": "configure",
     "description": "Set up the Telegram channel \u2014 save the bot token and review access policy. Use when the user pastes a Telegram bot token, asks to configure Telegram, asks \"how ",
     "source": "plugins"
+  },
+  {
+    "name": "connect-recommend",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "content-calendar",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "content-creation",
+    "description": "Draft marketing content across channels \u2014 blog posts, social media, email newsletters, landing pages, press releases, and case studies. Use when writing any mar",
+    "source": "skills"
   },
   {
     "name": "cookie-debugging",
@@ -152,6 +217,16 @@
   {
     "name": "craft",
     "description": "Apply 12 concrete visual-craft rules to UI code and designs \u2014 bans on gradients, glow effects, transition:all, placeholder text, and visual monotony, plus disci",
+    "source": "skills"
+  },
+  {
+    "name": "crisis-and-moderation",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "cross-platform-repurposing",
+    "description": ">-",
     "source": "skills"
   },
   {
@@ -175,6 +250,21 @@
     "source": "skills"
   },
   {
+    "name": "draft-content",
+    "description": "Draft blog posts, social media, email newsletters, landing pages, press releases, and case studies with channel-specific formatting and SEO recommendations. Use",
+    "source": "skills"
+  },
+  {
+    "name": "email-sequence",
+    "description": "Design and draft multi-email sequences with full copy, timing, branching logic, exit conditions, and performance benchmarks. Use when building onboarding, lead ",
+    "source": "skills"
+  },
+  {
+    "name": "engagement-routine",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "example-command",
     "description": "An example user-invoked skill that demonstrates frontmatter options and the skills/<name>/SKILL.md layout",
     "source": "plugins"
@@ -183,6 +273,21 @@
     "name": "example-skill",
     "description": "This skill should be used when the user asks to \"demonstrate skills\", \"show skill format\", \"create a skill template\", or discusses skill development patterns. P",
     "source": "plugins"
+  },
+  {
+    "name": "facebook-groups",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "facebook-strategy",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "fact-check-workflow",
+    "description": "Structured fact-checking workflow. Use when verifying claims for publication, rating claims, or setting pre-publication checks.",
+    "source": "skills"
   },
   {
     "name": "feature-prioritization",
@@ -275,6 +380,11 @@
     "source": "skills"
   },
   {
+    "name": "goals-and-kpis",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "grant-proposal-builder",
     "description": "Nonprofit and research grant proposal assembly with structured sections, budget templates, and evaluation alignment. Use when writing grant proposals, funding a",
     "source": "skills"
@@ -283,6 +393,11 @@
     "name": "hook-development",
     "description": "This skill should be used when the user asks to \"create a hook\", \"add a PreToolUse/PostToolUse/Stop hook\", \"validate tool use\", \"implement prompt-based hooks\", ",
     "source": "plugins"
+  },
+  {
+    "name": "hook-writer",
+    "description": ">-",
+    "source": "skills"
   },
   {
     "name": "html-video",
@@ -302,6 +417,11 @@
   {
     "name": "impeccable",
     "description": "Use when the user wants to design, redesign, shape, critique, audit, polish, clarify, distill, harden, optimize, adapt, animate, colorize, extract, or otherwise",
+    "source": "skills"
+  },
+  {
+    "name": "instagram-growth",
+    "description": ">-",
     "source": "skills"
   },
   {
@@ -360,6 +480,16 @@
     "source": "skills"
   },
   {
+    "name": "newsletter-publishing",
+    "description": "Email newsletter workflows. Use when creating newsletters, building subscriber lists, designing templates, or tracking engagement.",
+    "source": "skills"
+  },
+  {
+    "name": "newsroom-style",
+    "description": "Enforces AP Style and newsroom conventions. Use when writing news, editing drafts, creating headlines, or tightening copy.",
+    "source": "skills"
+  },
+  {
     "name": "offers",
     "description": "\"When the user wants to design, construct, or improve an offer \u2014 the thing they actually sell \u2014 including value framing, bonus stacking, guarantee design, scarc",
     "source": "skills"
@@ -375,6 +505,11 @@
     "source": "skills"
   },
   {
+    "name": "performance-report",
+    "description": "Build a marketing performance report with key metrics, trend analysis, wins and misses, and prioritized optimization recommendations. Use when wrapping a campai",
+    "source": "skills"
+  },
+  {
     "name": "persuasive-ux",
     "description": "Apply BJ Fogg's 7 Persuasive Technology Tools (Captology) to UX analysis and design.",
     "source": "skills"
@@ -387,6 +522,11 @@
   {
     "name": "playwright-ci",
     "description": "Production-ready CI/CD configurations for Playwright \u2014 GitHub Actions, GitLab CI, CircleCI, Azure DevOps, Jenkins, Docker, parallel sharding, reporting, code co",
+    "source": "skills"
+  },
+  {
+    "name": "playwright-cli",
+    "description": "Automate browser interactions, test web pages and work with Playwright tests.",
     "source": "skills"
   },
   {
@@ -415,9 +555,19 @@
     "source": "skills"
   },
   {
+    "name": "quote-cards-and-text-graphics",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "receipts",
     "description": "Generate a personal Claude Code usage & impact report (\"receipts\") from this machine's local session transcripts \u2014 for justifying Claude Code usage/spend to a m",
     "source": "plugins"
+  },
+  {
+    "name": "reels-script",
+    "description": ">-",
+    "source": "skills"
   },
   {
     "name": "remotion-best-practices",
@@ -485,8 +635,18 @@
     "source": "skills"
   },
   {
+    "name": "seasonal-and-moment-marketing",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "seo",
     "description": "Optimize for search engine visibility and ranking. Use when asked to \"improve SEO\", \"optimize for search\", \"fix meta tags\", \"add structured data\", \"sitemap opti",
+    "source": "skills"
+  },
+  {
+    "name": "seo-audit",
+    "description": "Run a comprehensive SEO audit \u2014 keyword research, on-page analysis, content gaps, technical checks, and competitor comparison. Use when assessing a site's SEO h",
     "source": "skills"
   },
   {
@@ -498,6 +658,11 @@
     "name": "session-report",
     "description": "Generate an explorable HTML report of Claude Code session usage (tokens, cache, subagents, skills, expensive prompts) from ~/.claude/projects transcripts.",
     "source": "plugins"
+  },
+  {
+    "name": "short-form-video-script",
+    "description": ">-",
+    "source": "skills"
   },
   {
     "name": "siege",
@@ -515,14 +680,64 @@
     "source": "plugins"
   },
   {
+    "name": "social-proof-and-testimonials",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "solo",
     "description": "\"Work on one hard mathematics problem in this session yourself, with no sub-agents: reason in stages, record each settled step in a notes file so that nothing w",
     "source": "plugins"
   },
   {
+    "name": "story-writer",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "storytelling-and-narrative",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "stripe-best-practices",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "stripe-docs",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "supabase",
+    "description": "\"Use when doing ANY task involving Supabase. Triggers: Supabase products (Database, Auth, Edge Functions, Realtime, Storage, Vectors, Cron, Queues); client libr",
+    "source": "skills"
+  },
+  {
+    "name": "supabase-postgres-best-practices",
+    "description": "\"Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres dat",
+    "source": "skills"
+  },
+  {
+    "name": "tiktok-script",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
     "name": "troubleshooting",
     "description": "Uses Chrome DevTools MCP and documentation to troubleshoot connection and target issues. Trigger this skill when list_pages, new_page, or navigate_page fail, or",
     "source": "plugins"
+  },
+  {
+    "name": "ugc-and-influencer",
+    "description": ">-",
+    "source": "skills"
+  },
+  {
+    "name": "upgrade-stripe",
+    "description": ">-",
+    "source": "skills"
   },
   {
     "name": "ux-heuristics-review",
@@ -540,6 +755,11 @@
     "source": "skills"
   },
   {
+    "name": "web-quality-audit",
+    "description": "Run an evidence-led web quality audit covering performance, accessibility, SEO, best practices, and agentic browsing. Use when asked to \"audit my site\", \"review",
+    "source": "skills"
+  },
+  {
     "name": "webapp-testing",
     "description": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing br",
     "source": "skills"
@@ -550,8 +770,18 @@
     "source": "skills"
   },
   {
+    "name": "writing-guidelines",
+    "description": "Review docs/prose for Writing Guidelines compliance. Use when asked to \"review my docs\", \"check writing style\", \"audit prose\", \"review docs voice and tone\", or ",
+    "source": "skills"
+  },
+  {
     "name": "writing-hookify-rules",
     "description": "This skill should be used when the user asks to \"create a hookify rule\", \"write a hook rule\", \"configure hookify\", \"add a hookify rule\", or needs guidance on ho",
     "source": "plugins"
+  },
+  {
+    "name": "zero-build-frontend",
+    "description": "Zero-build frontend development for static apps, browser extensions, maps, and lightweight data-backed interfaces. Use when deployment must not require a build ",
+    "source": "skills"
   }
 ]
