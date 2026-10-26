@@ -570,6 +570,11 @@
     "source": "skills"
   },
   {
+    "name": "referrals",
+    "description": "\"When the user wants to create, optimize, or analyze a referral program, affiliate program, or word-of-mouth strategy. Also use when the user mentions 'referral",
+    "source": "skills"
+  },
+  {
     "name": "remotion-best-practices",
     "description": "Router for all Remotion skills",
     "source": "skills"
@@ -632,6 +637,11 @@
   {
     "name": "review-animations",
     "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
+    "source": "skills"
+  },
+  {
+    "name": "sales-enablement",
+    "description": "\"When the user wants to create sales collateral, pitch decks, one-pagers, objection handling docs, or demo scripts. Also use when the user mentions 'sales deck,",
     "source": "skills"
   },
   {
