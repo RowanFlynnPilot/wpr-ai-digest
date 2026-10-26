@@ -187,5 +187,53 @@
     "what": "One unreachable byline produced 52 Quartz articles in a day, mostly AI-assisted rewrites of others' reporting.",
     "pitch": "A named-brand outlet now runs on rewrites with no bio, photo or contact for the author. That contrast is WPR's clearest membership argument, and a checklist for vetting syndication partners.",
     "access": "free to read"
+  },
+  {
+    "name": "Meta's new business-account terms (now effective Nov. 20)",
+    "url": "https://www.niemanlab.org/2026/10/meta-delays-rollout-of-terms-that-would-allow-broad-scraping-of-news-sites-legal-experts-are-still-skeptical/",
+    "date": "2026-10-26",
+    "what": "Meta pushed back terms letting it scrape websites tied to any Facebook, Instagram or WhatsApp business account.",
+    "pitch": "Any newsroom with a Facebook page is covered, with no opt-out. Meta says robots.txt is respected, but that promise appears nowhere in the written terms. Decide a posture before Nov. 20.",
+    "access": "free (platform terms change; effective Nov. 20)"
+  },
+  {
+    "name": "Google News AI pilot expansion to local publishers",
+    "url": "https://blog.google/products-and-platforms/products/news/news-ai-pilot-update-publishers/",
+    "date": "2026-10-26",
+    "what": "Google now pays 400+ publications, including U.S. local outlets, for content feeding AI summaries and audio briefings.",
+    "pitch": "First time this licensing money has reached small local and nonprofit outlets \u2014 Oil City News, Texas Tribune, Post and Courier. Terms are undisclosed, but it establishes that local newsrooms can be paid partners.",
+    "access": "paid partnership, invitation-only; terms undisclosed"
+  },
+  {
+    "name": "Reuters Institute: Inside the rise of AI-native newsrooms",
+    "url": "https://reutersinstitute.politics.ox.ac.uk/news/inside-rise-ai-native-newsrooms-run-autonomous-agents",
+    "date": "2026-10-26",
+    "what": "Reported case studies of five outlets built around AI agents, including hyperlocal sites in Tucson and Montreal.",
+    "pitch": "The closest thing this month to a post-mortem a small newsroom can use: a one-person Tucson site transcribing town halls live, and a Montreal paper relaunched with one editor plus automation. Neither is profitable yet.",
+    "access": "free to read"
+  },
+  {
+    "name": "Poynter: Leading AI in the Newsroom (first cohort)",
+    "url": "https://www.poynter.org/news-release/2026/poynter-announces-first-leading-ai-in-the-newsroom-cohort/",
+    "date": "2026-10-26",
+    "what": "New Poynter leadership program for AI point people at small and mid-sized newsrooms; 33 selected Oct. 16.",
+    "pitch": "Designed for exactly this newsroom's size, with Wisconsin's Racine County Eye and Charlottesville Tomorrow in the room. Each participant leaves with an implementation plan, and Poynter says the resulting resources will be public.",
+    "access": "paid Poynter program; first cohort closed, watch for the next call"
+  },
+  {
+    "name": "Doppler News AI (The Wall Street Journal)",
+    "url": "https://www.niemanlab.org/2026/10/the-wall-street-journals-new-ai-tool-doppler-forecasts-the-issues-that-will-shape-the-midterm-elections/",
+    "date": "2026-10-26",
+    "what": "In-house Journal tool analyzing millions of TikToks and podcasts to surface voter concerns polling misses.",
+    "pitch": "The method, not the software, is portable before Nov. 3: listen systematically to local talk radio and community video, and publish a plain-English methods note on every AI-assisted story, as the Journal does.",
+    "access": "not available externally \u2014 in-house WSJ tool; the disclosure practice is free to copy"
+  },
+  {
+    "name": "Tarbell Fellowship 2027\u201328 (AI journalism)",
+    "url": "https://www.tarbellcenter.org/fellowship",
+    "date": "2026-10-26",
+    "what": "Funded fellowship: three months of AI training, then nine months reporting inside a partner newsroom.",
+    "pitch": "Applications close Nov. 22, 2026, with stipends of $75,000\u2013$135,000 \u2014 real money for a reporter who wants to cover AI's local footprint rather than leave the field.",
+    "access": "free to apply; fellowship pays $75,000\u2013$135,000; deadline Nov. 22, 2026"
   }
 ]
