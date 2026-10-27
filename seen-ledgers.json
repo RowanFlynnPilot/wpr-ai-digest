@@ -285,5 +285,45 @@
     "what": "Nineteen cameras added but the total fell from 2,117 to 2,111, with retailers listed as operators.",
     "pitch": "The new entries sampled are a Home Depot Rekor unit and an Axon camera run by a shopping center, not police. Private plate readers that police can query are a different accountability question than municipal ones.",
     "access": "19 added, net -6"
+  },
+  {
+    "name": "Care Ledger: fresh complaint verification visit at a Wisconsin assisted-living facility, statement of deficiencies posted Oct. 19",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-27",
+    "what": "Ten new inspection records landed, including a complaint-verification visit with an exit date of Oct. 8.",
+    "pitch": "This is the newest record in the ledger \u2014 a complaint follow-up where the state went back to check whether an earlier problem was fixed. The sample row carries a facility ID (0014504) but no name in the data shown; matching it is the first step.",
+    "access": "10 new inspection records"
+  },
+  {
+    "name": "Care Ledger: one new record carries an enforcement document, not just a deficiency notice",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-10-27",
+    "what": "A verification-visit record for facility 0010689 includes both a statement of deficiencies and an enforcement file.",
+    "pitch": "Most rows in this ledger are deficiency notices. An attached enforcement PDF means the state went further \u2014 fines, conditions, or a license action. Worth knowing which facility and whether it's local, even though the visit date is 2023.",
+    "access": "1 enforcement record among 10 new"
+  },
+  {
+    "name": "Watch Ledger: camera roster shrinks by a dozen while an Axon device turns up alongside Flock",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-10-27",
+    "what": "Statewide roster fell 2,111 to 2,099 with five additions, one of them Axon rather than Flock.",
+    "pitch": "Net loss of 17 cameras means agencies are dropping deployments somewhere, and a non-Flock manufacturer entering the roster is a procurement story. None of the five new units are in Marathon County \u2014 the question is whether any of the removals were.",
+    "access": "5 added, net -12"
+  },
+  {
+    "name": "Property transactions: 373 Marathon County sale rows refreshed in one load",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-10-27",
+    "what": "A bulk refresh added 373 rows while the published count rose only 645 to 663.",
+    "pitch": "The samples visible are ordinary single-family deals \u2014 Holton, Mosinee, Easton, all under $350,000. But a 373-row dump almost certainly contains commercial and high-dollar transfers that haven't been eyeballed yet, and the gap between rows loaded and records published needs explaining.",
+    "access": "373 rows, 18 net records"
+  },
+  {
+    "name": "Gavel: Wausau Economic Development Committee meets Nov. 4; county sets Dec. 22 board night",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-10-27",
+    "what": "Fifteen meetings were added, including a Nov. 4 Wausau economic development session and December county dates.",
+    "pitch": "The Nov. 4 Economic Development Committee is the nearest meeting that could touch development deals showing up in the property load. The Dec. 22 Environmental Resources Committee and County Board back-to-back is worth calendaring now.",
+    "access": "15 new meetings"
   }
 ]
