@@ -251,5 +251,45 @@
     "what": "Google's frontier long-horizon model, now generally available via API for complex coding and multi-step work.",
     "pitch": "A solo dev's fallback when Claude Code stalls on a large refactor \u2014 Argon is pitched at hundreds-of-files architectural changes. Worth benchmarking before OEC work goes multi-newsroom.",
     "access": "paid \u2014 introductory $2 per million input, $10 output, 95% off cached input"
+  },
+  {
+    "name": "Mistral Voxtral 3 (Transcribe, Realtime, TTS + Voice Agents SDK)",
+    "url": "https://mistral.ai/news/voxtral-3",
+    "date": "2026-10-30",
+    "what": "New Mistral speech family: diarizing transcription with keyterm biasing, realtime variant, TTS, and a voice-agent SDK.",
+    "pitch": "Gavel still can't say who spoke. Voxtral Small Transcribe 3 does diarization plus context biasing on local names and terms, and the 4B Mini runs $0.0035/min \u2014 cheaper than babysitting faster-whisper.",
+    "access": "paid \u2014 public preview API, Voxtral Mini Transcribe 3 at $0.0035/min; self-deployment supported"
+  },
+  {
+    "name": "NVIDIA Nemotron 3.5 Transcribe + Granary v2",
+    "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
+    "date": "2026-10-30",
+    "what": "Open-weight 30B-A4B speech model doing promptable transcription, diarization, translation and audio Q&A in one checkpoint.",
+    "pitch": "Tops open-weight ASR and two diarization leaderboards, labels up to eight speakers across hour-long recordings with word timestamps, and weights plus Granary v2 fine-tuning recipes are free to self-host.",
+    "access": "open-source \u2014 weights and Granary v2 dataset free on Hugging Face; needs GPU"
+  },
+  {
+    "name": "Gemini API CLI (gemini-api) beta",
+    "url": "https://ai.google.dev/gemini-api/docs/cli",
+    "date": "2026-10-30",
+    "what": "Stateless, zero-dependency shell client for Gemini models, file analysis and managed agents, built for CI.",
+    "pitch": "Drops straight into WPR's GitHub Actions cron jobs: no SDK in the repo, media written to disk with only paths printed, --dry-run validation, JSON output and real exit codes.",
+    "access": "open-source CLI, beta; pay per Gemini API token"
+  },
+  {
+    "name": "Claude API version 2026-10-21 and Python SDK 2.0.0",
+    "url": "https://platform.claude.com/docs/en/release-notes/api",
+    "date": "2026-10-30",
+    "what": "New Claude API version with breaking SDK majors across all languages, now Apache 2.0 licensed.",
+    "pitch": "Every WPR scraper pins the anthropic Python SDK; 2.0.0 defaults to API version 2026-10-21, so pin now or a cron run breaks. Request ceiling also rose to 128MB.",
+    "access": "free SDK (Apache 2.0); standard API token pricing"
+  },
+  {
+    "name": "OpenAI GPT-6.1 Terra",
+    "url": "https://community.openai.com/t/gpt-6-1-terra-delivering-fast-and-capable-computer-use-at-a-lower-price/1409900",
+    "date": "2026-10-30",
+    "what": "Cheaper, faster OpenAI model specialized for computer use \u2014 reading screens and acting across apps.",
+    "pitch": "Matches GPT-6 Astra on agentic software tasks at a tenth the token price and finishes 3x faster, cheap enough to aim a browser agent at portals that defeat Playwright.",
+    "access": "paid \u2014 API as gpt-6.1-terra, 50% below GPT-5.6 Terra pricing"
   }
 ]
