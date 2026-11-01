@@ -130,6 +130,11 @@
     "source": "skills"
   },
   {
+    "name": "changelog-automation",
+    "description": "Automate changelog generation from commits, PRs, and releases following Keep a Changelog format. Use when setting up release workflows, generating release notes",
+    "source": "skills"
+  },
+  {
     "name": "chrome-devtools",
     "description": "Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, ana",
     "source": "plugins"
@@ -552,6 +557,11 @@
   {
     "name": "prototype",
     "description": "Build multiple genuinely different versions of a UI piece you describe, rendered behind a visual picker so you can flip through them live and promote the one th",
+    "source": "skills"
+  },
+  {
+    "name": "python-resilience",
+    "description": "Python resilience patterns including automatic retries, exponential backoff, timeouts, and fault-tolerant decorators. Use when adding retry logic, implementing ",
     "source": "skills"
   },
   {
