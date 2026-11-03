@@ -325,5 +325,45 @@
     "what": "Fifteen meetings were added, including a Nov. 4 Wausau economic development session and December county dates.",
     "pitch": "The Nov. 4 Economic Development Committee is the nearest meeting that could touch development deals showing up in the property load. The Dec. 22 Environmental Resources Committee and County Board back-to-back is worth calendaring now.",
     "access": "15 new meetings"
+  },
+  {
+    "name": "Care Ledger: 15 new assisted-living inspection records, including one carrying an enforcement document",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-03",
+    "what": "Fifteen new DQA inspection records posted, one with both a statement of deficiencies and enforcement paperwork.",
+    "pitch": "Most records are routine surveys; the one with an attached enforcement PDF is the outlier. An enforcement action against a licensed facility is the kind of record that names a place families are choosing right now.",
+    "access": "15 new records"
+  },
+  {
+    "name": "Care Ledger: Back-dated 2023 complaint survey surfaces now with enforcement attached",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-03",
+    "what": "A 2023 complaint survey record appeared this week, three years after its exit date.",
+    "pitch": "Why is a 2023 survey-complaint with enforcement documents only showing up in the state's feed now? Either the state re-posted it or it was never indexed \u2014 both are worth asking DQA about on the record.",
+    "access": "1 back-dated record"
+  },
+  {
+    "name": "Property transactions: 101 new Marathon County sales recorded in the last week of October",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-11-03",
+    "what": "A 101-sale batch landed covering deeds recorded October 28\u201330 across Wausau, Mosinee and Stratford.",
+    "pitch": "A batch this size is where the patterns hide: repeat buyers, LLC grantors, municipal purchases. The Green Acres at Greenwood Hills condo deed suggests an active development selling units \u2014 worth seeing how many went at once.",
+    "access": "101 new sales"
+  },
+  {
+    "name": "Gavel: Liquor License Review Subcommittee meets Nov. 16, with 10 new meetings on the calendar",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-11-03",
+    "what": "Ten Wausau meetings added, including Liquor License Review Nov. 16 and Airport Committee Nov. 11.",
+    "pitch": "Liquor license review is the meeting where Coming Soon signals become public record \u2014 applicants on that agenda are often the next new bar or restaurant. Airport and Infrastructure agendas are where public money shows up.",
+    "access": "10 new meetings"
+  },
+  {
+    "name": "Watch Ledger: Roster shrinks by three statewide as non-Flock vendors appear",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-11-03",
+    "what": "Five cameras added and eight dropped; new units include Axon and Axis devices outside Marathon County.",
+    "pitch": "The roster is now tracking Axon and Axis hardware alongside Flock, and the net count fell. A shrinking camera map is as newsworthy as a growing one \u2014 someone decommissioned eight devices.",
+    "access": "5 added, net -3"
   }
 ]
