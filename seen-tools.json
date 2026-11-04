@@ -212,5 +212,29 @@
     "what": "Security-fix releases for the popular WordPress AI plugin, plus a one-click Claude site connector.",
     "pitch": "Two patch releases on October 14 and 17 fix real permission leaks \u2014 one where site data tools could return API keys, another letting editors alter posts they shouldn't. Update the WPR site this week.",
     "access": "free plugin (Pro add-on paid)"
+  },
+  {
+    "name": "Otter Work Mode and Live Assist",
+    "url": "https://otter.ai/blog/otter-rethinks-the-meeting-new-ai-preps-you-coaches-you-and-follows-through",
+    "date": "2026-11-04",
+    "what": "Otter's notetaker now writes pre-meeting briefs and gives private live prompts during Zoom, Teams or Meet calls.",
+    "pitch": "Interview prep and follow-up are the two-person tax at WPR. Otter now assembles a brief from past calls, open items and Drive files before a call, then turns the conversation into finished documents and emails.",
+    "access": "paid - Work Mode live now for all Otter paid plans; Live Assist enterprise first, rolling out to paid plans in coming weeks"
+  },
+  {
+    "name": "Fill with Gemini: cell-level citations in Google Sheets",
+    "url": "https://workspaceupdates.googleblog.com/2026/10/fill-with-gemini-now-provides-cell-level-citations-for-web-sources-and-supports-larger-requests.html",
+    "date": "2026-11-04",
+    "what": "Sheets' AI fill now shows the exact web source behind each cell and handles 3,000 cells per request.",
+    "pitch": "WPR can't publish a figure it can't source. Every AI-filled cell now carries the page it came from, so a research spreadsheet becomes auditable rather than trust-me, and batches got much bigger.",
+    "access": "paid - included with Workspace Business Standard/Plus or a consumer Google AI Pro or Ultra plan; rollout began October 20"
+  },
+  {
+    "name": "Create, preview and edit files inside the Gemini app",
+    "url": "https://workspaceupdates.googleblog.com/2026/10/create-preview-and-edit-files-directly-in-the-Gemini-app.html",
+    "date": "2026-11-04",
+    "what": "The Gemini app now generates, previews and edits documents, spreadsheets, slide decks and PDFs inside the chat.",
+    "pitch": "It kills the copy-paste step. Ask for a tracker or a one-pager, type corrections directly in the preview or have Gemini revise it, then open it in Sheets or push it to Drive.",
+    "access": "free - available to all Gemini app users in all supported languages; PDFs on web and mobile, other file types web only"
   }
 ]
