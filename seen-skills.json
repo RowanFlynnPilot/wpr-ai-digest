@@ -131,5 +131,53 @@
     "what": "Daily-regenerated GitHub ranking of Claude Code skills by stars, weekly momentum and monthly activity.",
     "pitch": "Useful plumbing for this radar: it excludes forks, dead repos, star farms and anything shipping no SKILL.md, so weekly movers are pre-filtered rather than listicle noise.",
     "access": "free \u00b7 CC0 repo, README regenerated daily (no install needed)"
+  },
+  {
+    "name": "Claude Code skill-loading and skill-library fixes (2.1.312\u20132.1.314)",
+    "url": "https://github.com/anthropics/claude-code/releases",
+    "date": "2026-11-05",
+    "what": "Directory-scoped and paths: skills load again after a Bash cd; skills/.trash no longer grows unbounded.",
+    "pitch": "Repo-scoped skills silently vanished once Claude cd'd into a subdirectory \u2014 exactly what a 40-repo fleet does all day. The trash cap also ends the file-watcher load that grows with every skill you uninstall.",
+    "access": "free \u00b7 upgrade Claude Code to 2.1.314 or later"
+  },
+  {
+    "name": "Agent Skills donated to the Agentic AI Foundation",
+    "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
+    "date": "2026-11-05",
+    "what": "Anthropic handed the SKILL.md standard, its GitHub org and agentskills.io to the Linux Foundation's AAIF.",
+    "pitch": "Announced Oct 22. The proposed roadmap is versioned spec releases, a formal proposal process, and security guidance for people who write and install skills \u2014 the missing piece when you install community skills unreviewed.",
+    "access": "free \u00b7 open standard, spec at agentskills.io"
+  },
+  {
+    "name": "CLAUDE_CODE_SUBAGENT_EFFORT (Claude Code 2.1.316)",
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.316",
+    "date": "2026-11-05",
+    "what": "Environment variable setting the effort level subagents run at when nothing else names one.",
+    "pitch": "Subagent fan-out is how a solo dev audits 40 repos at once, but inheriting the session's effort makes grunt work expensive. This decouples the two without dropping the main session's quality.",
+    "access": "free \u00b7 Claude Code 2.1.316+"
+  },
+  {
+    "name": "permissions.blockWritesOutsideWorkingDirectories (Claude Code 2.1.314)",
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314",
+    "date": "2026-11-05",
+    "what": "Setting that makes Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode.",
+    "pitch": "Running unattended sessions over a 40-repo fleet means one bad path can edit the wrong scraper. This confines writes regardless of permission mode, pairing with the existing read-side setting.",
+    "access": "free \u00b7 Claude Code 2.1.314+"
+  },
+  {
+    "name": "Large CLAUDE.md overwrite protection (Claude Code 2.1.312)",
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.312",
+    "date": "2026-11-05",
+    "what": "Write now makes Claude read a large CLAUDE.md or rules file in full, or edit in place.",
+    "pitch": "Every WPR repo carries a long CLAUDE.md. Previously Claude could replace one in a subdirectory after seeing only its opening lines, quietly deleting scraper, Supabase and widget conventions.",
+    "access": "free \u00b7 Claude Code 2.1.312+"
+  },
+  {
+    "name": "Opus 4.8 fast mode deprecation, removal November 30 2026",
+    "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.316",
+    "date": "2026-11-05",
+    "what": "Fast mode on Opus 4.8 was deprecated October 30 and errors after November 30, with no fallback.",
+    "pitch": "This is a hard deadline, not a slowdown: scripts pinned to Opus 4.8 fast mode will return errors rather than silently falling back to standard Opus 4.8.",
+    "access": "paid \u00b7 included in Claude plans; migrate to Opus 5.5 before Nov 30"
   }
 ]
