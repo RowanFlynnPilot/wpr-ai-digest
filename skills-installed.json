@@ -160,6 +160,11 @@
     "source": "plugins"
   },
   {
+    "name": "climb",
+    "description": "Work out where a teammate, the champion, or a team is on the steps of AI adoption, and what to try next. Use when a champion wants to help someone move up a ste",
+    "source": "plugins"
+  },
+  {
     "name": "cognitive-load-conversion",
     "description": "Audit UI designs, flows, copy, and layouts to reduce cognitive load and maximize conversion. Apply this skill whenever a user shares a screen, mockup, flow, for",
     "source": "skills"
@@ -295,6 +300,11 @@
     "source": "skills"
   },
   {
+    "name": "faq",
+    "description": "Turn repeat questions into a pinned FAQ. Use when a champion keeps answering the same questions.",
+    "source": "plugins"
+  },
+  {
     "name": "feature-prioritization",
     "description": "Apply structured prioritization matrix techniques to rank features, ideas, or design decisions by two weighted criteria (e.g. user impact vs. effort, feasibilit",
     "source": "skills"
@@ -395,6 +405,11 @@
     "source": "skills"
   },
   {
+    "name": "hackathon",
+    "description": "Plan a hackathon, either from a team's real backlog or as open-ended creative play with Claude Code. Use when a champion wants to run a hack day or a shorter ha",
+    "source": "plugins"
+  },
+  {
     "name": "hook-development",
     "description": "This skill should be used when the user asks to \"create a hook\", \"add a PreToolUse/PostToolUse/Stop hook\", \"validate tool use\", \"implement prompt-based hooks\", ",
     "source": "plugins"
@@ -465,6 +480,11 @@
     "source": "plugins"
   },
   {
+    "name": "maturity",
+    "description": "Evaluate an organization's AI maturity on the steps of AI adoption and write a polished, shareable HTML report with evidence for each score. Use when a champion",
+    "source": "plugins"
+  },
+  {
     "name": "mcp-integration",
     "description": "This skill should be used when the user asks to \"add MCP server\", \"integrate MCP\", \"configure MCP in plugin\", \"use .mcp.json\", \"set up Model Context Protocol\", ",
     "source": "plugins"
@@ -498,6 +518,16 @@
     "name": "offers",
     "description": "\"When the user wants to design, construct, or improve an offer \u2014 the thing they actually sell \u2014 including value framing, bonus stacking, guarantee design, scarc",
     "source": "skills"
+  },
+  {
+    "name": "office-hours",
+    "description": "Set up and run Claude Code office hours, including the calendar event when the champion's own calendar connector allows it. Use when a champion wants a regular ",
+    "source": "plugins"
+  },
+  {
+    "name": "patterns",
+    "description": "Find patterns worth sharing from recent PRs and repo history, both repeats to fix and good practices worth spreading. Use when a champion wants to know what the",
+    "source": "plugins"
   },
   {
     "name": "perf-lighthouse",
@@ -648,6 +678,11 @@
     "name": "review-animations",
     "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
     "source": "skills"
+  },
+  {
+    "name": "routines",
+    "description": "Set up recurring champion routines as Claude Code scheduled tasks. Use when a champion wants work like a weekly patterns digest, a stale guidance check, or a mo",
+    "source": "plugins"
   },
   {
     "name": "sales-enablement",
