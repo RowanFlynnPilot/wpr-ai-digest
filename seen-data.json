@@ -118,5 +118,53 @@
     "what": "Scheduled Forum release and briefing on Wisconsin's persistently high chronic absenteeism rates.",
     "pitch": "Dated and plannable. Forum education releases usually come with district-level tables, which would drop straight into WPR's DPI education tracker alongside ACT scores and dropout rates.",
     "access": "Coming next month \u00b7 Wisconsin Policy Forum \u00b7 free (public briefing and report)"
+  },
+  {
+    "name": "Wisconsin Measles Cases Dashboard (by week, age, county)",
+    "url": "https://www.dhs.wisconsin.gov/immunization/measles.htm",
+    "date": "2026-11-08",
+    "what": "DHS dashboard of confirmed and probable Wisconsin measles cases broken out by week, age and county.",
+    "pitch": "DHS announced a Marathon County public exposure Nov. 6 and an outbreak death Nov. 5; county case counts now refresh twice weekly from WEDSS, giving WPR's communicable-disease scoping a live source.",
+    "access": "Update \u2014 Wisconsin DHS; free, dashboard only (no bulk file advertised), data provisional"
+  },
+  {
+    "name": "DNR Remediation and Redevelopment \u2013 Affected by Contamination from Another Property",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::remediation-and-redevelopment-affected-by-contamination-from-another-property",
+    "date": "2026-11-08",
+    "what": "Statewide point layer of Wisconsin properties contaminated by a release that originated on a neighboring property.",
+    "pitch": "Off-site victims of vapor and groundwater migration are missing from WPR's BRRTS contamination tracker; this layer names them, refreshed Nov. 5, and joins on BRRTS activity number.",
+    "access": "Update \u2014 WI DNR; free open data (CSV, GeoJSON, shapefile, ArcGIS REST)"
+  },
+  {
+    "name": "DNR Remediation and Redevelopment \u2013 Materials Management",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::remediation-and-redevelopment-materials-management",
+    "date": "2026-11-08",
+    "what": "Points where contaminated soil from other sites was placed under NR 718 solid-waste exemptions.",
+    "pitch": "Refreshed Nov. 5, this shows where excavated contaminated soil actually ended up \u2014 often fill sites and road projects far from the original cleanup, a gap in the BRRTS tracker.",
+    "access": "Update \u2014 WI DNR; free open data (CSV, GeoJSON, shapefile)"
+  },
+  {
+    "name": "WisDOT Construction Projects (6 Year)",
+    "url": "https://data-wisdot.opendata.arcgis.com/datasets/WisDOT::construction-projects-6-year",
+    "date": "2026-11-08",
+    "what": "Statewide layer of state and local highway projects programmed across a six-year improvement horizon.",
+    "pitch": "WPR already ingests the 2- and 4-year layers; the Oct. 8 six-year file adds out-year Marathon County projects not yet in the STIP \u2014 the earliest public signal of coming work.",
+    "access": "Update \u2014 WisDOT; free open data (ArcGIS Hub download)"
+  },
+  {
+    "name": "WisDOT Airport Trans 57 Approach Surfaces (plus new runway and ARP layers)",
+    "url": "https://data-wisdot.opendata.arcgis.com/datasets/WisDOT::airport-trans-57-approach-surfaces",
+    "date": "2026-11-08",
+    "what": "New statewide polygons mapping airport approach clearance surfaces required by Trans 57 administrative code.",
+    "pitch": "Issued Oct. 20 alongside runway centerline, runway area, reference point and six-mile buffer layers; these define where building height near Central Wisconsin Airport and Wausau Downtown is legally restricted.",
+    "access": "New dataset \u2014 WisDOT; free open data (ArcGIS Hub download)"
+  },
+  {
+    "name": "DNR High-Quality Lakes & Large Rivers",
+    "url": "https://data-wi-dnr.opendata.arcgis.com/datasets/wi-dnr::high-quality-lakes-large-rivers",
+    "date": "2026-11-08",
+    "what": "Statewide layer of lakes and large rivers DNR flags as high quality for protection priority.",
+    "pitch": "Refreshed Nov. 8, it shows which Marathon County waters DNR prioritizes \u2014 context for why some Wisconsin River and Lake Wausau stretches draw sampling and permits while others don't.",
+    "access": "Update \u2014 WI DNR; free open data (CSV, GeoJSON, shapefile)"
   }
 ]
