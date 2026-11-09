@@ -235,5 +235,37 @@
     "what": "Funded fellowship: three months of AI training, then nine months reporting inside a partner newsroom.",
     "pitch": "Applications close Nov. 22, 2026, with stipends of $75,000\u2013$135,000 \u2014 real money for a reporter who wants to cover AI's local footprint rather than leave the field.",
     "access": "free to apply; fellowship pays $75,000\u2013$135,000; deadline Nov. 22, 2026"
+  },
+  {
+    "name": "American Journalism Project: What actually worked when 28 local newsrooms experimented with AI",
+    "url": "https://theajp.org/28-local-newsrooms-experimented-with-ai/",
+    "date": "2026-11-09",
+    "what": "Nov. 6 survey and case studies of how 28 nonprofit local newsrooms actually used AI.",
+    "pitch": "The closest thing to a peer benchmark: Wisconsin Watch fact-checking audio, Fort Worth Report monitoring public meetings, Signal Ohio drafting donor appeals. Newsrooms self-reported 30-50% time savings on campaign emails.",
+    "access": "free (article, survey findings, links to the tools named)"
+  },
+  {
+    "name": "Reuters Institute Generative AI and News Report 2026",
+    "url": "https://reutersinstitute.politics.ox.ac.uk/generative-ai-and-news-report-2026-standalone-tools-information-infrastructure",
+    "date": "2026-11-09",
+    "what": "Nine-country survey, published Oct. 29, on public use of AI and attitudes toward AI in news.",
+    "pitch": "Gives WPR evidence instead of guesswork for its disclosure line: 12% are comfortable with news made entirely by AI, 19% with human oversight, but readers accept translation and copy-editing.",
+    "access": "free report, no registration"
+  },
+  {
+    "name": "Shared AI training preference signal (Microsoft, Google, OpenAI, Anthropic)",
+    "url": "https://blogs.bing.com/search/2026/10/your-content-your-choice-clearer-preferences-for-training-and-grounding/",
+    "date": "2026-11-09",
+    "what": "One common website setting, announced Oct. 30, telling all four firms whether they may train on your content.",
+    "pitch": "Replaces the whack-a-mole of blocking each company's crawler separately. Microsoft says publishers can refuse training, or training and AI answers, while staying eligible to appear in Bing search results.",
+    "access": "free (a site setting; nothing to buy)"
+  },
+  {
+    "name": "LMA's AI Roadmap for Local Broadcasters (report plus Keep It Local episode)",
+    "url": "https://localmedia.org/2026/11/ai-roadmap-for-local-broadcasters-key-lessons-from-lmas-year-long-initiative/",
+    "date": "2026-11-09",
+    "what": "Nov. 3 video conversation and free report distilling a year of AI work with ten local broadcast companies.",
+    "pitch": "The useful warning for a small shop: staff are already pasting unpublished work into free chatbots. The roadmap pushes a first-draft AI policy and approved tools now, plus archive licensing as revenue.",
+    "access": "free (article, video episode and downloadable report)"
   }
 ]
