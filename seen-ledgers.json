@@ -365,5 +365,45 @@
     "what": "Five cameras added and eight dropped; new units include Axon and Axis devices outside Marathon County.",
     "pitch": "The roster is now tracking Axon and Axis hardware alongside Flock, and the net count fell. A shrinking camera map is as newsworthy as a growing one \u2014 someone decommissioned eight devices.",
     "access": "5 added, net -3"
+  },
+  {
+    "name": "Care Ledger: New enforcement-action record lands with full document set",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-10",
+    "what": "Five new inspection records posted, including one complaint case carrying an enforcement document, not just a plan of correction.",
+    "pitch": "Most assisted-living records stop at a statement of deficiencies. An enforcement packet means the state pushed past a plan of correction \u2014 worth knowing which facility, and whether it's ours.",
+    "access": "5 new records, 1 with enforcement doc"
+  },
+  {
+    "name": "Care Ledger: Records are expiring off the state's own site",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-10",
+    "what": "Several new entries are flagged expired from the state, one as recently as Nov. 9.",
+    "pitch": "Inspection reports the public could read last month are dropping off ForwardHealth on a rolling clock. The archive still has them. That gap \u2014 how long Wisconsin keeps assisted-living deficiency reports public \u2014 is its own story.",
+    "access": "multiple records flagged expired"
+  },
+  {
+    "name": "Gavel: Wausau finance and HR committees meet jointly Tuesday night",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-11-10",
+    "what": "A joint Finance Committee and Human Resources Committee meeting is set for 5:15 p.m. Nov. 10.",
+    "pitch": "Finance and HR rarely sit down together unless there's money attached to people \u2014 contracts, staffing, or compensation. Worth staffing on the chance the agenda explains why the two bodies were combined.",
+    "access": "meeting tonight"
+  },
+  {
+    "name": "Property transactions: 150 new Marathon County sales posted at once",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-11-10",
+    "what": "A large batch of recorded sales from early November loaded, spanning Wausau, Stratford, Edgar and beyond.",
+    "pitch": "No single eye-catcher in the samples \u2014 modest single-family deals like 122 River Street at $155,000 \u2014 but 150 records is enough to sort for the outliers: top prices, commercial parcels, trust sales, and any buyer name that shows up more than once.",
+    "access": "150 new sales"
+  },
+  {
+    "name": "Gavel: Historic Preservation ad hoc subcommittee convenes",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-11-10",
+    "what": "An Ad Hoc Subcommittee of Wausau's Historic Preservation Commission meets at 4 p.m. Nov. 10.",
+    "pitch": "Ad hoc subcommittees get formed for a reason \u2014 usually one contested building or a rewrite of the rules. Small room, short meeting, and often the first public airing of a fight that reaches the full commission later.",
+    "access": "meeting tonight"
   }
 ]
