@@ -291,5 +291,29 @@
     "what": "Cheaper, faster OpenAI model specialized for computer use \u2014 reading screens and acting across apps.",
     "pitch": "Matches GPT-6 Astra on agentic software tasks at a tenth the token price and finishes 3x faster, cheap enough to aim a browser agent at portals that defeat Playwright.",
     "access": "paid \u2014 API as gpt-6.1-terra, 50% below GPT-5.6 Terra pricing"
+  },
+  {
+    "name": "ElevenLabs Scribe v3 and Scribe v3 Live",
+    "url": "https://elevenlabs.io/blog/scribe-v3",
+    "date": "2026-11-13",
+    "what": "New batch and realtime speech-to-text models with 27% fewer word errors and better diarization.",
+    "pitch": "Scanner and meeting audio is exactly the messy, overlapping, multi-speaker case these were tuned for. Realtime variant adds diarization for the first time; switching is a one-line model ID change.",
+    "access": "paid \u2014 ~$0.20/hr audio (v3), ~$0.22/hr (v3 Live), ElevenLabs API"
+  },
+  {
+    "name": "Meta Muse Ember 1.0",
+    "url": "https://research.meta.ai/blog/muse-ember",
+    "date": "2026-11-13",
+    "what": "Small multimodal agent model: 1M context, text/image/audio/video, built for extraction and repeated tool calls.",
+    "pitch": "Meta claims Haiku 5.5-level intelligence at roughly a third the cost, with native scanned-document reading. For WPR's extraction-heavy pipelines, that is the per-record cost line moving materially.",
+    "access": "paid \u2014 $0.10/M input, $0.50/M output, Meta Model API"
+  },
+  {
+    "name": "Gemini 4 Carbon (general availability)",
+    "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/",
+    "date": "2026-11-13",
+    "what": "Google's strongest model, now in the API for long-horizon agentic work and dense multimodal documents.",
+    "pitch": "Priced like Argon ($2/$10) but built for the hard one-offs: reasoning across hundreds of pages of charts, tables and schematics where cheap extraction quietly fails.",
+    "access": "paid \u2014 $2/M input, $10/M output; AI Studio and Gemini API"
   }
 ]
