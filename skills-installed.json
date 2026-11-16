@@ -80,6 +80,16 @@
     "source": "skills"
   },
   {
+    "name": "breakdown-diagnosis",
+    "description": "\"When a machine goes down, reads the sensor window before the failure, the asset's maintenance history including the free-text close-out notes technicians actua",
+    "source": "plugins"
+  },
+  {
+    "name": "breakdown-to-next-report",
+    "description": "\"Runs the chain from a machine going down to the diagnosis landing in tomorrow's production report: reads the sensor window, the maintenance history and its fre",
+    "source": "plugins"
+  },
+  {
     "name": "build-mcp-app",
     "description": "This skill should be used when the user wants to build an \"MCP app\", add \"interactive UI\" or \"widgets\" to an MCP server, \"render components in chat\", build \"MCP",
     "source": "plugins"
@@ -240,8 +250,33 @@
     "source": "skills"
   },
   {
+    "name": "custom-connector",
+    "description": "\"Gets the plugin talking to a manufacturing system that has no vendor MCP, working down a seven-tier access ladder in order \u2014 vendor MCP, community MCP, a scope",
+    "source": "plugins"
+  },
+  {
+    "name": "customer-inquiry-intake",
+    "description": "\"Reads a customer RFQ in whatever shape it arrived \u2014 a PDF drawing package, a 40-line spreadsheet, a portal export, a phone photo of a marked-up print, or a for",
+    "source": "plugins"
+  },
+  {
+    "name": "daily-production-report",
+    "description": "\"Produces the morning production report: output against plan by line, cell and product; OEE with availability, performance and quality shown separately; the dow",
+    "source": "plugins"
+  },
+  {
+    "name": "data-consolidate",
+    "description": "\"Joins the plant's scheduled exports and connector data into one working dataset \u2014 ERP items (NetSuite or Infor M3), sales orders, production work orders, purch",
+    "source": "plugins"
+  },
+  {
     "name": "debug-optimize-lcp",
     "description": "Guides debugging and optimizing Largest Contentful Paint (LCP) using Chrome DevTools MCP tools. Use this skill whenever the user asks about LCP performance, slo",
+    "source": "plugins"
+  },
+  {
+    "name": "design-space-explore",
+    "description": "\"Generates a batch of CAD variants directly in Autodesk Fusion by applying changed parameters to an engineer's existing model, never designing from scratch and ",
     "source": "plugins"
   },
   {
@@ -440,6 +475,11 @@
     "source": "skills"
   },
   {
+    "name": "inspection-to-capa",
+    "description": "\"Runs the quality chain end to end: writes the nonconformance against the requirement it violates, searches history at the moment of writing to say whether this",
+    "source": "plugins"
+  },
+  {
     "name": "instagram-growth",
     "description": ">-",
     "source": "skills"
@@ -500,9 +540,19 @@
     "source": "skills"
   },
   {
+    "name": "morning-plant-pulse",
+    "description": "\"Runs the overnight chain that has the morning production report waiting before anyone asks for it: joins last night's planning, production and maintenance expo",
+    "source": "plugins"
+  },
+  {
     "name": "motion-graphics",
     "description": ">",
     "source": "skills"
+  },
+  {
+    "name": "ncr-writeup",
+    "description": "\"Writes the nonconformance report: what was found and measured, the specific requirement it violates cited to its document and locator, how many parts are actua",
+    "source": "plugins"
   },
   {
     "name": "newsletter-publishing",
@@ -522,6 +572,11 @@
   {
     "name": "office-hours",
     "description": "Set up and run Claude Code office hours, including the calendar event when the champion's own calendar connector allows it. Use when a champion wants a regular ",
+    "source": "plugins"
+  },
+  {
+    "name": "onboarding",
+    "description": "\"Sets the plugin up for one plant on first run. Asks which ERP, CAD, CMMS and document system the plant uses and tests the four supported connectors (Microsoft ",
     "source": "plugins"
   },
   {
@@ -593,6 +648,11 @@
     "name": "python-resilience",
     "description": "Python resilience patterns including automatic retries, exponential backoff, timeouts, and fault-tolerant decorators. Use when adding retry logic, implementing ",
     "source": "skills"
+  },
+  {
+    "name": "quote-build",
+    "description": "\"Produces the make-to-order quote from the intake form, comparable prior jobs and cost history, with every number traced to where it came from \u2014 material at the",
+    "source": "plugins"
   },
   {
     "name": "quote-cards-and-text-graphics",
@@ -678,6 +738,16 @@
     "name": "review-animations",
     "description": "Reviews animation and motion code against a high craft bar derived from Emil Kowalski's design engineering philosophy. Default to flagging; approval is earned.",
     "source": "skills"
+  },
+  {
+    "name": "rfq-to-quote",
+    "description": "\"Runs the whole RFQ-to-quote chain end to end: reads the inquiry and its drawings, checks it against what the plant can build, drafts the questions back, return",
+    "source": "plugins"
+  },
+  {
+    "name": "root-cause-capa",
+    "description": "\"Reads sensor history, inspection measurements, maintenance records and prior tickets onto one verified timeline, runs the pattern checks in code rather than by",
+    "source": "plugins"
   },
   {
     "name": "routines",
@@ -775,9 +845,24 @@
     "source": "skills"
   },
   {
+    "name": "supplier-escape-to-alternate-source",
+    "description": "\"Runs the cross-area chain from a nonconformance traced to purchased material through to an alternate-source RFQ: writes the NCR and its containment, establishe",
+    "source": "plugins"
+  },
+  {
+    "name": "supplier-quote-request",
+    "description": "\"Builds the RFQ package that goes out to suppliers \u2014 drawing and specification at the verified current revision, the demand picture, the quality clause list, co",
+    "source": "plugins"
+  },
+  {
     "name": "tiktok-script",
     "description": ">-",
     "source": "skills"
+  },
+  {
+    "name": "trade-study-report",
+    "description": "\"Turns a filled-in trade study matrix and its analysis results into a scored comparison and a decision memo, with every score cited to its source. Runs the sens",
+    "source": "plugins"
   },
   {
     "name": "troubleshooting",
