@@ -222,5 +222,77 @@
     "what": "Small statewide nonprofit newsroom creates a dedicated audience growth position.",
     "pitch": "Comparable size and budget to WPR, and evidence the next hire at newsrooms like this is audience rather than reporting \u2014 relevant to WPR's 2027 staffing choices.",
     "access": "Newsroom \u2014 Mountain State Spotlight \u00b7 n/a"
+  },
+  {
+    "name": "Business Monitor (formerly Wage Theft Monitor)",
+    "url": "https://documentedny.com/2026/11/09/documented-launches-business-monitor/",
+    "date": "2026-11-15",
+    "what": "Documented folded tens of thousands of OSHA injury records into its wage theft tracker and renamed it.",
+    "pitch": "WPR already runs five Ledgers, but none has grown by absorbing a second dataset. This is the cleanest model for widening Watch or Care Ledger without launching a sixth archive.",
+    "access": "Built \u2014 Documented \u00b7 free to use"
+  },
+  {
+    "name": "Follow the Bots: A Technical Guide",
+    "url": "https://documentedny.com/projects/tiktok-methods/",
+    "date": "2026-11-15",
+    "what": "Published guide and open-source AI tools for mapping a TikTok ecosystem, from a six-month investigation.",
+    "pitch": "WPR ships tools but publishes no methods. Documented shows how a peer turns an AI investigation into a reusable public artifact \u2014 exactly what OEC needs around Gavel and Fire Watch.",
+    "access": "Built \u2014 Documented \u00b7 free, open-source tooling"
+  },
+  {
+    "name": "Block Club Beer with Marz Brewing",
+    "url": "https://blockclubchicago.org/2026/10/16/marz-brewing-launches-block-club-beer-to-support-neighborhood-news/",
+    "date": "2026-11-15",
+    "what": "A local brewery launched a co-branded beer whose sales support the neighborhood newsroom.",
+    "pitch": "WPR's earned revenue is sponsorships, newsletter placements and the jobs board \u2014 no consumer product. A co-branded release sells support to people who would never click a donate button.",
+    "access": "Revenue \u2014 Block Club Chicago \u00b7 paid retail product"
+  },
+  {
+    "name": "Year-end drive tied to 10,000 meals",
+    "url": "https://vtdigger.org/2026/11/09/vtdigger-launches-year-end-drive-with-goal-of-providing-10000-meals-by-thanksgiving/",
+    "date": "2026-11-15",
+    "what": "VTDigger pegged its year-end fundraising drive to providing 10,000 meals by Thanksgiving.",
+    "pitch": "WPR's year-end asks are straight membership pitches. Tying giving to a community outcome gives the editor something to report while fundraising, and brings in a partner with its own list.",
+    "access": "Revenue \u2014 VTDigger \u00b7 free to read, donation-funded"
+  },
+  {
+    "name": "Text GETLOCAL news service",
+    "url": "https://www.cvilletomorrow.org/get-central-virginia-news-texts-straight-to-your-phone/",
+    "date": "2026-11-15",
+    "what": "Charlottesville Tomorrow launched a free SMS news service readers join by texting a local number.",
+    "pitch": "Text is the one channel WPR doesn't own. It fits Fire Watch dispatch alerts and Gavel meeting notices, which lose their urgency sitting inside a daily newsletter.",
+    "access": "Audience \u2014 Charlottesville Tomorrow \u00b7 free to readers"
+  },
+  {
+    "name": "Journalism Club on election coverage",
+    "url": "https://vtdigger.org/2026/10/23/journalism-club-to-discuss-vermont-election-coverage-on-nov-5-in-williston/",
+    "date": "2026-11-15",
+    "what": "A recurring in-person reader club where VTDigger journalists discuss how they covered the election.",
+    "pitch": "WPR has election results tools and a voter guide but no room where readers question the coverage. A cheap, repeatable format that doubles as user research for the next cycle.",
+    "access": "Audience \u2014 VTDigger \u00b7 free event"
+  },
+  {
+    "name": "Block Club South Side Health & Wellness Fest",
+    "url": "https://blockclubchicago.org/2026/11/10/block-club-south-side-health-wellness-fest-celebrated-groups-working-to-fix-health-disparities/",
+    "date": "2026-11-15",
+    "what": "Newsroom-hosted community fest spotlighting local groups working on neighborhood health disparities.",
+    "pitch": "WPR's Care Ledger already maps providers and gaps but has never become a live event. This turns an accountability archive into a service day readers physically attend.",
+    "access": "Audience \u2014 Block Club Chicago \u00b7 free event"
+  },
+  {
+    "name": "Flood reporting with FRONTLINE (PBS)",
+    "url": "https://vtdigger.org/2026/10/29/bringing-flood-reporting-from-vtdigger-and-frontline-pbs-to-more-vermonters/",
+    "date": "2026-11-15",
+    "what": "VTDigger partnered with FRONTLINE to push its flood reporting to a wider Vermont audience.",
+    "pitch": "WPR has no distribution partner beyond its own channels. A small nonprofit using a national broadcaster to extend reach is the template for taking a Watch Ledger investigation statewide.",
+    "access": "Newsroom \u2014 VTDigger \u00b7 free, partnership"
+  },
+  {
+    "name": "Beacon expansion into Wyandotte County",
+    "url": "https://thebeaconnews.org/stories/2026/10/30/the-beacon-is-growing-in-wyandotte-county-meet-sofi-zeman/",
+    "date": "2026-11-15",
+    "what": "The Beacon added a dedicated reporter for a neighboring county and introduced her to readers directly.",
+    "pitch": "WPR's trackers stop at the county line. Beacon frames geographic expansion as an invitation to new readers rather than a staffing note \u2014 the right playbook if WPR widens coverage.",
+    "access": "Newsroom \u2014 The Beacon \u00b7 free"
   }
 ]
