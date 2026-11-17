@@ -405,5 +405,53 @@
     "what": "An Ad Hoc Subcommittee of Wausau's Historic Preservation Commission meets at 4 p.m. Nov. 10.",
     "pitch": "Ad hoc subcommittees get formed for a reason \u2014 usually one contested building or a rewrite of the rules. Small room, short meeting, and often the first public airing of a fight that reaches the full commission later.",
     "access": "meeting tonight"
+  },
+  {
+    "name": "Care Ledger: A new enforcement document lands with a complaint survey at facility 0019329",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-17",
+    "what": "Two new Care Ledger records, including a complaint survey carrying both a statement of deficiencies and an enforcement file.",
+    "pitch": "Enforcement paperwork alongside a complaint survey is the rarest and most serious combination in this dataset. The record shows provider 0019329 and a 2023-11-30 exit date \u2014 the name and the findings still need to be pulled.",
+    "access": "2 new records, 1 with enforcement"
+  },
+  {
+    "name": "Care Ledger: A 2023 survey record just vanished from the state site",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-17",
+    "what": "Provider 0017335's November 2023 survey was flagged expired from the state site on Nov. 16.",
+    "pitch": "The ledger kept an archived copy of a statement of deficiencies the state no longer publishes. Whether that's routine aging-off or a closed license is worth knowing \u2014 and it's an argument for the archive itself.",
+    "access": "1 record expired from state"
+  },
+  {
+    "name": "Property transactions: 125 new Marathon County deeds, including an LLC named for the street it bought on",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-11-17",
+    "what": "A large batch of November deeds posted, including 801 Fulton Street, Wausau, sold for $250,000 to Fulton Property LLC.",
+    "pitch": "An LLC named after the address it just bought from an individual owner is the signature of a rental or flip play. With 125 new records in one load, scan for the top prices and any buyer name appearing more than once.",
+    "access": "125 new deeds"
+  },
+  {
+    "name": "Watch Ledger: 26 new cameras, and a Polk County reader listed under the Sawyer County Sheriff",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-11-17",
+    "what": "Roster grew by 26 new ALPR entries; one Polk County camera lists Sawyer County Sheriff as operator.",
+    "pitch": "An agency operating license plate readers well outside its own county raises the sharing question Wisconsin departments keep getting asked. Also worth checking: whether any of the 26 new entries sit in Marathon County.",
+    "access": "26 new cameras, net +9"
+  },
+  {
+    "name": "Gavel: Marathon County posts its January 2027 committee calendar",
+    "url": "https://rowanflynnpilot.github.io/marathon-meetings/",
+    "date": "2026-11-17",
+    "what": "Eighteen new meetings appeared, mostly January 2027 county committee dates including Public Safety and Executive.",
+    "pitch": "Nothing urgent this week, but the Public Safety Committee is the body that would see any county ALPR contract or renewal. Worth a standing watch on its agenda when it posts.",
+    "access": "18 new meetings, mostly 2027"
+  },
+  {
+    "name": "Court tracker: the watchlist is now empty",
+    "url": "https://rowanflynnpilot.github.io/wpr-court-tracker/",
+    "date": "2026-11-17",
+    "what": "The single case on the curated watchlist dropped off; no new cases were added.",
+    "pitch": "Either a watched case resolved or the watchlist needs restocking. Both are worth five minutes \u2014 an empty tracker reports nothing, and a quiet disposition on a watched case is itself news.",
+    "access": "1 case removed, none added"
   }
 ]
