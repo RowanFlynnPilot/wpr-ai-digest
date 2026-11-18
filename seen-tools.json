@@ -236,5 +236,29 @@
     "what": "The Gemini app now generates, previews and edits documents, spreadsheets, slide decks and PDFs inside the chat.",
     "pitch": "It kills the copy-paste step. Ask for a tracker or a one-pager, type corrections directly in the preview or have Gemini revise it, then open it in Sheets or push it to Drive.",
     "access": "free - available to all Gemini app users in all supported languages; PDFs on web and mobile, other file types web only"
+  },
+  {
+    "name": "ElevenAI (ElevenLabs)",
+    "url": "https://elevenlabs.io/blog/nyc-summit",
+    "date": "2026-11-18",
+    "what": "New ElevenLabs app for dictation and meeting notes, built on its Scribe v3 speech-to-text.",
+    "pitch": "Announced November 11 and opened to free early access the same day. It listens to in-person conversations, not just video calls, and returns a summary plus action items with consent prompts built in.",
+    "access": "free early access (no price announced yet)"
+  },
+  {
+    "name": "Publish a Sheets canvas as a standalone link",
+    "url": "https://workspaceupdates.googleblog.com/2026/11/publish-sheets-canvas-as-standalone-link.html",
+    "date": "2026-11-18",
+    "what": "Google Sheets can now publish a canvas mini-app to its own read-only link, separate from the spreadsheet.",
+    "pitch": "The published link carries its own audience setting, so WPR can hand readers, the board or a freelancer an interactive view of data without exposing the messy working spreadsheet behind it.",
+    "access": "paid \u2014 included in Google Workspace business plans, no separate AI add-on"
+  },
+  {
+    "name": "Gemini in Gmail expanded to all Workspace users",
+    "url": "https://workspaceupdates.googleblog.com/2026/11/expanding-gemini-in-gmail-to-more-Google-Workspace-users.html",
+    "date": "2026-11-18",
+    "what": "Gmail's Gemini summarizing and drafting tools now reach every Workspace user aged 18 and older.",
+    "pitch": "Previously these were limited to consumer accounts and specific editions. WPR's work accounts get inbox help on the plan they already pay for, with no tier upgrade or add-on purchase.",
+    "access": "paid \u2014 included in existing Google Workspace subscription, no upgrade needed"
   }
 ]
