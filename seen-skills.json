@@ -179,5 +179,45 @@
     "what": "Fast mode on Opus 4.8 was deprecated October 30 and errors after November 30, with no fallback.",
     "pitch": "This is a hard deadline, not a slowdown: scripts pinned to Opus 4.8 fast mode will return errors rather than silently falling back to standard Opus 4.8.",
     "access": "paid \u00b7 included in Claude plans; migrate to Opus 5.5 before Nov 30"
+  },
+  {
+    "name": "Claude Code Code Mode",
+    "url": "https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/CHANGELOG.md",
+    "date": "2026-11-19",
+    "what": "Opt-in mode where Claude writes one JavaScript script that chains many tool and MCP calls.",
+    "pitch": "A single script can sweep all 40+ repos instead of hundreds of sequential tool calls; releases 2.1.326-2.1.328 fixed MCP reconnects, background dev servers, cut token use.",
+    "access": "free \u00b7 included in Claude Code 2.1.326+, enable Code Mode in /config"
+  },
+  {
+    "name": "NVIDIA SkillEvaluator",
+    "url": "https://github.com/NVIDIA/SkillEvaluator",
+    "date": "2026-11-19",
+    "what": "CLI that validates agent skills in tiers: structure/safety, semantic overlap across catalogs, live agent evaluation.",
+    "pitch": "Rowan's skill library is large enough that duplicates quietly compete for invocation; Tier 2 overlap detection and Tier 1 offline validation turn that into a CI check. ~3k stars, trending.",
+    "access": "open-source (Apache-2.0) \u00b7 pip install skillevaluator; tiers 2-3 need a free build.nvidia.com key"
+  },
+  {
+    "name": "Claude Code /status broken-file health list (2.1.327)",
+    "url": "https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/CHANGELOG.md",
+    "date": "2026-11-19",
+    "what": "/status now lists broken agent, skill, command and output-style files, plus hook matchers that never match.",
+    "pitch": "Silently broken skills and dead hook matchers are the usual failure mode for a solo dev with a big library; this surfaces them without debugging a session that just behaves oddly.",
+    "access": "free \u00b7 update Claude Code to 2.1.327+"
+  },
+  {
+    "name": "claude mcp add-json from stdin (Claude Code 2.1.327)",
+    "url": "https://raw.githubusercontent.com/anthropics/claude-code/refs/heads/main/CHANGELOG.md",
+    "date": "2026-11-19",
+    "what": "New `claude mcp add-json <name> -` reads a server's JSON config from stdin instead of argv.",
+    "pitch": "Supabase service keys and scraping-API tokens stop landing in shell history and process listings when registering MCP servers \u2014 a real hygiene win for a one-person shop managing many projects.",
+    "access": "free \u00b7 Claude Code 2.1.327+; must be run outside a Claude Code session"
+  },
+  {
+    "name": "Google Stitch Skills (stitch-skills)",
+    "url": "https://github.com/google-labs-code/stitch-skills",
+    "date": "2026-11-19",
+    "what": "Google Labs skill library for the Stitch MCP server: design generation, code-to-design, design-system extraction.",
+    "pitch": "The extract-design-md skill reads an existing React codebase and writes a DESIGN.md; useful groundwork for keeping widget UIs aligned with WPR's four design systems. ~8.7k stars, trending hard.",
+    "access": "open-source (Apache-2.0) \u00b7 npx plugins add google-labs-code/stitch-skills --scope project --target claude-code; requires Stitch MCP setup"
   }
 ]
