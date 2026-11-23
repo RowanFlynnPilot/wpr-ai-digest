@@ -267,5 +267,45 @@
     "what": "Nov. 3 video conversation and free report distilling a year of AI work with ten local broadcast companies.",
     "pitch": "The useful warning for a small shop: staff are already pasting unpublished work into free chatbots. The roadmap pushes a first-draft AI policy and approved tools now, plus archive licensing as revenue.",
     "access": "free (article, video episode and downloadable report)"
+  },
+  {
+    "name": "Duke journalism class AI tools for local news (Poynter)",
+    "url": "https://www.poynter.org/tech-tools/2026/duke-journalism-class-ai-local-news/",
+    "date": "2026-11-23",
+    "what": "Poynter piece on a Duke class where student teams built, and broke, real AI tools for local newsrooms.",
+    "pitch": "A rare account of small-newsroom AI prototypes that failed before any worked. Cheapest possible way for WPR to learn which ideas die early, without spending its own reporting hours.",
+    "access": "free to read"
+  },
+  {
+    "name": "Poynter and Hacks/Hackers AI ethics partnership (and AI x Journalism Summit)",
+    "url": "https://www.poynter.org/news-release/2026/poynter-hacks-hackers-partner-ai-journalism-ethics/",
+    "date": "2026-11-23",
+    "what": "Two journalism organizations partner to pair fast newsroom AI adoption with ethics training and shared standards.",
+    "pitch": "The cheapest credible AI training track aimed at working journalists rather than engineers, with an early-bird ticket window closing Nov 30 if WPR wants a seat this cycle.",
+    "access": "paid (summit tickets; early-bird reported at $99 through Nov 30); announcement free to read"
+  },
+  {
+    "name": "Poynter: $187 million in AI-generated political ads in the 2026 midterms",
+    "url": "https://www.poynter.org/fact-checking/2026/ai-generated-political-ads-2026-midterm-elections/",
+    "date": "2026-11-23",
+    "what": "Analysis of how much campaigns spent promoting AI-generated political advertising this midterm cycle, and whether it worked.",
+    "pitch": "Synthetic campaign ads are now a routine line item, not a novelty. WPR needs a verification habit and an ad-acceptance stance before Wisconsin's spring 2027 county and school board races.",
+    "access": "free to read"
+  },
+  {
+    "name": "Publisher coalition against AI news scrapers adds Daily Mail (Press Gazette)",
+    "url": "https://pressgazette.co.uk/news/daily-mail-joins-coalition-of-publishers-taking-on-ai-news-scrapers/",
+    "date": "2026-11-23",
+    "what": "Another large publisher joins a collective effort to confront AI companies over unlicensed scraping of news content.",
+    "pitch": "Collective action is how a 10-person nonprofit gets any leverage over AI firms. Worth watching whether these coalitions admit small members before WPR's content is scraped past recovery.",
+    "access": "free to read"
+  },
+  {
+    "name": "Nieman Lab: AI is an information gateway, but audiences reject AI-made news",
+    "url": "https://www.niemanlab.org/2026/11/ai-is-becoming-an-information-gateway-audiences-still-dont-want-it-making-their-news/",
+    "date": "2026-11-23",
+    "what": "Nine-country survey shows chatbot information use rising sharply while comfort with AI-produced journalism stays very low.",
+    "pitch": "Hard numbers for WPR's disclosure language: roughly one in eight readers is comfortable with fully AI-made news, and people pick chatbots for speed, not trust.",
+    "access": "free to read"
   }
 ]
