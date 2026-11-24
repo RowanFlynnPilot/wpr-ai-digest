@@ -453,5 +453,45 @@
     "what": "The single case on the curated watchlist dropped off; no new cases were added.",
     "pitch": "Either a watched case resolved or the watchlist needs restocking. Both are worth five minutes \u2014 an empty tracker reports nothing, and a quiet disposition on a watched case is itself news.",
     "access": "1 case removed, none added"
+  },
+  {
+    "name": "Court tracker: Birnamwood homicide and a Wausau bail-jumping plea open the watchlist",
+    "url": "https://rowanflynnpilot.github.io/wpr-court-tracker/",
+    "date": "2026-11-24",
+    "what": "First run logs two Marathon County cases, including a charged homicide in a brother's stabbing death.",
+    "pitch": "A homicide charge out of Birnamwood is the single biggest named-defendant item in the brief, and the watchlist now gives us a hook to follow every hearing date instead of catching it late.",
+    "access": "2 new cases (first run)"
+  },
+  {
+    "name": "Care Ledger: Four new assisted-living inspection reports, two carrying enforcement documents",
+    "url": "https://rowanflynnpilot.github.io/wpr-care-ledger/",
+    "date": "2026-11-24",
+    "what": "Four new DQA records posted, including complaint and self-report surveys with enforcement letters attached.",
+    "pitch": "Most Care Ledger entries are a statement of deficiencies alone. Two of these four came with enforcement documents, which means the state did more than write it up. Worth knowing which facilities and whether any are local.",
+    "access": "4 new inspection records"
+  },
+  {
+    "name": "Cleanup Ledger: Two gas stations open contamination cases the same week",
+    "url": "https://rowanflynnpilot.github.io/wpr-cleanup-ledger/",
+    "date": "2026-11-24",
+    "what": "DNR opened cases at Trigs Shell Station in Minocqua and Birnamwood Mart on Highway 45.",
+    "pitch": "Two fuel-retail sites opening at once is a pattern worth a look, and Birnamwood Mart sits on a highway corridor our readers drive. Both are new openings, so the investigation is just starting.",
+    "access": "2 new cases opened"
+  },
+  {
+    "name": "Property transactions: 151 new Marathon County deeds, including LLC-to-buyer sales in Weston",
+    "url": "https://rowanflynnpilot.github.io/wpr-property-transactions/",
+    "date": "2026-11-24",
+    "what": "A large batch of recorded sales landed, led by a $394,900 Weston home sold by RBW Properties LLC.",
+    "pitch": "A 151-record drop is enough to look for a pattern rather than a single sale: who the repeat LLC sellers are, where the money is concentrated, and whether Weston new-construction prices are still climbing.",
+    "access": "151 new sales records"
+  },
+  {
+    "name": "Watch Ledger: Home Depot shows up as a named ALPR operator in the roster",
+    "url": "https://rowanflynnpilot.github.io/wpr-watch-ledger/",
+    "date": "2026-11-24",
+    "what": "Fifteen cameras added, including two in St. Croix County listed with The Home Depot as operator.",
+    "pitch": "The roster is mostly police deployments. A big-box retailer named as operator raises a different question: who sees that data, and does any Marathon County business run its own Flock cameras feeding the same network.",
+    "access": "15 added, net 2,100"
   }
 ]
