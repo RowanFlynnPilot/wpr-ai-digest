@@ -35,6 +35,11 @@
     "source": "skills"
   },
   {
+    "name": "attack-surface-analysis",
+    "description": "\"Attack surface analysis: a long audit in three stages (default attack surface reduction, early reachability audit, configuration interaction audit) that ends i",
+    "source": "plugins"
+  },
+  {
     "name": "best-practices",
     "description": "Apply modern web development best practices for security, compatibility, and code quality. Use when asked to \"apply best practices\", \"security audit\", \"moderniz",
     "source": "skills"
@@ -155,6 +160,11 @@
     "source": "plugins"
   },
   {
+    "name": "ci-review",
+    "description": "\"The scan that the plugin's GitHub Action runs.\"",
+    "source": "plugins"
+  },
+  {
     "name": "claude-automation-recommender",
     "description": "Analyze a codebase and recommend Claude Code automations (hooks, subagents, skills, plugins, MCP servers). Use when user asks for automation recommendations, wa",
     "source": "plugins"
@@ -166,7 +176,7 @@
   },
   {
     "name": "claude-security",
-    "description": "\"Claude Security: scan the codebase (the whole repository or a scoped part of it), scan changes (this branch's or a pull request's diff, or one commit), or sugg",
+    "description": "\"Claude Security: scan the codebase (the whole repository or a scoped part of it), scan changes (this branch's or a pull request's diff, or one commit), triage ",
     "source": "plugins"
   },
   {
@@ -455,6 +465,11 @@
     "source": "skills"
   },
   {
+    "name": "hosted",
+    "description": "\"Hosted Claude Security: list what it has open for this repository, show one of its findings from a link or an ID (also to fix it), check on a project, or say h",
+    "source": "plugins"
+  },
+  {
     "name": "html-video",
     "description": "Make short motion videos (walkthroughs, product demos, teasers, social reels, explainer clips) by building an HTML page whose every frame is a pure function of ",
     "source": "skills"
@@ -483,6 +498,11 @@
     "name": "instagram-growth",
     "description": ">-",
     "source": "skills"
+  },
+  {
+    "name": "install-cli",
+    "description": "\"Write the claude-security command to ~/.local/bin, to run a scan by name from your shell.\"",
+    "source": "plugins"
   },
   {
     "name": "interface-review",
@@ -852,6 +872,11 @@
   {
     "name": "supplier-quote-request",
     "description": "\"Builds the RFQ package that goes out to suppliers \u2014 drawing and specification at the verified current revision, the demand picture, the quality clause list, co",
+    "source": "plugins"
+  },
+  {
+    "name": "threat-model",
+    "description": "\"Claude Security plugin: create or update a repository's threat model, or check the findings of a report that this plugin wrote against how the system is deploy",
     "source": "plugins"
   },
   {
