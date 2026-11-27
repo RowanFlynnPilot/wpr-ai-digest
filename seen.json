@@ -315,5 +315,45 @@
     "what": "Google's strongest model, now in the API for long-horizon agentic work and dense multimodal documents.",
     "pitch": "Priced like Argon ($2/$10) but built for the hard one-offs: reasoning across hundreds of pages of charts, tables and schematics where cheap extraction quietly fails.",
     "access": "paid \u2014 $2/M input, $10/M output; AI Studio and Gemini API"
+  },
+  {
+    "name": "Gemini API file slicing controls + native Office/OpenDocument upload",
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/file-slicing-controls/",
+    "date": "2026-11-27",
+    "what": "Server-side page, sheet, cell, and time-range slicing of PDFs, Office files, audio and video.",
+    "pitch": "Kills the local render-and-chunk layer in every PDF scraper WPR runs. Skim a 300-page packet as cheap text, then spend high-res tokens only on the one table that matters.",
+    "access": "paid \u2014 usage-based Gemini API, free tier via AI Studio; works across Gemini 4 models"
+  },
+  {
+    "name": "Skills over MCP, plus Tasks, Elicitation and File Uploads",
+    "url": "https://claude.com/resources/articles/skills-over-mcp-tasks-and-more",
+    "date": "2026-11-27",
+    "what": "MCP servers can now ship skills, run background tasks, and pause to ask users for input.",
+    "pitch": "Turns an MCP server into a distributable workflow, not just tools \u2014 exactly what a managed Gavel instance needs. Elicitation adds confirmation gates before destructive Supabase SQL.",
+    "access": "free \u2014 public beta, on by default for Claude Pro/Max/Ultra; open MCP spec extension"
+  },
+  {
+    "name": "Claude Ship (/ship, PR Steward, Claude Approvals)",
+    "url": "https://claude.com/resources/articles/introducing-claude-ship",
+    "date": "2026-11-27",
+    "what": "Claude pushes a branch, opens the PR, reviews it, and fixes failing CI automatically.",
+    "pitch": "Solo-dev-sized win: /ship is plain Claude Code usage, no Team plan needed, and it closes the loop between writing a scraper fix and getting it merged.",
+    "access": "beta \u2014 /ship counts as normal Claude Code usage; PR Steward/Approvals require Team or Enterprise"
+  },
+  {
+    "name": "GPT-6.2 Astra and GPT-6.2 Sol",
+    "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol/",
+    "date": "2026-11-27",
+    "what": "New OpenAI frontier and everyday models with stronger spreadsheet, document and agentic performance.",
+    "pitch": "Sol at $2/$10 per million tokens is a credible second opinion against Haiku on structured extraction, and notably stronger on real spreadsheets and multi-step agent loops.",
+    "access": "paid \u2014 Sol $2/$10, Astra $8/$40 per 1M tokens in the API"
+  },
+  {
+    "name": "AWS Strands Decider v2",
+    "url": "https://thenewstack.io/aws-strands-decider-v2",
+    "date": "2026-11-27",
+    "what": "Five open-weight decision models that return calibrated probabilities over fixed answer sets, not text.",
+    "pitch": "Classification without generation, self-hosted. Amazon swapped Sonnet for a 4B decider on ticket labeling and cut per-million cost from roughly $22,200 to $500 with 4x lower latency.",
+    "access": "open-source \u2014 Apache 2.0, 2B to 31B weights, self-host (not on Bedrock yet)"
   }
 ]
